@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">SmartHome AlarmController</string>
+    <string name="alarm_type_skalskydd">Skalskydd</string>
+    <string name="alarm_type_alarm">Alarm</string>
+    <string name="arming">Arming</string>
+    <string name="disarming">Disarming</string>
+    <string name="alarm_state_disarmed">Disarmed</string>
+    <string name="alarm_state_armed">Armed</string>
+    <string name="alarm_type">AlarmType</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_fibaro_server_general">Fibaro server settings</string>
+    <string name="pref_external_server_general">External server settings</string>
+    <string name="pref_general_application_settings">Application settings</string>
+
+    <!-- External authentication server settings -->
+    <string name="pref_title_ext_auth_server_ip">External Authentication server adress(:port)</string>
+    <string name="pref_default_external_auth_server_ip">192.168.2.50:8080</string>
+
+    <!-- Alarm settings -->
+    <string name="pref_title_ext_arm_alarm_url">Arm alarm url</string>
+    <string name="pref_default_ext_arm_alarm_url">/authenticate?action=armAlarm</string>
+
+    <string name="pref_title_ext_disarm_alarm_url">Disarm alarm url</string>
+    <string name="pref_default_ext_disarm_alarm_url">/authenticate?action=disarmAlarm&amp;pin=</string>
+
+    <!-- Shell protection -->
+    <string name="pref_title_ext_arm_shell_url">Arm shell url</string>
+    <string name="pref_default_ext_arm_shell_url">/authenticate?action=armSkalskydd</string>
+
+    <string name="pref_title_ext_disarm_shell_url">Disarm shell url</string>
+    <string name="pref_default_ext_disarm_shell_url">/authenticate?action=disarmSkalskydd&amp;pin=</string>
+
+    <!-- Fibaro server settings -->
+    <string name="pref_title_display_name">Fibaro server adress</string>
+    <string name="pref_default_display_name"></string>
+    <string name="pref_title_arm_alarm_scene">Arm alarm scene id</string>
+    <string name="pref_title_disarm_alarm_scene">Disarm alarm scene id</string>
+    <string name="pref_title_arm_shell_scene">Arm shell protection scene id</string>
+    <string name="pref_title_disarm_shell_scene">Disarm shell protection scene id</string>
+    <string name="pref_default_arm_scene">34</string>
+
+    <string name="pref_title_external_server_authentication">Authenticate via external server</string>
+    <string name="title_activity_listviewtest">Listviewtest</string>
+    <string name="title_activity_alarm_controller_settings">Settings</string>
+
+    <string name="pref_title_escaping_time">Escape time</string>
+    <string name="pref_default_escaping_time">30</string>
+    <string name="pref_summary_escaping_time">Sets the count down timer when arming alarm</string>
+
+    <string name="pref_protect_settings">Pin code for settings menu </string>
+    <string name="pref_default_protect_settings">1234</string>
+    <string name="pref_summary_protect_settings">Pin code to protect settings menu from unauthorized access.</string>
+
+    <string name="pref_title_wake_up_service">Enable wakeup service</string>
+    <string name="pref_summary_wake_up_service">Wake up screen at reception of wake up events.</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_help">Help</string>
+    <string name="action_about">About</string>
+
+</resources>

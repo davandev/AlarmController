@@ -1,0 +1,32 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+    <header
+        android:fragment="com.davan.alarmcontroller.settings.SettingsActivity$ApplicationPreferenceFragment"
+        android:key="applicationsettings"
+        android:title="@string/pref_general_application_settings"
+        android:summary="General Application settings"
+        />
+    <header
+        android:fragment="com.davan.alarmcontroller.settings.SettingsActivity$FibaroServerPreferenceFragment"
+        android:title="@string/pref_fibaro_server_general"
+        android:key="fibaroserver"
+        android:summary="Configuration when authenticating and arming/disarming directly with Fibaro system."
+    />
+    <header
+        android:fragment="com.davan.alarmcontroller.settings.SettingsActivity$ExternalServerPreferenceFragment"
+        android:key="externalserver"
+        android:title="@string/pref_external_server_general"
+        android:summary="Configuration when using an external server to perform pincode authentication and arming/disarming the Fibaro system."
+        />
+
+
+  <!--  <header
+        android:title="Fibaro Users"
+        android:summary="Configure Fibaro users">
+        <intent android:action="android.intent.action.VIEW"
+            android:targetPackage="com.davan.alarmcontroller"
+            android:targetClass="com.davan.alarmcontroller.settings.UsersSettingsActivity"/>
+    </header>-->
+
+</preference-headers>

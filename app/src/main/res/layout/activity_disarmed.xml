@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+tools:context=".Disarmed"
+>
+
+    <TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="*"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:id="@+id/tableLayout">
+
+    <TableRow
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageButton
+            android:layout_weight="0"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:id="@+id/imageButton2"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:scaleType="fitCenter"
+            android:src="@drawable/unlocked_shell"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="armSkalskydd" />
+
+        <ImageButton
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:scaleType="fitCenter"
+            android:layout_weight="0"
+            android:id="@+id/imageButton"
+            android:src="@drawable/unlock_alarm"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="armAlarm"/>
+    </TableRow>
+</TableLayout>
+</RelativeLayout>

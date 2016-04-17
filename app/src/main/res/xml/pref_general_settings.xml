@@ -1,0 +1,79 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:key="escaping_time"
+        android:title="@string/pref_title_escaping_time"
+        android:summary="@string/pref_summary_escaping_time"
+        android:contentDescription="Summary Tesxt1"
+        android:defaultValue="@string/pref_default_escaping_time"
+        android:selectAllOnFocus="true"
+        android:inputType="number"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:hint="Set the escaping time"
+        android:ellipsize="end"
+        android:textColorHint="#000000"
+        android:maxLines="1" />
+    <EditTextPreference
+        android:key="settings_protection"
+        android:title="@string/pref_protect_settings"
+        android:summary="@string/pref_summary_protect_settings"
+        android:contentDescription="Summary Tesxt1"
+        android:defaultValue="@string/pref_default_protect_settings"
+        android:selectAllOnFocus="true"
+        android:inputType="numberPassword"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:hint="Pin code to protect settings menu"
+        android:ellipsize="end"
+        android:textColorHint="#000000"
+        android:maxLines="1" />
+    <PreferenceScreen
+        android:key="wake_up_service"
+        android:title="Screen WakeUp">
+        <Preference
+            android:summary="
+The WakeUp service will start a webserver and listen for wakeup requests.
+At reception of a request the screen will wakeup.
+The Fibaro system could typically trigger
+a request when a motion detector or a door sensor is breached."
+            android:selectable="false">
+        </Preference>
+        <CheckBoxPreference
+            android:key="wake_up_service_enabled"
+            android:title="@string/pref_title_wake_up_service"
+            android:defaultValue="false"
+            android:hint="Wake up service hint"
+            android:enabled="true"
+            android:summaryOn="You will get notified when something interesting happens"
+
+            android:summaryOff="You will not get notified"
+            android:onClick="wakeUpServiceToggle"/>
+    </PreferenceScreen>
+    <PreferenceCategory
+        android:key="future_features"
+        android:title="Future features"
+        android:summary="Summmary text">
+    </PreferenceCategory>
+    <Preference
+        android:summary="Below lists coming features, if I manage to implement them"
+        android:selectable="false">
+    </Preference>
+    <EditTextPreference
+        android:key="sms_enabled"
+        android:title="Send SMS"
+        android:summary="Send SMS when an alarm is triggered"
+        android:enabled="false"/>
+    <EditTextPreference
+        android:key="motion_enabled"
+        android:title="Motion Detection"
+        android:summary="Wake up screen when motion detected"
+        android:enabled="false"/>
+    <EditTextPreference
+        android:key="picture_enabled"
+        android:title="Camera"
+        android:summary="Take picture of user when disarming alarm"
+        android:enabled="false"/>
+</PreferenceScreen>
