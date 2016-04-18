@@ -2,7 +2,6 @@ package com.davan.alarmcontroller.settings;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
@@ -15,12 +14,12 @@ import com.davan.alarmcontroller.R;
 
 /**
  * Created by davandev on 2016-04-16.
- */
+ **/
 public class SettingsLauncher
 {
     private static final String TAG = SettingsLauncher.class.getSimpleName();
 
-    public static void verifySettingsPassword(Activity callingActivity,  AlarmControllerResources res, View view)
+    public static void verifySettingsPassword(Activity callingActivity,  AlarmControllerResources res)
     {
         Log.d(TAG, "verifySettingsPassword");
         final Activity currentActivity = callingActivity;

@@ -1,8 +1,7 @@
 package com.davan.alarmcontroller.settings;
 /**
  * Created by davandev on 2016-04-12.
- */
-import android.app.Activity;
+ **/
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -24,7 +23,6 @@ import android.widget.ListView;
 
 import com.davan.alarmcontroller.R;
 
-import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,7 +33,7 @@ public class UsersSettingsActivity extends AppCompatActivity {
 
     ListView listView ;
     ArrayAdapter<String> adapter;
-    HashMap<String,String> users = new HashMap<String,String>();
+    HashMap<String,String> users = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,14 +48,14 @@ public class UsersSettingsActivity extends AppCompatActivity {
         readUsers();
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
-        ArrayList<String> entries = new ArrayList<String>();
+        ArrayList<String> entries = new ArrayList<>();
 
         Iterator it = users.keySet().iterator();
         while (it.hasNext())
         {
             entries.add((String) it.next());
         }
-        adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, entries);
 
 
@@ -66,8 +64,6 @@ public class UsersSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addUser(view);
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
         listView.setAdapter(adapter);
@@ -77,15 +73,14 @@ public class UsersSettingsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                int itemPosition = position;
-                String itemValue = (String) listView.getItemAtPosition(position);
-                String password = users.get(itemValue);
-                try {
-                    String[] passwords = password.split(":");
-                    viewUser(view, itemValue, passwords[0], passwords[1], Boolean.parseBoolean(passwords[2]));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    viewUser(view, itemValue, password, "", false);
-                }
+        String itemValue = (String) listView.getItemAtPosition(position);
+        String password = users.get(itemValue);
+        try {
+            String[] passwords = password.split(":");
+            viewUser(view, itemValue, passwords[0], passwords[1], Boolean.parseBoolean(passwords[2]));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            viewUser(view, itemValue, password, "", false);
+        }
             }
         });
     }
@@ -115,7 +110,6 @@ public class UsersSettingsActivity extends AppCompatActivity {
         Log.d(getLocalClassName(), "viewUser");
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         LayoutInflater inflater=this.getLayoutInflater();
-        //this is what I did to added the layout to the alert dialog
         View layout=inflater.inflate(R.layout.user,null);
 
         final EditText userInput=(EditText)layout.findViewById(R.id.newUserField);
@@ -142,12 +136,12 @@ public class UsersSettingsActivity extends AppCompatActivity {
                     adapter.remove(user);
                     adapter.notifyDataSetChanged();
                     storeUsers();
-
                 }
             }
         });
 
-        alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton("Close", new DialogInterface.OnClickListener()
+        {
             public void onClick(DialogInterface dialog, int whichButton)
             {
 
@@ -182,6 +176,9 @@ public class UsersSettingsActivity extends AppCompatActivity {
         viewUser(view,"","", "", false);
     }
 
+    /**
+     * Read all configured users from shared preferences.
+     */
     public void readUsers()
     {
         SharedPreferences prefs = getSharedPreferences("com.davan.alarmcontroller.users", 0);
@@ -189,6 +186,10 @@ public class UsersSettingsActivity extends AppCompatActivity {
             users.put(entry.getKey().toString(), entry.getValue().toString());
         }
     }
+
+    /**
+     * Store configured users in shared preferencees
+     */
     public void storeUsers()
     {
         SharedPreferences.Editor editor = getSharedPreferences("com.davan.alarmcontroller.users", 0).edit();
@@ -197,6 +198,5 @@ public class UsersSettingsActivity extends AppCompatActivity {
             editor.putString(entry.getKey().toString(), entry.getValue().toString());
         }
         editor.commit();
-
     }
 }

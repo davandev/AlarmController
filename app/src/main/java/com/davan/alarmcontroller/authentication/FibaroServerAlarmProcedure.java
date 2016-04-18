@@ -1,7 +1,7 @@
 package com.davan.alarmcontroller.authentication;
 /**
  * Created by davandev on 2016-04-12.
- */
+ **/
 import android.util.Log;
 import android.util.Pair;
 
@@ -11,20 +11,20 @@ import com.davan.alarmcontroller.http.RequestDispatcherResultListener;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
 
-public class FibaroServerAuthenticationHandler implements AuthenticationHandlerIf, RequestDispatcherResultListener
+public class FibaroServerAlarmProcedure implements AlarmProcedureIf, RequestDispatcherResultListener
 {
-    private static final String TAG = FibaroServerAuthenticationHandler.class.getSimpleName();
+    private static final String TAG = FibaroServerAlarmProcedure.class.getSimpleName();
 
     private RequestDispatcher requestDispatcher;
-    private AuthenticationResultListener resultListener;
+    private AlarmProcedureResultListener resultListener;
     private String url = "http://<serveraddress>/api/sceneControl?id=<id>&action=start";
     private AlarmControllerResources resources;
     private String action;
     private String authenticatedUser ="";
 
-    public FibaroServerAuthenticationHandler(
+    public FibaroServerAlarmProcedure(
             AlarmControllerResources alarmControllerResources,
-            AuthenticationResultListener listener)
+            AlarmProcedureResultListener listener)
     {
         resources = alarmControllerResources;
         resultListener = listener;

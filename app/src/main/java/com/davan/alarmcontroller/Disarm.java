@@ -1,11 +1,10 @@
 package com.davan.alarmcontroller;
 /**
  * Created by davandev on 2016-04-12.
- */
+ **/
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,21 +15,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.davan.alarmcontroller.authentication.AuthenticationHandlerIf;
-import com.davan.alarmcontroller.authentication.AuthenticationManager;
-import com.davan.alarmcontroller.authentication.AuthenticationResultListener;
-import com.davan.alarmcontroller.http.RequestDispatcher;
+import com.davan.alarmcontroller.authentication.AlarmProcedureIf;
+import com.davan.alarmcontroller.authentication.AlarmProcedureFactory;
+import com.davan.alarmcontroller.authentication.AlarmProcedureResultListener;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
-public class Disarm extends AppCompatActivity implements AuthenticationResultListener
+public class Disarm extends AppCompatActivity implements AlarmProcedureResultListener
 {
     private static final String TAG = Disarm.class.getSimpleName();
 
     private String alarmType = "";
     private boolean authenticationOk = false;
-    WifiConnectionChecker wifiChecker;
-    private AuthenticationHandlerIf handler;
+    private WifiConnectionChecker wifiChecker;
+    private AlarmProcedureIf handler;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private String authenticatedUser = "";
 
@@ -57,20 +55,20 @@ public class Disarm extends AppCompatActivity implements AuthenticationResultLis
                 getResources());
         try
         {
-            handler = AuthenticationManager.createHandler(resources, this);
+            handler = AlarmProcedureFactory.createProcedure(resources, this);
         }
         catch(Exception e)
         {
-            Toast.makeText(getBaseContext(), "No authentication server enabled.", 2000).show();
+            Toast.makeText(getBaseContext(), R.string.pref_message_no_server_enabled, Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onPause()
     {
-        super.onPause();  // Always call the superclass method first
+        super.onPause();
         Log.d(TAG, "onPause");
-        if (authenticationOk != true)
+        if (!authenticationOk)
         {
             // Return back to locked screen on pause when not unlocked.
             Intent intent = new Intent(this, Armed.class);
@@ -88,15 +86,15 @@ public class Disarm extends AppCompatActivity implements AuthenticationResultLis
         {
             String password = ((EditText) findViewById(R.id.editText2)).getText().toString();
 
-            Log.d(TAG, "OK pushed : " + password);
+            Log.d(TAG, "OK pushed");
             if (wifiChecker.isConnectionOk() )
             {
                 authenticationOk = false;
-                handler.disarm(alarmType,password);
+                handler.disarm(alarmType, password);
             }
             else
             {
-                Toast.makeText(getBaseContext(), "No network connection available.", 2000).show();
+                Toast.makeText(getBaseContext(), R.string.pref_message_no_network_connection, Toast.LENGTH_LONG).show();
             }
         }
 
@@ -147,7 +145,7 @@ public class Disarm extends AppCompatActivity implements AuthenticationResultLis
 */
         if (authenticationOk)
         {
-            Toast.makeText(getBaseContext(), "Välkommen hem "+authenticatedUser, 2000).show();
+            Toast.makeText(getBaseContext(), "Välkommen hem "+authenticatedUser, Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(this, Disarmed.class);
             startActivity(intent);
@@ -155,40 +153,8 @@ public class Disarm extends AppCompatActivity implements AuthenticationResultLis
         else
         {
             ((EditText) findViewById(R.id.editText2)).setText("");
-            Toast.makeText(getBaseContext(), "Fel lösenord", 2000).show();
+            Toast.makeText(getBaseContext(), "Fel lösenord", Toast.LENGTH_LONG).show();
         }
 
     }
-
-/*    @Override
-    public void resultReceived(String result)
-    {
-        Log.d(TAG,"resultReceived ;" + result);
-        if (result.contains("200"))
-        {
-            authenticationOk=true;
-            result = result.replace("200","");
-            String user ="";
-            try {
-                JSONObject jObject = new JSONObject(result);
-                user= jObject.getString("user");
-                Toast.makeText(getBaseContext(), "Välkommen hem "+user, 2000).show();
-
-            } catch (JSONException e)
-            {
-                e.printStackTrace();
-            }
-
-            Intent intent = new Intent(this, Disarmed.class);
-            startActivity(intent);
-        }
-        else
-        {
-            ((EditText) findViewById(R.id.editText2)).setText("");
-            Toast.makeText(getBaseContext(), "Fel lösenord", 2000).show();
-
-        }
-    }
-*/
-
 }

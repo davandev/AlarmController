@@ -1,58 +1,32 @@
 package com.davan.alarmcontroller.settings;
 /**
  * Created by davandev on 2016-04-12.
- */
+ **/
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceScreen;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.davan.alarmcontroller.R;
 import com.davan.alarmcontroller.http.WakeUpService;
-import com.davan.alarmcontroller.http.WifiConnectionChecker;
 
 import java.util.List;
 
-/**
- * A {@link PreferenceActivity} that presents a set of application settings. On
- * handset devices, settings are presented as a single list. On tablets,
- * settings are split by category, with category headers shown to the left of
- * the list of settings.
- * <p>
- * See <a href="http://developer.android.com/design/patterns/settings.html">
- * Android Design: Settings</a> for design guidelines and the <a
- * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
- * API Guide</a> for more information on developing a Settings UI.
- */
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String TAG = SettingsActivity.class.getSimpleName();
@@ -68,11 +42,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
+    protected void onPostCreate(Bundle savedInstanceState)
+    {
         super.onPostCreate(savedInstanceState);
-        final Preference pref = (Preference) findPreference("checkbox");
+        final Preference pref = findPreference("checkbox");
 
         LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
+
+        // Add toolbar
         Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.toolbar_main, root, false);
         root.addView(bar, 0); // insert at top
         setSupportActionBar(bar);
@@ -103,7 +80,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.help, menu);
         return true;
@@ -234,7 +212,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         public void onCreate(Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_general);
+            addPreferencesFromResource(R.xml.pref_fibaro_server);
             setHasOptionsMenu(true);
 
             bindPreferenceSummaryToValue(findPreference("fibaro_auth_server_address"));
@@ -253,10 +231,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             }
             return super.onOptionsItemSelected(item);
         }
-    }
-    public void wakeUpServiceToggle(View view)
-    {
-        Log.d(TAG,"wakeUpServiceToggle");
     }
     /**
      * This fragment shows external server preferences only.

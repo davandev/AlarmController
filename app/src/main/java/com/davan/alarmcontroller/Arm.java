@@ -1,7 +1,7 @@
 package com.davan.alarmcontroller;
 /**
  * Created by davandev on 2016-04-12.
- */
+ **/
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.CountDownTimer;
@@ -14,17 +14,17 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.davan.alarmcontroller.authentication.AuthenticationHandlerIf;
-import com.davan.alarmcontroller.authentication.AuthenticationManager;
-import com.davan.alarmcontroller.authentication.AuthenticationResultListener;
+import com.davan.alarmcontroller.authentication.AlarmProcedureIf;
+import com.davan.alarmcontroller.authentication.AlarmProcedureFactory;
+import com.davan.alarmcontroller.authentication.AlarmProcedureResultListener;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
 import java.util.Random;
 
-public class Arm extends AppCompatActivity implements AuthenticationResultListener
+public class Arm extends AppCompatActivity implements AlarmProcedureResultListener
 {
     private static final String TAG = Arm.class.getSimpleName();
-    private AuthenticationHandlerIf handler;
+    private AlarmProcedureIf handler;
     private String alarmType = "0";
 
     @Override
@@ -43,7 +43,7 @@ public class Arm extends AppCompatActivity implements AuthenticationResultListen
                 getResources());
         try
         {
-            handler = AuthenticationManager.createHandler(resources, this);
+            handler = AlarmProcedureFactory.createProcedure(resources, this);
             handler.arm(alarmType);
 
             if(alarmType.compareTo(getResources().getString(R.string.alarm_type_alarm)) ==0 )
@@ -53,7 +53,7 @@ public class Arm extends AppCompatActivity implements AuthenticationResultListen
         }
         catch(Exception e)
         {
-            Toast.makeText(getBaseContext(), "No authentication server enabled.", 2000).show();
+            Toast.makeText(getBaseContext(), R.string.pref_message_no_server_enabled, Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, Disarmed.class);
             startActivity(intent);
         }
@@ -80,7 +80,7 @@ public class Arm extends AppCompatActivity implements AuthenticationResultListen
     public void armed()
     {
         Intent intent = new Intent(this, Armed.class);
-        intent.putExtra(getResources().getString(R.string.alarm_type),alarmType);
+        intent.putExtra(getResources().getString(R.string.alarm_type), alarmType);
         startActivity(intent);
     }
 

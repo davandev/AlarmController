@@ -1,7 +1,7 @@
 package com.davan.alarmcontroller;
 /**
  * Created by davandev on 2016-04-12.
- */
+ **/
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.davan.alarmcontroller.http.WakeUpService;
+import com.davan.alarmcontroller.http.WakeUpScreen;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateListener;
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     private PowerManager.WakeLock mWakeLock = null;
     private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
+    private WakeUpScreen wakeUpScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,9 +55,8 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
                 PreferenceManager.getDefaultSharedPreferences(this),
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
+        wakeUpScreen = new WakeUpScreen(this);
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(
-                mMessageReceiver, new IntentFilter("wakeup-event"));
     }
     @Override
     protected void onDestroy()
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the settings menu.
         getMenuInflater().inflate(R.menu.settings, menu);
         return true;
     }
@@ -81,11 +81,10 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
         switch (item.getItemId()) {
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
-                SettingsLauncher.verifySettingsPassword(this, resources, item.getActionView());
+                SettingsLauncher.verifySettingsPassword(this, resources);
                 return true;
 
             case R.id.action_about:
-                // User chose the "Favorite" action, mark the current item
                 // as a favorite...
                 return true;
 
@@ -110,25 +109,6 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
         stopService(new Intent(getBaseContext(), WakeUpService.class));
     }
 */
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
-    {
-        @Override
-        public void onReceive(Context context, Intent intent)
-        {
-            Log.d(TAG, "Received WakeUp");
-            wakeUpScreen();
-        }
-    };
-
-    public void wakeUpScreen()
-    {
-        Log.d(TAG, "WakeUp Screen");
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        mWakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "My Tag");
-        mWakeLock.acquire();
-        Toast.makeText(getBaseContext(), "Screen on", Toast.LENGTH_SHORT).show();
-    }
-
     public void startAlarmKeypad(View view)
     {
         Log.d(TAG, "Starting AlarmKeyPad");
@@ -138,18 +118,27 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
             if (!new AlarmStateChecker(wifiChecker, resources, this).updateAlarmState())
             {
                 Log.d(TAG, "No wifi connection available");
-                Toast.makeText(getBaseContext(), "No wifi connection available.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.pref_message_no_network_connection, Toast.LENGTH_LONG).show();
             }
         }
         else
         {
                 Log.d(TAG, "Configuration not ok");
-                Toast.makeText(getBaseContext(), "Configuration is not ok, update configuration.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.pref_message_configuration_not_ok, Toast.LENGTH_LONG).show();
         }
     }
 
     private boolean verifyConfiguration()
     {
+        try
+        {
+            resources.verifyConfiguration();
+        }
+        catch (Exception e)
+        {
+            Log.d(TAG,e.getMessage());
+            return false;
+        }
         return true;
     }
 

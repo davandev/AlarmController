@@ -1,14 +1,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
-    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
-
     <PreferenceCategory
         android:key="fibaro_required_settings"
-        android:title="Required configuration"
+        android:title="@string/pref_title_required_configuration"
         android:summary="">
     <Preference
-        android:summary="It is required to configure Fibaro server address and at least on Fibaro user"
+        android:summary="@string/pref_summary_required_configuration"
         android:selectable="false">
     </Preference>
     <EditTextPreference
@@ -30,8 +26,8 @@
     </PreferenceCategory>
     <SwitchPreference
         android:key="fibaro_server_enabled"
-        android:title="Control via Fibaro server"
-        android:summary="Enable to send requests directly to the Fibaro system."
+        android:title="@string/pref_title_fibaro_server_enabled"
+        android:summary="@string/pref_summary_fibaro_server_enabled"
         android:selectable="false"
         android:defaultValue="false" />
     <EditTextPreference

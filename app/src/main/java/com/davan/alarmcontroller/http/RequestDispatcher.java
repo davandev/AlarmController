@@ -1,7 +1,7 @@
 package com.davan.alarmcontroller.http;
 /**
  * Created by davandev on 2016-04-12.
- */
+ **/
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -33,7 +33,7 @@ public class RequestDispatcher extends AsyncTask<String, Void, String>
 
         // params comes from the execute() call: params[0] is the url.
         try {
-            Log.d(TAG, "Url:" + urls[0] +" AuthenticatingUser:" + urls[1] + "password: "+urls[2]+" readInput:"+ urls[3]);
+            Log.d(TAG, "Url:" + urls[0] +" AuthenticatingUser:" + urls[1]);
             return sendRequest(urls[0],urls[1],urls[2], urls[3]);
         }
         catch (IOException e)

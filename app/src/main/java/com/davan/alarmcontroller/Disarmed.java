@@ -1,7 +1,7 @@
 package com.davan.alarmcontroller;
 /**
  * Created by davandev on 2016-04-12.
- */
+ **/
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.davan.alarmcontroller.http.RequestDispatcher;
+import com.davan.alarmcontroller.http.WakeUpScreen;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateListener;
@@ -27,8 +27,10 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
 {
     private static final String TAG = Disarmed.class.getSimpleName();
 
-    WifiConnectionChecker wifiChecker;
+    private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
+    private WakeUpScreen wakeUpScreen;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,6 +46,7 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
                 PreferenceManager.getDefaultSharedPreferences(this),
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
+        wakeUpScreen = new WakeUpScreen(this);
 
         WindowManager.LayoutParams attrs = getWindow().getAttributes();
         attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN;
@@ -66,19 +69,23 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // show menu when menu button is pressed
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // show menu when settings button is pressed
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settings, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_settings) {
-            SettingsLauncher.verifySettingsPassword(this,resources, item.getActionView());
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if (item.getItemId() == R.id.action_settings)
+        {
+            SettingsLauncher.verifySettingsPassword(this, resources);
         }
-        else if (item.getItemId() == R.id.action_about) {
+        else if (item.getItemId() == R.id.action_about)
+        {
         }
         return true;
     }
@@ -104,20 +111,10 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
         }
         else
         {
-            Toast.makeText(getBaseContext(), "No network connection available.", 2000).show();
+            Toast.makeText(getBaseContext(), R.string.pref_message_no_network_connection, Toast.LENGTH_LONG).show();
         }
     }
 
-/*    @Override
-    public void resultReceived(String result) {
-        Log.d(TAG, "Arming "+alarmType);
-
-        Intent intent = new Intent(this, Arm.class);
-        intent.putExtra(getResources().getString(R.string.alarm_type), alarmType);
-
-        startActivity(intent);
-    }
-*/
     @Override
     public void alarmStateUpdate(String currentAlarmState, String currentAlarmType)
     {

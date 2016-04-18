@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 /**
  * Created by davandev on 2016-03-26.
- */
+ **/
 public class AlarmStateChecker implements RequestDispatcherResultListener
 {
     private static final String TAG = AlarmStateChecker.class.getName();

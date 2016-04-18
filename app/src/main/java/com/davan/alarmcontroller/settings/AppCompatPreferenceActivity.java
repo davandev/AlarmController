@@ -1,7 +1,7 @@
 package com.davan.alarmcontroller.settings;
 /**
  * Created by davandev on 2016-04-12.
- */
+ **/
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

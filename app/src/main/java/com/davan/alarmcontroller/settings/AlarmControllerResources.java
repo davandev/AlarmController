@@ -1,7 +1,7 @@
 package com.davan.alarmcontroller.settings;
 /**
  * Created by davandev on 2016-04-12.
- */
+ **/
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.util.Log;
@@ -18,7 +18,7 @@ public class AlarmControllerResources
     private SharedPreferences preferences;
     private SharedPreferences userPreferences;
     private Resources resources;
-    private HashMap<String,String> users = new HashMap<String,String>();
+    private HashMap<String,String> users = new HashMap<>();
     private String defaultUser;
     private String defaultUserPassword;
 
@@ -31,12 +31,12 @@ public class AlarmControllerResources
         findDefaultUser();
     }
 
+    /* Return the configured fibaro server address */
     public String getFibaroServerAddress() { return preferences.getString("fibaro_auth_server_address",""); }
+    /* Return the default user */
     public String getDefaultUser() { return defaultUser; }
-    public String getDefaultPassword()
-    {
-        return defaultUserPassword;
-    }
+    /* Return the password of the default user*/
+    public String getDefaultPassword() { return defaultUserPassword; }
     public String getSettingsPassword() { return preferences.getString("settings_protection","1234");}
 
     public boolean isFibaroServerEnabled() { return preferences.getBoolean("fibaro_server_enabled", false); }
@@ -50,17 +50,15 @@ public class AlarmControllerResources
 
     public Pair<String,String> getUser(String pin) throws Exception
     {
-        Log.d(TAG,"getUser: "+ pin);
+        Log.d(TAG,"getUser with pin[" + pin + "]");
         for( Map.Entry entry : userPreferences.getAll().entrySet() )
         {
-            Log.d(TAG,"User:"+entry.getKey().toString()+ " Value:"+ entry.getValue().toString());
             String[] credentials = entry.getValue().toString().split(":");
             if(pin.compareTo(credentials[1]) == 0)
             {
-                Log.d(TAG,"Found user:" + entry.getKey().toString() + " password: " + credentials[1]);
-                return new Pair<String,String>(entry.getKey().toString(),credentials[0]);
+                Log.d(TAG,"Found user:" + entry.getKey().toString());
+                return new Pair<>(entry.getKey().toString(),credentials[0]);
             }
-
         }
         throw new Exception("User not found");
     }
@@ -78,7 +76,7 @@ public class AlarmControllerResources
             String value = users.get(user);
             Log.d(TAG,"User:"+ user+ " Value:" + value);
             String[] userSettings = value.split(":");
-            if ( Boolean.parseBoolean(userSettings[2]) == true)
+            if ( Boolean.parseBoolean(userSettings[2]))
             {
                 defaultUser = user;
                 defaultUserPassword = userSettings[0];
@@ -87,4 +85,23 @@ public class AlarmControllerResources
         }
     }
 
+    public void verifyConfiguration() throws Exception
+    {
+        if (getDefaultUser() == null || getDefaultUser().compareTo("") == 0)
+        {
+            throw new Exception("Default user not configured");
+        }
+        if (getDefaultPassword() == null || getDefaultPassword().compareTo("") == 0)
+        {
+            throw new Exception("Password for default user not configured");
+        }
+        if (getFibaroServerAddress().compareTo("") == 0)
+        {
+            throw new Exception("Fibaro server address not configured");
+        }
+        if (!isFibaroServerEnabled() && !isExternalServerEnabled())
+        {
+            throw new Exception("Either Fibaro server procedure or External server procedure needs to be configured.");
+        }
+    }
 }

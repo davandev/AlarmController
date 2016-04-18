@@ -6,10 +6,10 @@ import android.util.Log;
 
 /**
  * Created by davandev on 2016-03-24.
- */
+ **/
 public class WifiConnectionChecker
 {
-    private final static String CLASSNAME = "WifiConnectionChecker";
+    private static final String TAG = WakeUpService.class.getName();
 
     private ConnectivityManager connMgr;
     public WifiConnectionChecker(ConnectivityManager connectivityManager)
@@ -22,12 +22,12 @@ public class WifiConnectionChecker
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected())
         {
-            Log.d(CLASSNAME,"Network connection is available");
+            Log.d(TAG,"Network connection is available");
             return true;
         }
         else
         {
-            Log.d(CLASSNAME, "No network connection available");
+            Log.d(TAG, "No network connection available");
             return false;
         }
     }

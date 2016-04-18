@@ -1,7 +1,7 @@
 package com.davan.alarmcontroller.authentication;
 /**
  * Created by davandev on 2016-04-12.
- */
+ **/
 import android.util.Log;
 
 import com.davan.alarmcontroller.R;
@@ -12,23 +12,23 @@ import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ExternalServerAuthenticationHandler implements AuthenticationHandlerIf, RequestDispatcherResultListener
+public class ExternalServerAlarmProcedure implements AlarmProcedureIf, RequestDispatcherResultListener
 {
-    private static final String TAG = ExternalServerAuthenticationHandler.class.getSimpleName();
+    private static final String TAG = ExternalServerAlarmProcedure.class.getSimpleName();
 
-    private RequestDispatcher urlFetcher;
-    private AuthenticationResultListener resultListener;
+    private RequestDispatcher requestSender;
+    private AlarmProcedureResultListener resultListener;
     private AlarmControllerResources resources;
     private String action = "";
 
-    public ExternalServerAuthenticationHandler(AlarmControllerResources alarmControllerResources,
-                                               AuthenticationResultListener listener)
+    public ExternalServerAlarmProcedure(AlarmControllerResources alarmControllerResources,
+                                        AlarmProcedureResultListener listener)
     {
         resources = alarmControllerResources;
         resultListener = listener;
 
 
-        urlFetcher = new RequestDispatcher(this);
+        requestSender = new RequestDispatcher(this);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ExternalServerAuthenticationHandler implements AuthenticationHandle
     {
         Log.d(TAG, "Arm");
         action = resources.getResources().getString(R.string.arming);
-        String arm_scene_url ="";
+        String arm_scene_url;
         String server_address = resources.getPreferences().getString("ext_auth_server_address", "");
         if (alarmType.compareTo(resources.getResources().getString(R.string.alarm_type_skalskydd)) == 0)
         {
@@ -48,7 +48,7 @@ public class ExternalServerAuthenticationHandler implements AuthenticationHandle
         }
         String arm_url = "http://" +server_address + "/" + arm_scene_url;
         Log.d(TAG,"Arming url: "+arm_url );
-        urlFetcher.execute(arm_url,"","",Boolean.toString(true));
+        requestSender.execute(arm_url, "", "", Boolean.toString(true));
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ExternalServerAuthenticationHandler implements AuthenticationHandle
         Log.d(TAG,"Disarm" );
         action = resources.getResources().getString(R.string.disarming);
 
-        String disarm_scene_url ="";
+        String disarm_scene_url;
         String server_address = resources.getPreferences().getString("ext_auth_server_address", "");
         if (alarmType.compareTo(resources.getResources().getString(R.string.alarm_type_skalskydd)) == 0)
         {
@@ -70,7 +70,7 @@ public class ExternalServerAuthenticationHandler implements AuthenticationHandle
         String disarm_url = "http://" + server_address + "/" + disarm_scene_url  + pin;
 
         Log.d(TAG, "Disarm url: "+disarm_url);
-        urlFetcher.execute(disarm_url,"","",Boolean.toString(true));
+        requestSender.execute(disarm_url, "", "", Boolean.toString(true));
     }
 
     @Override
@@ -85,12 +85,11 @@ public class ExternalServerAuthenticationHandler implements AuthenticationHandle
             else
             {
                 result = result.replace("200","");
-                String user ="";
+
                 try
                 {
                     JSONObject jObject = new JSONObject(result);
-                    user= jObject.getString("user");
-                    resultListener.resultReceived(true , user);
+                    resultListener.resultReceived(true , jObject.getString("user"));
                 }
                 catch (JSONException e)
                 {
