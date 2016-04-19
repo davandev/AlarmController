@@ -1,7 +1,7 @@
 # Android alarm keypad for home automation.
 
 <img src="https://cloud.githubusercontent.com/assets/756370/14658381/a270953a-0693-11e6-8a3c-236fedf1ac3d.png" width="400">
-<img src="https://cloud.githubusercontent.com/assets/756370/14658381/a270953a-0693-11e6-8a3c-236fedf1ac3d.png" width="400">
+<img src="https://cloud.githubusercontent.com/assets/756370/14658388/b798f6e6-0693-11e6-854c-9c3f64eae87b.png" width="400">
 <img src="https://cloud.githubusercontent.com/assets/756370/14658381/a270953a-0693-11e6-8a3c-236fedf1ac3d.png" width="400">
 
 Android application used as an alarm triggering keypad for arming/disarming alarm via a homeautomation system. 
