@@ -29,7 +29,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.davan.alarmcontroller.Disarm;
+import com.davan.alarmcontroller.Disarmed;
 import com.davan.alarmcontroller.MainActivity;
 import com.davan.alarmcontroller.R;
 
@@ -43,10 +47,18 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     private Camera camera; // camera object
     File mediaFile;
     private static final String IMAGE_DIRECTORY_NAME = "Captured_Images";
+    private boolean authenticationOk;
+    private String authenticatedUser;
+    private String alarmType;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        Intent myIntent = getIntent();
+        authenticationOk= myIntent.getBooleanExtra("authenticationOk",false);
+        authenticatedUser= myIntent.getStringExtra("authenticatedUser");
+        alarmType = myIntent.getStringExtra("AlarmType");
+
         super.onCreate(savedInstanceState);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -77,6 +89,21 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
     public void sendPicture()
     {
+        if (authenticationOk)
+        {
+            Toast.makeText(getBaseContext(), getString(R.string.pref_message_welcome_home) + authenticatedUser, Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(this, Disarmed.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(getBaseContext(), R.string.pref_message_faulty_password, Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(this, Disarm.class);
+            intent.putExtra("AlarmType",alarmType);
+            startActivity(intent);
+        }
     }
 
     public void requestPermission(Activity currentActivity)

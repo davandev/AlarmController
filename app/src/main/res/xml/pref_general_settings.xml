@@ -3,15 +3,11 @@
         android:key="escaping_time"
         android:title="@string/pref_title_escaping_time"
         android:summary="@string/pref_summary_escaping_time"
-        android:contentDescription="Summary Tesxt1"
         android:defaultValue="@string/pref_default_escaping_time"
         android:selectAllOnFocus="true"
         android:inputType="number"
         android:capitalize="words"
         android:singleLine="true"
-        android:hint="Set the escaping time"
-        android:ellipsize="end"
-        android:textColorHint="#000000"
         android:maxLines="1" />
     <EditTextPreference
         android:key="settings_protection"
@@ -26,6 +22,13 @@
         android:ellipsize="end"
         android:textColorHint="#000000"
         android:maxLines="1" />
+    <CheckBoxPreference
+        android:key="take_picture_enabled"
+        android:title="Camera"
+        android:defaultValue="false"
+        android:summaryOn="Take a picture at disarm attempt"
+        android:summaryOff="Takes a picture at disarm attempt"
+        android:enabled="true"/>
     <PreferenceScreen
         android:key="wake_up_service"
         android:title="@string/pref_title_screen_wakeup">
@@ -39,31 +42,6 @@
             android:defaultValue="false"
             android:enabled="true"
             android:summaryOn="@string/pref_summaryon_wakeup_service"
-            android:summaryOff=""
-            android:onClick="wakeUpServiceToggle"/>
+            android:summaryOff=""/>
     </PreferenceScreen>
-    <PreferenceCategory
-        android:key="future_features"
-        android:title="@string/pref_title_future_features"
-        >
-    </PreferenceCategory>
-    <Preference
-        android:summary="@string/pref_summary_coming_features"
-        android:selectable="false">
-    </Preference>
-    <EditTextPreference
-        android:key="sms_enabled"
-        android:title="Send SMS"
-        android:summary="Send SMS when an alarm is triggered"
-        android:enabled="false"/>
-    <EditTextPreference
-        android:key="motion_enabled"
-        android:title="Motion Detection"
-        android:summary="Wake up screen when motion detected"
-        android:enabled="false"/>
-    <EditTextPreference
-        android:key="picture_enabled"
-        android:title="Camera"
-        android:summary="Take picture of user when disarming alarm"
-        android:enabled="false"/>
 </PreferenceScreen>

@@ -105,4 +105,9 @@ public class AlarmControllerResources
             throw new Exception("Either Fibaro server procedure or External server procedure needs to be configured.");
         }
     }
+
+    public boolean isPictureAtDisarmEnabled()
+    {
+        return preferences.getBoolean("take_picture_enabled",false);
+    }
 }

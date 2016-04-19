@@ -7,9 +7,16 @@
 
     <SurfaceView
         android:id="@+id/surfaceView"
-        android:layout_gravity="bottom|left"
         android:layout_width="1dp"
         android:layout_height="1dp"
-        android:alpha="0" />
+        android:alpha="0"
+        android:layout_gravity="left|top" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

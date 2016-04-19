@@ -41,7 +41,7 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
     private AlarmProcedureIf handler;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private String authenticatedUser = "";
-    private CameraCapture capture;
+    private  AlarmControllerResources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,7 +60,7 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
 
         wifiChecker = new WifiConnectionChecker(connMgr);
 
-        AlarmControllerResources resources = new AlarmControllerResources(
+        resources = new AlarmControllerResources(
                 PreferenceManager.getDefaultSharedPreferences(this),
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
@@ -128,19 +128,31 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
         Log.d(TAG, "resultReceived");
         authenticationOk = success;
         authenticatedUser = result;
-        if (authenticationOk)
-        {
-            Toast.makeText(getBaseContext(), getString(R.string.pref_message_welcome_home) + authenticatedUser, Toast.LENGTH_LONG).show();
 
-            Intent intent = new Intent(this, Disarmed.class);
+        if (resources.isPictureAtDisarmEnabled())
+        {
+            Intent intent = new Intent(this, CameraActivity.class);
+            intent.putExtra("authenticationOk", success);
+            intent.putExtra("authenticatedUser", result);
+            intent.putExtra(getResources().getString(R.string.alarm_type), alarmType);
+
             startActivity(intent);
         }
         else
         {
-            ((EditText) findViewById(R.id.editText2)).setText("");
-            Toast.makeText(getBaseContext(), R.string.pref_message_faulty_password, Toast.LENGTH_LONG).show();
-        }
+            if (authenticationOk)
+            {
+                Toast.makeText(getBaseContext(), getString(R.string.pref_message_welcome_home) + authenticatedUser, Toast.LENGTH_LONG).show();
 
+                Intent intent = new Intent(this, Disarmed.class);
+                startActivity(intent);
+            }
+            else
+            {
+                ((EditText) findViewById(R.id.editText2)).setText("");
+                Toast.makeText(getBaseContext(), R.string.pref_message_faulty_password, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
 
