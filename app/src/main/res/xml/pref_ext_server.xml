@@ -3,7 +3,6 @@
     <SwitchPreference
         android:key="ext_server_enabled"
         android:title="External server"
-        android:selectable="false"
         android:summary="Enable to send requests to an external server."
         android:defaultValue="false" />
     <EditTextPreference

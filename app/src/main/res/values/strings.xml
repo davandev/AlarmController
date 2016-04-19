@@ -80,5 +80,7 @@
     <string name="pref_message_no_network_connection">No network connection available.</string>
     <string name="pref_message_configuration_not_ok">Configuration is not ok, update configuration.</string>
     <string name="pref_message_no_server_enabled">No authentication server enabled.</string>
+    <string name="pref_message_welcome_home">"Welcome home "</string>
+    <string name="pref_message_faulty_password">Fauly password</string>
 
 </resources>

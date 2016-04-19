@@ -37,11 +37,11 @@ public class AlarmControllerResources
     public String getDefaultUser() { return defaultUser; }
     /* Return the password of the default user*/
     public String getDefaultPassword() { return defaultUserPassword; }
-    public String getSettingsPassword() { return preferences.getString("settings_protection","1234");}
+    public String getSettingsPassword() { return preferences.getString("settings_protection", "1234");}
 
     public boolean isFibaroServerEnabled() { return preferences.getBoolean("fibaro_server_enabled", false); }
     public boolean isExternalServerEnabled() { return preferences.getBoolean("ext_server_enabled",false); }
-
+    public boolean isWakeUpServiceEnabled() {return preferences.getBoolean("wake_up_service_enabled",false);}
     public Resources getResources() { return resources; }
     public SharedPreferences getPreferences()
     {
@@ -76,11 +76,12 @@ public class AlarmControllerResources
             String value = users.get(user);
             Log.d(TAG,"User:"+ user+ " Value:" + value);
             String[] userSettings = value.split(":");
-            if ( Boolean.parseBoolean(userSettings[2]))
-            {
-                defaultUser = user;
-                defaultUserPassword = userSettings[0];
-                break;
+            if (userSettings.length == 3) {
+                if (Boolean.parseBoolean(userSettings[2])) {
+                    defaultUser = user;
+                    defaultUserPassword = userSettings[0];
+                    break;
+                }
             }
         }
     }

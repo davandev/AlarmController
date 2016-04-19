@@ -55,6 +55,14 @@
             android:layout_weight="1"
             android:padding="@dimen/abc_button_padding_vertical_material">
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Take Picture"
+                android:id="@+id/pictureButton"
+                android:onClick="takePicture"
+
+                android:layout_column="0" />
         </TableRow>
 
         <TableRow

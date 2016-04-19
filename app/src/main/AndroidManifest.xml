@@ -10,7 +10,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
     <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:allowBackup="true"
@@ -35,6 +39,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".Disarm"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".camera.CameraActivity"
             android:screenOrientation="landscape" />
 
         <service android:name=".http.WakeUpService" />

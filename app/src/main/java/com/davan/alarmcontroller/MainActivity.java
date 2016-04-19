@@ -20,7 +20,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.davan.alarmcontroller.camera.CameraActivity;
 import com.davan.alarmcontroller.http.WakeUpScreen;
+import com.davan.alarmcontroller.http.WakeUpService;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateListener;
@@ -55,9 +57,18 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
                 PreferenceManager.getDefaultSharedPreferences(this),
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
-        wakeUpScreen = new WakeUpScreen(this);
-
+        startServices();
     }
+
+    private void startServices()
+    {
+        if (resources.isWakeUpServiceEnabled())
+        {
+            Log.d(TAG,"Starting WakeUpService");startService(new Intent(getBaseContext(), WakeUpService.class));
+            wakeUpScreen = new WakeUpScreen(this);
+        }
+    }
+
     @Override
     protected void onDestroy()
     {
@@ -109,6 +120,13 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
         stopService(new Intent(getBaseContext(), WakeUpService.class));
     }
 */
+    public void takePicture(View view)
+    {
+        Log.d(TAG,"takePicture");
+        Intent intent = new Intent(this, CameraActivity.class);
+        startActivity(intent);
+
+    }
     public void startAlarmKeypad(View view)
     {
         Log.d(TAG, "Starting AlarmKeyPad");

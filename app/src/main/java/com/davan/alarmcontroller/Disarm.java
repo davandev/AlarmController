@@ -2,13 +2,18 @@ package com.davan.alarmcontroller;
 /**
  * Created by davandev on 2016-04-12.
  **/
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.Uri;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,8 +23,13 @@ import android.widget.Toast;
 import com.davan.alarmcontroller.authentication.AlarmProcedureIf;
 import com.davan.alarmcontroller.authentication.AlarmProcedureFactory;
 import com.davan.alarmcontroller.authentication.AlarmProcedureResultListener;
+import com.davan.alarmcontroller.camera.CameraActivity;
+import com.davan.alarmcontroller.camera.CameraCapture;
+import com.davan.alarmcontroller.camera.CameraCaptureResultListener;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
+
+import java.io.File;
 
 public class Disarm extends AppCompatActivity implements AlarmProcedureResultListener
 {
@@ -31,6 +41,7 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
     private AlarmProcedureIf handler;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private String authenticatedUser = "";
+    private CameraCapture capture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -111,41 +122,15 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
             ((EditText) findViewById(R.id.editText2)).append(buttonText);
         }
     }
+
     @Override
-    public void resultReceived(boolean success, String result)
-    {
+    public void resultReceived(boolean success, String result) {
         Log.d(TAG, "resultReceived");
         authenticationOk = success;
         authenticatedUser = result;
-        // create Intent to take a picture and return control to the calling application
-        /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File imagesFolder = new File(Environment.getExternalStorageDirectory(), "AlarmController");
-        imagesFolder.mkdirs(); // <----
-        File image = new File(imagesFolder, "image_001.jpg");
-        Uri uriSavedImage = Uri.fromFile(image);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
-        intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
-        // start the image capture Intent
-        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                // Image captured and saved to fileUri specified in the Intent
-                Toast.makeText(this, "Image saved to:\n" +
-                        data.getData(), Toast.LENGTH_LONG).show();
-            } else if (resultCode == RESULT_CANCELED) {
-                // User cancelled the image capture
-            } else {
-                // Image capture failed, advise user
-            }
-        }
-*/
         if (authenticationOk)
         {
-            Toast.makeText(getBaseContext(), "Välkommen hem "+authenticatedUser, Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), getString(R.string.pref_message_welcome_home) + authenticatedUser, Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(this, Disarmed.class);
             startActivity(intent);
@@ -153,8 +138,10 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
         else
         {
             ((EditText) findViewById(R.id.editText2)).setText("");
-            Toast.makeText(getBaseContext(), "Fel lösenord", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), R.string.pref_message_faulty_password, Toast.LENGTH_LONG).show();
         }
 
     }
+
+
 }

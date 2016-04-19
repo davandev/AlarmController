@@ -52,7 +52,7 @@ public class WakeUpService extends Service implements WakeUpReceiver
         catch( IOException ioe )
         {
             Log.d(TAG, "WakeUpService Couldn't start server" + ioe );
-            System.exit( -1 );
+            return START_STICKY;
         }
         Log.d(TAG, "WakeUpService Listening on port 8080");
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
