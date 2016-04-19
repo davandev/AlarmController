@@ -1,4 +1,4 @@
-# Android AlarmController for home automation systems.
+# Android alarm keypad for home automation.
 
 Android application used as an alarm triggering keypad for arming/disarming alarm via a homeautomation system. 
 The idea is to use an wall mounted android phone to arm and disarm my fibaro home alarm.
