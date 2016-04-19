@@ -1,5 +1,7 @@
 # Android alarm keypad for home automation.
 
+https://cloud.githubusercontent.com/assets/756370/14658381/a270953a-0693-11e6-8a3c-236fedf1ac3d.png
+
 Android application used as an alarm triggering keypad for arming/disarming alarm via a homeautomation system. 
 The idea is to use an wall mounted android phone to arm and disarm my fibaro home alarm.
 
