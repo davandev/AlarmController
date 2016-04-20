@@ -163,13 +163,13 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     @Override
     public void alarmStateUpdate(String alarmState, String alarmType)
     {
-        if (alarmState.compareTo(getResources().getString(R.string.alarm_state_disarmed)) == 0)
+        if (alarmState.compareTo(resources.getFibaroAlarmStateValueDisarmed()) == 0)
         {
             Intent intent = new Intent(this, Disarmed.class);
             startActivity(intent);
         }
 
-        if (alarmState.compareTo(getResources().getString(R.string.alarm_state_armed)) == 0)
+        if (alarmState.compareTo(resources.getFibaroAlarmStateValueArmed()) == 0)
         {
             Intent intent = new Intent(this, Armed.class);
             intent.putExtra(getResources().getString(R.string.alarm_type), alarmType);

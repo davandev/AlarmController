@@ -3,7 +3,6 @@
         android:key="fibaro_server_enabled"
         android:title="@string/pref_title_fibaro_server_enabled"
         android:summary="@string/pref_summary_fibaro_server_enabled"
-        android:selectable="false"
         android:defaultValue="false" />
     <EditTextPreference
         android:key="arm_shell_scene"

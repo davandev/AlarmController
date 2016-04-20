@@ -123,7 +123,7 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
     @Override
     public void alarmStateUpdate(String alarmState, String alarmType)
     {
-        if (alarmState.compareTo(getResources().getString(R.string.alarm_state_disarmed)) == 0)
+        if (alarmState.compareTo(resources.getFibaroAlarmStateValueDisarmed()) == 0)
         {
             Log.d(TAG,"Alarm is already disarmed");
             Intent intent = new Intent(this, Disarmed.class);

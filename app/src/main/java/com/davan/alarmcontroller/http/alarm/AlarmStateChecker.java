@@ -65,11 +65,11 @@ public class AlarmStateChecker implements RequestDispatcherResultListener
             for (int i = 0; i < jsonArray.length(); i++)
             {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                if (jsonObject.getString("name").compareTo("AlarmState") == 0)
+                if (jsonObject.getString("name").compareTo(resources.getFibaroAlarmStateVariableName()) == 0)
                 {
                     alarmState = jsonObject.getString("value");
                 }
-                else if (jsonObject.getString("name").compareTo("AlarmType") == 0)
+                else if (jsonObject.getString("name").compareTo(resources.getFibaroAlarmTypeVariableName()) == 0)
                 {
                     alarmType = jsonObject.getString("value");
                 }
