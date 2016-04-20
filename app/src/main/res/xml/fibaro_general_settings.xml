@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="fibaro_required_settings"
+        android:title="@string/pref_title_required_configuration"
+        android:summary="">
+        <Preference
+            android:summary="@string/pref_summary_required_configuration"
+            android:selectable="false">
+        </Preference>
+        <EditTextPreference
+            android:key="fibaro_auth_server_address"
+            android:title="@string/pref_title_display_name"
+            android:defaultValue="@string/pref_default_display_name"
+            android:selectAllOnFocus="true"
+            android:hint="Configure the address to Fibaro server"
+            android:summary="Configure the address to Fibaro server"
+            android:inputType="text"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:maxLines="1" />
+        <PreferenceScreen
+            android:title="Fibaro Users"
+            android:summary="Configure Fibaro users">
+            <intent android:action="android.intent.action.VIEW"
+                android:targetPackage="com.davan.alarmcontroller"
+                android:targetClass="com.davan.alarmcontroller.settings.UsersSettingsActivity"/>
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:title="Fibaro global variable Alarm Type"
+            android:summary="Configure Fibaro alarm type variable and possible values">
+            <Preference
+                android:summary="
+The variable needs to be configured as a global variable in the Fibaro system and should reflect the different type of alarms.\n
+Only two different protection types are currently supported (Alarm and Shell).\n
+Alarm = All devices are armed (door/window/motion sensors)\n
+Shell = Only the outer shell are armed (door/window sensors)"
+                android:selectable="false">
+            </Preference>
+            <EditTextPreference
+                android:key="fibaro_variable_alarmtype"
+                android:title="Global variable that gives the current alarm type"
+                android:defaultValue="@string/alarm_type"
+                android:selectAllOnFocus="true"
+                android:inputType="text"
+                android:capitalize="words"
+                android:singleLine="true"
+                android:maxLines="1" />
+            <EditTextPreference
+                android:key="fibaro_variable_alarmtype_fullhouse"
+                android:title="Value during active alarm"
+                android:defaultValue="Alarm"
+                android:selectAllOnFocus="true"
+                android:inputType="text"
+                android:capitalize="words"
+                android:singleLine="true"
+                android:maxLines="1" />
+            <EditTextPreference
+                android:key="fibaro_variable_alarmtype_perimeter"
+                android:title="Value during active perimeter alarm"
+                android:defaultValue="Shell"
+                android:selectAllOnFocus="true"
+                android:inputType="text"
+                android:capitalize="words"
+                android:singleLine="true"
+                android:maxLines="1" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:title="Fibaro global variable Alarm State"
+            android:summary="Configure Fibaro alarm state variable and possible values">
+
+            <Preference
+                android:summary="
+The variable needs to be configured as a global variable in Fibaro system and should reflect the different states of the alarm.
+The variable on the Fibaro system could hold several different states but this application is only interested in values for disarmed and armed state. "
+                android:selectable="false">
+            </Preference>
+            <EditTextPreference
+                android:key="fibaro_variable_alarmstate"
+                android:title="Global variable that keeps the current alarm state"
+                android:defaultValue="alarmState"
+                android:selectAllOnFocus="true"
+                android:inputType="text"
+                android:capitalize="words"
+                android:singleLine="true"
+                android:maxLines="1" />
+            <EditTextPreference
+                android:key="fibaro_variable_alarmstate_armed"
+                android:title="Armed state value"
+                android:defaultValue="Armed"
+                android:selectAllOnFocus="true"
+                android:inputType="text"
+                android:capitalize="words"
+                android:singleLine="true"
+                android:maxLines="1" />
+            <EditTextPreference
+                android:key="fibaro_variable_alarmstate_disarmed"
+                android:title="Disarmed state value"
+                android:defaultValue="Disarmed"
+                android:selectAllOnFocus="true"
+                android:inputType="text"
+                android:capitalize="words"
+                android:singleLine="true"
+                android:maxLines="1" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>

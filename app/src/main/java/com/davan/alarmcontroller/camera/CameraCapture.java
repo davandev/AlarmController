@@ -107,7 +107,21 @@ public class CameraCapture implements SurfaceHolder.Callback
         Log.d(TAG, "surfaceCreated");
         if (Camera.getNumberOfCameras() >1)
         {
+/*            Camera.Parameters params = camera.getParameters();
+
+            params.setExposureCompensation(params.getMaxExposureCompensation());
+
+            if(params.isAutoExposureLockSupported()) {
+                params.setAutoExposureLock(false);
+            }
+            params.setSceneMode(Camera.Parameters.SCENE_MODE_NIGHT);
+            camera.setParameters(params);*/
             camera = Camera.open(1);
+        }
+        else
+        {
+            Log.d(TAG, "surfaceCreated, not front camera found");
+
         }
     }
 

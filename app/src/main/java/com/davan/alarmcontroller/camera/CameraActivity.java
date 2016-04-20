@@ -22,6 +22,7 @@ import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -204,11 +205,16 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     };
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) {
+    public void surfaceCreated(SurfaceHolder holder)
+    {
         Log.d(TAG, "surfaceCreated");
         if (Camera.getNumberOfCameras() >1)
         {
             camera = Camera.open(1);
+        }
+        else
+        {
+            sendPicture();
         }
 /*        Camera camera = null;
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
@@ -250,7 +256,13 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
             e.printStackTrace();
         }
         camera.startPreview();
-        camera.takePicture(null, null, null, jpegCallBack);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                camera.takePicture(null, null, jpegCallBack);
+            }
+        }, 1000);
+        //camera.takePicture(null, null, null, jpegCallBack);
         mPreviewRunning = true;
 
 

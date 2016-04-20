@@ -69,14 +69,15 @@
     <string name="action_help">Help</string>
     <string name="action_about">About</string>
     <string name="pref_title_screen_wakeup">Screen WakeUp</string>
-    <string name="pref_summary_wakeup_service">The WakeUp service will start a webserver and listen for wakeup requests. At reception of a request the screen will wakeup. The Fibaro system could typically trigger a request when a motion detector or a door sensor is breached.</string>
+    <string name="pref_summary_wakeup_service">The WakeUp service will start a webserver and listen for wakeup requests. At reception of a request the screen will wakeup. In the Fibaro system you need to configure a scene that will trigger a request when a motion detector or a door sensor is breached.</string>
     <string name="pref_summaryon_wakeup_service">Server started and will wakeup screen received request</string>
     <string name="pref_title_future_features">Future features</string>
     <string name="pref_summary_coming_features">Below lists coming features, if I manage to implement them</string>
     <string name="pref_title_fibaro_server_enabled">Control via Fibaro server</string>
     <string name="pref_summary_fibaro_server_enabled">Enable to send requests directly to the Fibaro system.</string>
     <string name="pref_title_required_configuration">Required configuration</string>
-    <string name="pref_summary_required_configuration">It is required to configure Fibaro server address and at least on Fibaro user</string>
+    <string name="pref_summary_required_configuration">Following settings are mandatory, and are used to fetch the current state of the Fibaro security system. At least one Fibaro user needs to be configured.</string>
+    <!--Messages-->
     <string name="pref_message_no_network_connection">No network connection available.</string>
     <string name="pref_message_configuration_not_ok">Configuration is not ok, update configuration.</string>
     <string name="pref_message_no_server_enabled">No authentication server enabled.</string>

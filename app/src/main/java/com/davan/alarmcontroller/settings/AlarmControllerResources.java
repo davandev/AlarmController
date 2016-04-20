@@ -37,17 +37,24 @@ public class AlarmControllerResources
     public String getDefaultUser() { return defaultUser; }
     /* Return the password of the default user*/
     public String getDefaultPassword() { return defaultUserPassword; }
+    /* Return the password protecting settings menu*/
     public String getSettingsPassword() { return preferences.getString("settings_protection", "1234");}
 
     public boolean isFibaroServerEnabled() { return preferences.getBoolean("fibaro_server_enabled", false); }
     public boolean isExternalServerEnabled() { return preferences.getBoolean("ext_server_enabled",false); }
     public boolean isWakeUpServiceEnabled() {return preferences.getBoolean("wake_up_service_enabled",false);}
     public Resources getResources() { return resources; }
-    public SharedPreferences getPreferences()
-    {
-        return preferences;
-    }
+    public SharedPreferences getPreferences() { return preferences; }
+    public String getFibaroAlarmStateVariableName() { return preferences.getString("fibaro_variable_alarmstate", "AlarmState");}
+    public String getFibaroAlarmStateValueDisarmed() { return preferences.getString("fibaro_variable_alarmstate_disarmed", "Disarmed");}
+    public String getFibaroAlarmStateValueArmed() { return preferences.getString("fibaro_variable_alarmstate_armed", "Armed");}
 
+    public String getFibaroAlarmTypeVariableName() { return preferences.getString("fibaro_variable_alarmtype", "AlarmType");}
+    public String getFibaroAlarmTypeValueFullHouseArmed() { return preferences.getString("fibaro_variable_alarmtype_fullhouse", "Alarm");}
+    public String getFibaroAlarmTypeValuePerimeterArmed() { return preferences.getString("fibaro_variable_alarmtype_perimeter", "Perimeter");}
+
+    /* Return the fibaro user and password matching the pin code
+    * Throws exception if no matching user is found */
     public Pair<String,String> getUser(String pin) throws Exception
     {
         Log.d(TAG,"getUser with pin[" + pin + "]");
@@ -63,6 +70,9 @@ public class AlarmControllerResources
         throw new Exception("User not found");
     }
 
+    /**
+     * Iterate through all users in search for the default user.
+     */
     private void findDefaultUser()
     {
         for( Map.Entry entry : userPreferences.getAll().entrySet() )
@@ -103,6 +113,10 @@ public class AlarmControllerResources
         if (!isFibaroServerEnabled() && !isExternalServerEnabled())
         {
             throw new Exception("Either Fibaro server procedure or External server procedure needs to be configured.");
+        }
+        if (isFibaroServerEnabled() && isExternalServerEnabled())
+        {
+            throw new Exception("Both Fibaro server procedure or External server procedure is currently configured.");
         }
     }
 

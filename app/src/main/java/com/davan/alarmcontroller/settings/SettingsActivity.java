@@ -183,6 +183,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || ApplicationPreferenceFragment.class.getName().equals(fragmentName)
+                || FibaroGeneralPreferenceFragment.class.getName().equals(fragmentName)
                 || FibaroServerPreferenceFragment.class.getName().equals(fragmentName)
                 || ExternalServerPreferenceFragment.class.getName().equals(fragmentName);
     }
@@ -215,7 +216,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             addPreferencesFromResource(R.xml.pref_fibaro_server);
             setHasOptionsMenu(true);
 
-            bindPreferenceSummaryToValue(findPreference("fibaro_auth_server_address"));
             bindPreferenceSummaryToValue(findPreference("arm_alarm_scene"));
             bindPreferenceSummaryToValue(findPreference("disarm_alarm_scene"));
             bindPreferenceSummaryToValue(findPreference("arm_shell_scene"));
@@ -291,4 +291,39 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             return super.onOptionsItemSelected(item);
         }
     }
+    /**
+     * This fragment shows external server preferences only.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class FibaroGeneralPreferenceFragment extends PreferenceFragment
+    {
+        @Override
+        public void onCreate(Bundle savedInstanceState)
+        {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.fibaro_general_settings);
+            setHasOptionsMenu(true);
+
+            bindPreferenceSummaryToValue(findPreference("fibaro_auth_server_address"));
+            bindPreferenceSummaryToValue(findPreference("fibaro_variable_alarmtype"));
+            bindPreferenceSummaryToValue(findPreference("fibaro_variable_alarmtype_fullhouse"));
+            bindPreferenceSummaryToValue(findPreference("fibaro_variable_alarmtype_perimeter"));
+            bindPreferenceSummaryToValue(findPreference("fibaro_variable_alarmstate"));
+            bindPreferenceSummaryToValue(findPreference("fibaro_variable_alarmstate_armed"));
+            bindPreferenceSummaryToValue(findPreference("fibaro_variable_alarmstate_disarmed"));
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item)
+        {
+            int id = item.getItemId();
+            if (id == android.R.id.home)
+            {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

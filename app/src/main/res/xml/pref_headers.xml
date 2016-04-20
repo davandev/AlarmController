@@ -8,6 +8,12 @@
         android:summary="General Application settings"
         />
     <header
+        android:fragment="com.davan.alarmcontroller.settings.SettingsActivity$FibaroGeneralPreferenceFragment"
+        android:title="Fibaro general settings"
+        android:key="fibarogeneralsettings"
+        android:summary="General Fibaro settings"
+        />
+    <header
         android:fragment="com.davan.alarmcontroller.settings.SettingsActivity$FibaroServerPreferenceFragment"
         android:title="@string/pref_fibaro_server_general"
         android:key="fibaroserver"
