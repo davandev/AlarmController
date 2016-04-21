@@ -11,6 +11,5 @@ The idea is to use an wall mounted android phone to arm and disarm my fibaro hom
 Be aware that the security for storing users and passwords is currently not great.., passwords are currently stored in plain text on local device. 
 
 - Default pin for unlocking settings menu is "1234"
--Wakeup of screen does not work properly, workaround is to make use of "Motion Detector" or "Screen Notifications" from google play.
 Notice that this application has only been tested with a Fibaro HC2 system.
 
