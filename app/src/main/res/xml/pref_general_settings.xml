@@ -44,4 +44,41 @@
             android:summaryOn="@string/pref_summaryon_wakeup_service"
             android:summaryOff=""/>
     </PreferenceScreen>
+    <PreferenceScreen
+        android:key="telegram_settings"
+        android:title="@string/pref_title_telegram">
+        <Preference
+            android:summary="@string/pref_summary_telegram"
+            android:selectable="false">
+        </Preference>
+        <CheckBoxPreference
+            android:key="telegram_enabled"
+            android:title="Enable sending Telegram messages"
+            android:defaultValue="false"
+            android:enabled="true"
+            android:summaryOn="Send message to Telegram"
+            android:summaryOff=""/>
+        <EditTextPreference
+            android:key="telegram_token"
+            android:title="@string/pref_title_telegram_token"
+            android:summary="@string/pref_summary_telegram_token"
+            android:defaultValue=""
+            android:selectAllOnFocus="true"
+            android:inputType="text"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:textColorHint="#000000"
+            android:maxLines="1" />
+        <EditTextPreference
+            android:key="telegram_chat_id"
+            android:title="@string/pref_title_telegram_chatid"
+            android:summary="@string/pref_summary_telegram_chat_id"
+            android:defaultValue=""
+            android:selectAllOnFocus="true"
+            android:inputType="text"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:textColorHint="#000000"
+            android:maxLines="1" />
+    </PreferenceScreen>
 </PreferenceScreen>

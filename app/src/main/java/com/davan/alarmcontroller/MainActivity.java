@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.davan.alarmcontroller.camera.CameraActivity;
+import com.davan.alarmcontroller.http.TelegramActivity;
 import com.davan.alarmcontroller.http.WakeUpScreen;
 import com.davan.alarmcontroller.http.WakeUpService;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
@@ -123,8 +124,11 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     public void takePicture(View view)
     {
         Log.d(TAG,"takePicture");
-        Intent intent = new Intent(this, CameraActivity.class);
-        startActivity(intent);
+        TelegramActivity telegram = new TelegramActivity(resources);
+       telegram.sendMessage("test sending message");
+        //telegram.sendPhoto();
+       // Intent intent = new Intent(this, CameraActivity.class);
+       // startActivity(intent);
 
     }
     public void startAlarmKeypad(View view)

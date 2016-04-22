@@ -26,6 +26,7 @@ import com.davan.alarmcontroller.authentication.AlarmProcedureResultListener;
 import com.davan.alarmcontroller.camera.CameraActivity;
 import com.davan.alarmcontroller.camera.CameraCapture;
 import com.davan.alarmcontroller.camera.CameraCaptureResultListener;
+import com.davan.alarmcontroller.http.TelegramActivity;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
@@ -37,10 +38,10 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
 
     private String alarmType = "";
     private boolean authenticationOk = false;
+    private String authenticatedUser = "";
+
     private WifiConnectionChecker wifiChecker;
     private AlarmProcedureIf handler;
-    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-    private String authenticatedUser = "";
     private  AlarmControllerResources resources;
 
     @Override
@@ -140,15 +141,19 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
         }
         else
         {
+            TelegramActivity telegram = new TelegramActivity(resources);
+
             if (authenticationOk)
             {
                 Toast.makeText(getBaseContext(), getString(R.string.pref_message_welcome_home) + authenticatedUser, Toast.LENGTH_LONG).show();
-
+                telegram.sendMessage("Home Alarm disarmed by " + authenticatedUser);
                 Intent intent = new Intent(this, Disarmed.class);
                 startActivity(intent);
             }
             else
             {
+                telegram.sendMessage("A faulty disarm attempt has occured.");
+
                 ((EditText) findViewById(R.id.editText2)).setText("");
                 Toast.makeText(getBaseContext(), R.string.pref_message_faulty_password, Toast.LENGTH_LONG).show();
             }

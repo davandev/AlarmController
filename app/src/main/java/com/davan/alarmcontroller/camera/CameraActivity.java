@@ -23,6 +23,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -37,6 +38,8 @@ import com.davan.alarmcontroller.Disarm;
 import com.davan.alarmcontroller.Disarmed;
 import com.davan.alarmcontroller.MainActivity;
 import com.davan.alarmcontroller.R;
+import com.davan.alarmcontroller.http.TelegramActivity;
+import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
 public class CameraActivity extends Activity implements SurfaceHolder.Callback
 {
@@ -51,6 +54,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     private boolean authenticationOk;
     private String authenticatedUser;
     private String alarmType;
+    private  AlarmControllerResources resources;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -67,6 +71,10 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_camera);
         mSurfaceView = (SurfaceView) findViewById(R.id.surfaceView); //new SurfaceView(this);
+        resources = new AlarmControllerResources(
+                PreferenceManager.getDefaultSharedPreferences(this),
+                getSharedPreferences("com.davan.alarmcontroller.users", 0),
+                getResources());
 
         Log.d(TAG, "oncreate");
         requestPermission(this);
@@ -90,9 +98,12 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
     public void sendPicture()
     {
+        TelegramActivity telegram = new TelegramActivity(resources);
+
         if (authenticationOk)
         {
             Toast.makeText(getBaseContext(), getString(R.string.pref_message_welcome_home) + authenticatedUser, Toast.LENGTH_LONG).show();
+            telegram.sendMessage("Home Alarm disarmed by " + authenticatedUser);
 
             Intent intent = new Intent(this, Disarmed.class);
             startActivity(intent);
@@ -100,6 +111,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         else
         {
             Toast.makeText(getBaseContext(), R.string.pref_message_faulty_password, Toast.LENGTH_LONG).show();
+            telegram.sendMessage("A faulty disarm attempt has occured.");
 
             Intent intent = new Intent(this, Disarm.class);
             intent.putExtra("AlarmType",alarmType);

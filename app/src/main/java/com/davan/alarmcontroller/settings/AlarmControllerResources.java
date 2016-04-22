@@ -7,6 +7,8 @@ import android.content.res.Resources;
 import android.util.Log;
 import android.util.Pair;
 
+import com.davan.alarmcontroller.R;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -41,8 +43,8 @@ public class AlarmControllerResources
     public String getSettingsPassword() { return preferences.getString("settings_protection", "1234");}
 
     public boolean isFibaroServerEnabled() { return preferences.getBoolean("fibaro_server_enabled", false); }
-    public boolean isExternalServerEnabled() { return preferences.getBoolean("ext_server_enabled",false); }
-    public boolean isWakeUpServiceEnabled() {return preferences.getBoolean("wake_up_service_enabled",false);}
+    public boolean isExternalServerEnabled() { return preferences.getBoolean("ext_server_enabled", false); }
+    public boolean isWakeUpServiceEnabled() {return preferences.getBoolean("wake_up_service_enabled", false);}
     public Resources getResources() { return resources; }
     public SharedPreferences getPreferences() { return preferences; }
     public String getFibaroAlarmStateVariableName() { return preferences.getString("fibaro_variable_alarmstate", "AlarmState");}
@@ -53,6 +55,17 @@ public class AlarmControllerResources
     public String getFibaroAlarmTypeValueFullHouseArmed() { return preferences.getString("fibaro_variable_alarmtype_fullhouse", "Alarm");}
     public String getFibaroAlarmTypeValuePerimeterArmed() { return preferences.getString("fibaro_variable_alarmtype_perimeter", "Perimeter");}
 
+    public String getTelegramToken() { return preferences.getString("telegram_token","");}
+    public String getTelegramChatId() { return preferences.getString("telegram_chat_id","");}
+    public boolean isTelegramEnabled() { return preferences.getBoolean("telegram_enabled", false);}
+
+    public String getTelegramSendMessageUrl(String token, String chatId)
+    {
+        String url = resources.getString(R.string.pref_url_telegram_send_message);
+        url = url.replace("<token>",token);
+        url = url.replace("<chatId>",chatId);
+        return url;
+    }
     /* Return the fibaro user and password matching the pin code
     * Throws exception if no matching user is found */
     public Pair<String,String> getUser(String pin) throws Exception

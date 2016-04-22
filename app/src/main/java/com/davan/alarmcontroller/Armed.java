@@ -62,7 +62,7 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
 
-        if (alarmType.compareTo(getResources().getString(R.string.alarm_type_alarm)) == 0)
+        if (alarmType.compareTo(resources.getFibaroAlarmTypeValueFullHouseArmed()) == 0)
         {
             ((ImageButton)findViewById(R.id.imageButton)).setImageResource(R.drawable.locked_alarm);
         }
@@ -86,7 +86,8 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // show menu when menu button is pressed
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settings, menu);

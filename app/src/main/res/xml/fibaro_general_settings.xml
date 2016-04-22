@@ -79,7 +79,7 @@ The variable on the Fibaro system could hold several different states but this a
             <EditTextPreference
                 android:key="fibaro_variable_alarmstate"
                 android:title="Global variable that keeps the current alarm state"
-                android:defaultValue="alarmState"
+                android:defaultValue="AlarmState"
                 android:selectAllOnFocus="true"
                 android:inputType="text"
                 android:capitalize="words"

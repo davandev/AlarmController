@@ -26,7 +26,7 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
     private static final String TAG = Arm.class.getSimpleName();
     private AlarmProcedureIf handler;
     private String alarmType = "0";
-
+    private AlarmControllerResources resources;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -37,7 +37,7 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
 
         Intent myIntent = getIntent();
         alarmType = myIntent.getStringExtra(getResources().getString(R.string.alarm_type));
-        AlarmControllerResources resources = new AlarmControllerResources(
+        resources = new AlarmControllerResources(
                 PreferenceManager.getDefaultSharedPreferences(this),
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
@@ -46,7 +46,7 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
             handler = AlarmProcedureFactory.createProcedure(resources, this);
             handler.arm(alarmType);
 
-            if(alarmType.compareTo(getResources().getString(R.string.alarm_type_alarm)) ==0 )
+            if(alarmType.compareTo(resources.getFibaroAlarmTypeValueFullHouseArmed()) ==0 )
             {
                 setContentView(R.layout.activity_arming);
             }
@@ -105,7 +105,7 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
     @Override
     public void resultReceived(boolean success, String result)
     {
-        if (alarmType.compareTo(getResources().getString(R.string.alarm_type_skalskydd)) == 0)
+        if (alarmType.compareTo(resources.getFibaroAlarmTypeValuePerimeterArmed()) == 0)
         {
             armed();
         }

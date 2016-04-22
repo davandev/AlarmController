@@ -92,12 +92,12 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
 
     public void armSkalskydd(View view)
     {
-        arm(getResources().getString(R.string.alarm_type_skalskydd));
+        arm(resources.getFibaroAlarmTypeValuePerimeterArmed());
     }
 
     public void armAlarm(View view)
     {
-        arm(getResources().getString(R.string.alarm_type_alarm));
+        arm(resources.getFibaroAlarmTypeValueFullHouseArmed());
     }
 
     private void arm(String alarmType)

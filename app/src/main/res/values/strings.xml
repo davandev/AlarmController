@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmartHome AlarmController</string>
+    <string name="app_name">SmartHome SoftKeypad</string>
     <string name="alarm_type_skalskydd">Skalskydd</string>
     <string name="alarm_type_alarm">Alarm</string>
     <string name="arming">Arming</string>
@@ -82,6 +82,13 @@
     <string name="pref_message_configuration_not_ok">Configuration is not ok, update configuration.</string>
     <string name="pref_message_no_server_enabled">No authentication server enabled.</string>
     <string name="pref_message_welcome_home">"Welcome home "</string>
-    <string name="pref_message_faulty_password">Fauly password</string>
+    <string name="pref_message_faulty_password">Faulty password</string>
+    <string name="pref_title_telegram">Telegram settings</string>
+    <string name="pref_summary_telegram">Enable application to send telegram messages to a bot.</string>
+    <string name="pref_title_telegram_token">Telegram token</string>
+    <string name="pref_summary_telegram_token">The generated Telegram token</string>
+    <string name="pref_title_telegram_chatid">Chat Id</string>
+    <string name="pref_summary_telegram_chat_id">The Telegram chat id</string>
+    <string name="pref_url_telegram_send_message"><![CDATA[https://api.telegram.org/bot<token>/sendMessage?chat_id=<chatId>&text=]]></string>
 
 </resources>
