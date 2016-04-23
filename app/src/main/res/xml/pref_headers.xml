@@ -5,25 +5,25 @@
         android:fragment="com.davan.alarmcontroller.settings.SettingsActivity$ApplicationPreferenceFragment"
         android:key="applicationsettings"
         android:title="@string/pref_general_application_settings"
-        android:summary="General Application settings"
+        android:summary="@string/pref_summary_general_application_settings"
         />
     <header
         android:fragment="com.davan.alarmcontroller.settings.SettingsActivity$FibaroGeneralPreferenceFragment"
-        android:title="Fibaro general settings"
+        android:title="@string/pref_title_fibaro_general_settings"
         android:key="fibarogeneralsettings"
-        android:summary="General Fibaro settings"
+        android:summary="@string/pref_summary_fibaro_general_settings"
         />
     <header
         android:fragment="com.davan.alarmcontroller.settings.SettingsActivity$FibaroServerPreferenceFragment"
         android:title="@string/pref_fibaro_server_general"
         android:key="fibaroserver"
-        android:summary="Configuration when authenticating and arming/disarming directly with Fibaro system."
+        android:summary="@string/pref_summary_fibaro_server_general"
     />
     <header
         android:fragment="com.davan.alarmcontroller.settings.SettingsActivity$ExternalServerPreferenceFragment"
         android:key="externalserver"
         android:title="@string/pref_external_server_general"
-        android:summary="Configuration when using an external server to perform pincode authentication and arming/disarming the Fibaro system."
+        android:summary="@string/pref_summary_external_server_general"
         />
 
 

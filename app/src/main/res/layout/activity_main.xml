@@ -40,7 +40,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="View Alarm Keypad"
+                android:text="@string/pref_text_view_alarmkeypad"
                 android:onClick="startAlarmKeypad"
                 android:id="@+id/button25"
 
@@ -58,7 +58,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Take Picture"
+                android:text="@string/pref_test_take_picture"
                 android:id="@+id/pictureButton"
                 android:onClick="takePicture"
 
@@ -95,10 +95,6 @@
             android:gravity="center"
             android:layout_weight="1"
             android:padding="@dimen/abc_button_padding_vertical_material">
-
-
         </TableRow>
     </TableLayout>
-
-
 </RelativeLayout>

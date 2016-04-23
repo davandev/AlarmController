@@ -86,7 +86,8 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
 
     public void startArmingCountDown()
     {
-        new CountDownTimer(30000, 100)
+        int escapeTime = Integer.getInteger(resources.getEscapingTime());
+        new CountDownTimer(escapeTime, 100)
         {
             public void onTick(long millisUntilFinished)
             {

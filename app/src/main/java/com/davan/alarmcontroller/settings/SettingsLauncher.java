@@ -30,7 +30,7 @@ public class SettingsLauncher
         final EditText usernameInput=(EditText)layout.findViewById(R.id.passwordfield);
         alert.setView(layout);
 
-        alert.setTitle("Unlock settings menu");
+        alert.setTitle(R.string.pref_title_unlock_settings_menu);
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String value1 = usernameInput.getText().toString();

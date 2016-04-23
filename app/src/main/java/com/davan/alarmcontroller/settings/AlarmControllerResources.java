@@ -41,6 +41,7 @@ public class AlarmControllerResources
     public String getDefaultPassword() { return defaultUserPassword; }
     /* Return the password protecting settings menu*/
     public String getSettingsPassword() { return preferences.getString("settings_protection", "1234");}
+    public String getEscapingTime() { return preferences.getString("escaping_time","30");}
 
     public boolean isFibaroServerEnabled() { return preferences.getBoolean("fibaro_server_enabled", false); }
     public boolean isExternalServerEnabled() { return preferences.getBoolean("ext_server_enabled", false); }
@@ -92,16 +93,13 @@ public class AlarmControllerResources
         {
             users.put(entry.getKey().toString(), entry.getValue().toString());
         }
-        Iterator it = users.keySet().iterator();
-        while (it.hasNext())
-        {
-            String user = (String)it.next();
+        for (Object user : users.keySet()) {
             String value = users.get(user);
-            Log.d(TAG,"User:"+ user+ " Value:" + value);
+            Log.d(TAG, "User:" + user + " Value:" + value);
             String[] userSettings = value.split(":");
             if (userSettings.length == 3) {
                 if (Boolean.parseBoolean(userSettings[2])) {
-                    defaultUser = user;
+                    defaultUser = (String)user;
                     defaultUserPassword = userSettings[0];
                     break;
                 }

@@ -45,22 +45,23 @@ import java.util.logging.Logger;
 
 import com.davan.alarmcontroller.http.util.ServerRunner;
 import com.davan.alarmcontroller.http.util.WakeUpReceiver;
-/**
- * An example of subclassing NanoHTTPD to make a custom HTTP server.
- */
 public class WakeUpServer extends NanoHTTPD {
 
     /**
      * logger to log to.
      */
     private static final String CLASSNAME = WakeUpServer.class.getName();
+    /**
+     * Listener of received requests.
+     */
     private WakeUpReceiver receiver;
 
     public static void main(String[] args) {
         ServerRunner.run(WakeUpServer.class);
     }
 
-    public WakeUpServer(WakeUpReceiver callbackReceiver) {
+    public WakeUpServer(WakeUpReceiver callbackReceiver)
+    {
         super(8080);
         receiver = callbackReceiver;
         try
@@ -74,8 +75,8 @@ public class WakeUpServer extends NanoHTTPD {
     }
 
 
-    public void printLocalAddress()throws IOException {
-
+    public void printLocalAddress()throws IOException
+    {
         try
         {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
@@ -86,7 +87,7 @@ public class WakeUpServer extends NanoHTTPD {
                     InetAddress inetAddress = enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress())
                     {
-                        Log.d(CLASSNAME,inetAddress.getHostAddress().toString());
+                        Log.d(CLASSNAME,inetAddress.getHostAddress());
                     }
                 }
             }
@@ -96,10 +97,12 @@ public class WakeUpServer extends NanoHTTPD {
     }
 
     @Override
-    public Response serve(IHTTPSession session) {
+    public Response serve(IHTTPSession session)
+    {
         Method method = session.getMethod();
         String uri = session.getUri();
         Log.d(CLASSNAME, method + " '" + uri + "' ");
+
         if(uri.compareTo("/WakeUp") == 0)
         {
             receiver.wakeup();

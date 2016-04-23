@@ -14,7 +14,7 @@
         app:contentInsetStart="0dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:title="Configure Fibaro users"
+        android:title="@string/pref_title_config_fibaro_users"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -22,7 +22,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="The list should contain all the users that will use the keypad, the user and password must equal the configuration on the fibaro system. You should only have one default user, this user will be used when fetching the alarm status from the fibaro system."
+        android:text="@string/pref_text_fibaro_users"
         android:id="@+id/textView" />
 
     <ListView

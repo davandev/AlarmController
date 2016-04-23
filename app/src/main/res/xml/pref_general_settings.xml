@@ -24,10 +24,10 @@
         android:maxLines="1" />
     <CheckBoxPreference
         android:key="take_picture_enabled"
-        android:title="Camera"
+        android:title="@string/pref_title_camera"
         android:defaultValue="false"
-        android:summaryOn="Take a picture at disarm attempt"
-        android:summaryOff="Takes a picture at disarm attempt"
+        android:summaryOn="@string/pref_summary_on_camera"
+        android:summaryOff="@string/pref_summary_off_camera"
         android:enabled="true"/>
     <PreferenceScreen
         android:key="wake_up_service"
@@ -53,7 +53,7 @@
         </Preference>
         <CheckBoxPreference
             android:key="telegram_enabled"
-            android:title="Enable sending Telegram messages"
+            android:title="@string/pref_title_enable_telegram_messages"
             android:defaultValue="false"
             android:enabled="true"
             android:summaryOn="Send message to Telegram"

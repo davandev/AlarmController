@@ -36,7 +36,7 @@
 
     <!-- Fibaro server settings -->
         <string name="pref_title_display_name">Fibaro server adress</string>
-        <string name="pref_default_display_name"></string>
+        <string name="pref_default_display_name">192.0.0.0</string>
 
         <!-- Alarm settings -->
         <string name="pref_title_arm_alarm_scene">Arm alarm scene id</string>
@@ -90,5 +90,46 @@
     <string name="pref_title_telegram_chatid">Chat Id</string>
     <string name="pref_summary_telegram_chat_id">The Telegram chat id</string>
     <string name="pref_url_telegram_send_message"><![CDATA[https://api.telegram.org/bot<token>/sendMessage?chat_id=<chatId>&text=]]></string>
+    <string name="prf_title_external_server_enabled">External server</string>
+    <string name="pref_summary_external_server_enabled">Enable to send requests to an external server.</string>
+    <string name="pref_title_camera">Camera</string>
+    <string name="pref_title_enable_telegram_messages">Enable sending Telegram messages</string>
+    <string name="pref_summary_on_enable_telegram_messages">Send message to Telegram</string>
+    <string name="preff_title_fibaro_general_settings">Fibaro general settings</string>
+    <string name="pref_summary_general_fibaro_settings">General Fibaro settings</string>
+    <string name="pref_summary_fibaro_server_settings">Configuration when authenticating and arming/disarming directly with Fibaro system.</string>
+    <string name="pref_summary_external_server_settings">Configuration when using an external server to perform pincode authentication and arming/disarming the Fibaro system.</string>
+    <string name="pref_title_fibaro_variable_alarmstate">Global variable that keeps the current alarm state</string>
+    <string name="pref_title_fibaro_variable_alarmstate_armed">Armed state value</string>
+    <string name="pref_title_fibaro_variable_alarmstate_disarmed">Disarmed state value</string>
+    <string name="pref_summary_fibaro_variable_alarmtype">The variable needs to be configured as a global variable in the Fibaro system and should reflect the different type of alarms.\n Only two different protection types are currently supported (Alarm and Shell).\n Alarm = All devices are armed (door/window/motion sensors)\n Shell = Only the outer shell are armed (door/window sensors)</string>
+    <string name="pref_title_fibaro_variable_alarmtype">Global variable that gives the current alarm type</string>
+    <string name="pref_hint_fibaro_server_address">Configure the address to Fibaro server</string>
+    <string name="pref_summary_fibaro_server_address">Configure the address to Fibaro server</string>
+    <string name="pref_title_fibaro_users">Fibaro Users</string>
+    <string name="pref_summary_fibaro_users">Configure Fibaro users</string>
+    <string name="pref_title_desc_fibaro_variable_alarmtype">Fibaro global variable Alarm Type</string>
+    <string name="pref_summary_desc_fibaro_variable_alarmtype">Configure Fibaro alarm type variable and possible values</string>
+    <string name="pref_title_variable_alarmtype_fullhouse">Value during active alarm</string>
+    <string name="pref_default_fibaro_variable_alarmtype_fullhouse">Alarm</string>
+    <string name="pref_title_fibaro_variable_alarmtype_perimeter">Value during active perimeter alarm</string>
+    <string name="pref_default_fibaro_variable_alarmtype_permiter">Shell</string>
+    <string name="pref_summary_general_application_settings">General Application settings</string>
+    <string name="pref_title_fibaro_general_settings">Fibaro general settings</string>
+    <string name="pref_summary_fibaro_general_settings">General Fibaro settings</string>
+    <string name="pref_summary_fibaro_server_general">Configuration when authenticating and arming/disarming directly with Fibaro system.</string>
+    <string name="pref_summary_external_server_general">Configuration when using an external server to perform pincode authentication and arming/disarming the Fibaro system.</string>
+    <string name="pref_summary_on_camera">Takes picture at disarm attempt</string>
+    <string name="pref_summary_off_camera">No picture is taken at disarm attempt</string>
+    <string name="pref_title_unlock_settings_menu">Unlock settings menu</string>
+    <string name="pref_text_password">Password</string>
+    <string name="pref_test_take_picture">Take Picture</string>
+    <string name="pref_text_view_alarmkeypad">View Alarm Keypad</string>
+    <string name="pref_title_config_fibaro_users">Configure Fibaro users</string>
+    <string name="pref_text_fibaro_users">The list should contain all the users that will use the keypad, the user and password must equal the configuration on the fibaro system. You should only have one default user, this user will be used when fetching the alarm status from the fibaro system.</string>
+    <string name="pref_text_fibaro_user">Fibaro user:</string>
+    <string name="pref_text_fibaro_password">Fibaro password</string>
+    <string name="pref_text_pin">Pin</string>
+    <string name="pref_text_default_user">Default user</string>
 
 </resources>
