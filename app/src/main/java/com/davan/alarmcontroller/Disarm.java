@@ -2,35 +2,26 @@ package com.davan.alarmcontroller;
 /**
  * Created by davandev on 2016-04-12.
  **/
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.Uri;
-import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.davan.alarmcontroller.authentication.AlarmProcedureIf;
-import com.davan.alarmcontroller.authentication.AlarmProcedureFactory;
-import com.davan.alarmcontroller.authentication.AlarmProcedureResultListener;
+import com.davan.alarmcontroller.procedures.AlarmProcedureIf;
+import com.davan.alarmcontroller.procedures.AlarmProcedureFactory;
+import com.davan.alarmcontroller.procedures.AlarmProcedureResultListener;
 import com.davan.alarmcontroller.camera.CameraActivity;
-import com.davan.alarmcontroller.camera.CameraCapture;
-import com.davan.alarmcontroller.camera.CameraCaptureResultListener;
 import com.davan.alarmcontroller.http.TelegramActivity;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
-
-import java.io.File;
 
 public class Disarm extends AppCompatActivity implements AlarmProcedureResultListener
 {

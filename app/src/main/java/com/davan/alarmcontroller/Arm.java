@@ -14,9 +14,9 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.davan.alarmcontroller.authentication.AlarmProcedureIf;
-import com.davan.alarmcontroller.authentication.AlarmProcedureFactory;
-import com.davan.alarmcontroller.authentication.AlarmProcedureResultListener;
+import com.davan.alarmcontroller.procedures.AlarmProcedureIf;
+import com.davan.alarmcontroller.procedures.AlarmProcedureFactory;
+import com.davan.alarmcontroller.procedures.AlarmProcedureResultListener;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
 import java.util.Random;

@@ -2,8 +2,8 @@
 
     <SwitchPreference
         android:key="ext_server_enabled"
-        android:title="External server"
-        android:summary="Enable to send requests to an external server."
+        android:title="@string/pref_title_external_server"
+        android:summary="@string/pref_summary_external_server"
         android:defaultValue="false" />
     <EditTextPreference
         android:key="ext_auth_server_address"

@@ -1,4 +1,4 @@
-package com.davan.alarmcontroller.authentication;
+package com.davan.alarmcontroller.procedures;
 /**
  * Created by davandev on 2016-04-12.
  **/

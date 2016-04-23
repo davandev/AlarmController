@@ -111,11 +111,11 @@ public class AlarmControllerResources
     {
         if (getDefaultUser() == null || getDefaultUser().compareTo("") == 0)
         {
-            throw new Exception("Default user not configured");
+            throw new Exception(resources.getString(R.string.pref_message_default_user_not_configured));
         }
         if (getDefaultPassword() == null || getDefaultPassword().compareTo("") == 0)
         {
-            throw new Exception("Password for default user not configured");
+            throw new Exception(resources.getString(R.string.pref_message_password_not_configured));
         }
         if (getFibaroServerAddress().compareTo("") == 0)
         {

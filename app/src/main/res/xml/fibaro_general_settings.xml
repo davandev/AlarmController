@@ -13,15 +13,15 @@
             android:title="@string/pref_title_display_name"
             android:defaultValue="@string/pref_default_display_name"
             android:selectAllOnFocus="true"
-            android:hint="Configure the address to Fibaro server"
-            android:summary="Configure the address to Fibaro server"
+            android:hint="@string/pref_hint_configure_fibaro_server_address"
+            android:summary="@string/pref_hint_configure_fibaro_server_address"
             android:inputType="text"
             android:capitalize="words"
             android:singleLine="true"
             android:maxLines="1" />
         <PreferenceScreen
-            android:title="Fibaro Users"
-            android:summary="Configure Fibaro users">
+            android:title="@string/pref_title_config_fibaro_users"
+            android:summary="@string/pref_summary_configure_fibaro_users">
             <intent android:action="android.intent.action.VIEW"
                 android:targetPackage="com.davan.alarmcontroller"
                 android:targetClass="com.davan.alarmcontroller.settings.UsersSettingsActivity"/>
