@@ -6,10 +6,19 @@
 <img src="https://cloud.githubusercontent.com/assets/756370/14658623/9314a17e-0695-11e6-81a8-83a59a2198fd.png" width="350">
 
 Android application used as an alarm triggering keypad for arming/disarming alarm via a homeautomation system. 
-The idea is to use an wall mounted android phone to arm and disarm my fibaro home alarm.
+The idea is to use an wall mounted android phone to arm and disarm my Fibaro home alarm.
+
+The application is currently in early development phase, while I think it is still usable for daily use.
+It currently supports:
+- Arming/Disarming directly via the Fibaro system
+- Arming/Disarming via an external server
+- Sending Telegram messages when disarmed.
+- Turn on screen when a request is received from Fibaro system, typically triggered when a motion or door sensor is breached.
+
 
 Be aware that the security for storing users and passwords is currently not great.., passwords are currently stored in plain text on local device. 
 
 - Default pin for unlocking settings menu is "1234"
-Notice that this application has only been tested with a Fibaro HC2 system.
+
+Notice that this application has only been tested with a Fibaro HC2 system, but in theory it should be able to work with other systems as well.
 
