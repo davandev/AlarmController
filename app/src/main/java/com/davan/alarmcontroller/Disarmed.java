@@ -20,6 +20,7 @@ import com.davan.alarmcontroller.http.WakeUpScreen;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateListener;
+import com.davan.alarmcontroller.settings.AboutDialog;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.settings.SettingsLauncher;
 
@@ -86,6 +87,7 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
         }
         else if (item.getItemId() == R.id.action_about)
         {
+            AboutDialog.showDialog(this);
         }
         return true;
     }

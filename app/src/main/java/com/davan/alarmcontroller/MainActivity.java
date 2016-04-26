@@ -27,6 +27,8 @@ import com.davan.alarmcontroller.http.WakeUpService;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateListener;
+import com.davan.alarmcontroller.power.PowerConnectionReceiver;
+import com.davan.alarmcontroller.settings.AboutDialog;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.settings.SettingsLauncher;
 
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
     private WakeUpScreen wakeUpScreen;
+    private PowerConnectionReceiver powerListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
                 PreferenceManager.getDefaultSharedPreferences(this),
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
+        //powerListener = new PowerConnectionReceiver();
         startServices();
     }
 
@@ -97,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
                 return true;
 
             case R.id.action_about:
+                AboutDialog.showDialog(this);
                 // as a favorite...
                 return true;
 
@@ -121,8 +126,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
         stopService(new Intent(getBaseContext(), WakeUpService.class));
     }
 */
-    public void takePicture(View view)
-    {
+    public void takePicture(View view) {
         Log.d(TAG,"takePicture");
         TelegramActivity telegram = new TelegramActivity(resources);
        telegram.sendMessage("test sending message");

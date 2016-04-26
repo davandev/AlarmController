@@ -137,13 +137,13 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
             if (authenticationOk)
             {
                 Toast.makeText(getBaseContext(), getString(R.string.pref_message_welcome_home) + authenticatedUser, Toast.LENGTH_LONG).show();
-                telegram.sendMessage("Home Alarm disarmed by " + authenticatedUser);
+                telegram.sendMessage(authenticatedUser + getString(R.string.pref_message_alarm_disarmed_by)  + alarmType);
                 Intent intent = new Intent(this, Disarmed.class);
                 startActivity(intent);
             }
             else
             {
-                telegram.sendMessage("A faulty disarm attempt has occured.");
+                telegram.sendMessage(getString(R.string.pref_message_faulty_disarm_attempt));
 
                 ((EditText) findViewById(R.id.editText2)).setText("");
                 Toast.makeText(getBaseContext(), R.string.pref_message_faulty_password, Toast.LENGTH_LONG).show();

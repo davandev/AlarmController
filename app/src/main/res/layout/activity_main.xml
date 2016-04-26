@@ -55,29 +55,6 @@
             android:layout_weight="1"
             android:padding="@dimen/abc_button_padding_vertical_material">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pref_test_take_picture"
-                android:id="@+id/pictureButton"
-                android:onClick="takePicture"
-
-                android:layout_column="0" />
-        </TableRow>
-
-        <TableRow
-            android:gravity="center"
-            android:layout_weight="1"
-            android:padding="@dimen/abc_button_padding_vertical_material">
-
-
-        </TableRow>
-
-        <TableRow
-            android:gravity="center"
-            android:layout_weight="1"
-            android:padding="@dimen/abc_button_padding_vertical_material">
-
 
             <ImageView
                 android:id="@+id/imageView"

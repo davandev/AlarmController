@@ -137,5 +137,7 @@
     <string name="pref_summary_external_server">Enable to send requests to an external server.</string>
     <string name="pref_hint_configure_fibaro_server_address">Configure the address to Fibaro server</string>
     <string name="pref_summary_configure_fibaro_users">Configure Fibaro users</string>
+    <string name="pref_message_alarm_disarmed_by">" disarmed the "</string>
+    <string name="pref_message_faulty_disarm_attempt">A faulty disarm attempt has occured.</string>
 
 </resources>
