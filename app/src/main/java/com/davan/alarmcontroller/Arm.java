@@ -36,6 +36,7 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
         getWindow().setAttributes(attrs);
 
         Intent myIntent = getIntent();
+        // Alarmtype to arm
         alarmType = myIntent.getStringExtra(getResources().getString(R.string.alarm_type));
         resources = new AlarmControllerResources(
                 PreferenceManager.getDefaultSharedPreferences(this),
@@ -43,7 +44,9 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
                 getResources());
         try
         {
+            //Create alarm procedure, depending on configuration
             handler = AlarmProcedureFactory.createProcedure(resources, this);
+            // Arm alarm
             handler.arm(alarmType);
 
             if(alarmType.compareTo(resources.getFibaroAlarmTypeValueFullHouseArmed()) ==0 )
@@ -57,19 +60,11 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
             Intent intent = new Intent(this, Disarmed.class);
             startActivity(intent);
         }
-
-/*        if (alarmType.compareTo(getResources().getString(R.string.alarm_type_skalskydd)) == 0)
-        {
-            armed();
-        }
-        else
-        {
-            startArmingCountDown();
-            View view = this.getWindow().getDecorView();
-            view.setBackgroundColor(Color.RED);
-        }
-*/
     }
+
+    /**
+     * Change background color of screen to a random color.
+     */
     public void changeBackGroundColor()
     {
         View view = this.getWindow().getDecorView();
@@ -77,6 +72,9 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
         view.setBackgroundColor(Color.argb(255, rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
     }
 
+    /**
+     * Alarm is armed, change to armed state activity
+     */
     public void armed()
     {
         Intent intent = new Intent(this, Armed.class);
@@ -84,6 +82,10 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
         startActivity(intent);
     }
 
+    /**
+     * Start countdown, change background color once every second until escaping time
+     * has passed, then change to armed state activity
+     */
     public void startArmingCountDown()
     {
         int escapeTime = Integer.parseInt(resources.getEscapingTime());
@@ -103,6 +105,11 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
         }.start();
     }
 
+    /**
+     * Arming callback result received,
+     * @param success true if arming was successful
+     * @param result
+     */
     @Override
     public void resultReceived(boolean success, String result)
     {

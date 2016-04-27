@@ -5,8 +5,12 @@ import android.util.Log;
 import com.davan.alarmcontroller.R;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Created by davandev on 2016-04-20.
+ * @TODO: currently it is not possible to send messages that contain å ä ö.
  **/
 public class TelegramActivity implements RequestDispatcherResultListener
 {
@@ -28,11 +32,15 @@ public class TelegramActivity implements RequestDispatcherResultListener
     public void sendMessage(String message)
     {
         Log.d(TAG, "sendMessage [" + message + "]");
-        String url = resources.getTelegramSendMessageUrl(token,chatId);
-        dispatcher = new RequestDispatcher(this);
-        dispatcher.execute(url + message,"","", "true");
+        ArrayList<String> chatIds = resources.getAllTelegramChatIds();
+        for (String chatId1 : chatIds)
+        {
+            String url = resources.getTelegramSendMessageUrl(token, chatId1);
+            Log.d(TAG, "TelegramUrl:" + url);
+            dispatcher = new RequestDispatcher(this);
+            dispatcher.execute(url + message, "", "", "true");
+        }
     }
-
     @Override
     public void resultReceived(String result)
     {

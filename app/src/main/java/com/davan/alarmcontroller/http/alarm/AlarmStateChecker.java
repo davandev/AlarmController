@@ -20,6 +20,7 @@ public class AlarmStateChecker implements RequestDispatcherResultListener
 
     RequestDispatcher requestSender;
     WifiConnectionChecker wifiChecker;
+    // Receiver of alarm state
     AlarmStateListener resultReceiver;
     private String serverUrl = "";
     private AlarmControllerResources resources;
@@ -36,6 +37,10 @@ public class AlarmStateChecker implements RequestDispatcherResultListener
 
     }
 
+    /**
+     * Fetch alarm status from Fibaro system
+     * @return true if wifi connection is available, false otherwise.
+     */
     public boolean updateAlarmState()
     {
         if( wifiChecker.isConnectionOk() ) // Check wifi
@@ -51,6 +56,10 @@ public class AlarmStateChecker implements RequestDispatcherResultListener
         return false;
     }
 
+    /**
+     * Callback received with current alarm state from Fibaro system.
+     * @param result Result
+     */
     @Override
     public void resultReceived(String result)
     {

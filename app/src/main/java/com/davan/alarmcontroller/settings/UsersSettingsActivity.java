@@ -28,7 +28,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class UsersSettingsActivity extends AppCompatActivity {
+public class UsersSettingsActivity extends AppCompatActivity
+{
     private static final String TAG = UsersSettingsActivity.class.getSimpleName();
 
     ListView listView ;
@@ -77,15 +78,16 @@ public class UsersSettingsActivity extends AppCompatActivity {
         String password = users.get(itemValue);
         try {
             String[] passwords = password.split(":");
-            viewUser(view, itemValue, passwords[0], passwords[1], Boolean.parseBoolean(passwords[2]));
+            viewUser(view, itemValue, passwords[0], passwords[1], passwords[2],Boolean.parseBoolean(passwords[3]));
         } catch (ArrayIndexOutOfBoundsException e) {
-            viewUser(view, itemValue, password, "", false);
+            viewUser(view, itemValue, password, "","", false);
         }
             }
         });
     }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.help, menu);
         return true;
@@ -105,26 +107,45 @@ public class UsersSettingsActivity extends AppCompatActivity {
         }
     }
 
-    public void viewUser(View view, String user, String password, String pin, boolean defaultUser )
+    /**
+     * View the settings of an existing user
+     * @param view
+     * @param user name of the user
+     * @param password user password
+     * @param pin pincode
+     * @param chatId telegram chatid
+     * @param defaultUser determine if the user is default user
+     */
+    public void viewUser(View view, String user, String password, String pin, String chatId, boolean defaultUser )
     {
         Log.d(getLocalClassName(), "viewUser");
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         LayoutInflater inflater=this.getLayoutInflater();
-        View layout=inflater.inflate(R.layout.user,null);
+        View layout=inflater.inflate(R.layout.user, null);
 
         final EditText userInput=(EditText)layout.findViewById(R.id.newUserField);
         final EditText passwordInput=(EditText)layout.findViewById(R.id.newPasswordField);
         final EditText pinInput=(EditText)layout.findViewById(R.id.newPinField);
+        final EditText telegramChatId=(EditText)layout.findViewById(R.id.telegramChatId);
+
         final CheckBox defaultUserInput= (CheckBox)layout.findViewById(R.id.defaultUserCheckBox);
         userInput.setText(user);
         passwordInput.setText(password);
         pinInput.setText(pin);
+        telegramChatId.setText(chatId);
         defaultUserInput.setChecked(defaultUser);
 
         alert.setView(layout);
 
-        alert.setTitle("Handler user");
-        alert.setNeutralButton("Delete", new DialogInterface.OnClickListener()
+        if (user.compareTo("") == 0)
+        {
+            alert.setTitle(R.string.pref_title_user_add);
+        }
+        else
+        {
+            alert.setTitle(R.string.pref_title_user_edit);
+        }
+        alert.setNeutralButton(R.string.pref_button_delete_user, new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int whichButton)
             {
@@ -140,22 +161,23 @@ public class UsersSettingsActivity extends AppCompatActivity {
             }
         });
 
-        alert.setNegativeButton("Close", new DialogInterface.OnClickListener()
+        alert.setNegativeButton(R.string.pref_title_close_user, new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int whichButton)
             {
 
             }
         });
-        alert.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.pref_button_save_user, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String password = passwordInput.getText().toString();
                 String user = userInput.getText().toString();
                 String pin = pinInput.getText().toString();
+                String chatId = telegramChatId.getText().toString();
                 boolean defaultUser = defaultUserInput.isChecked();
 
                 Log.d(TAG, "User:" + user);
-                String passwords = password + ":" + pin + ":" + String.valueOf(defaultUser);
+                String passwords = password + ":" + pin + ":" + chatId + ":" + String.valueOf(defaultUser);
                 if (!users.containsKey(user)) {
                     users.put(user, passwords);
                     adapter.add(user);
@@ -170,10 +192,14 @@ public class UsersSettingsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Add a new user
+     * @param view
+     */
     public void addUser(View view)
     {
         Log.d(getLocalClassName(), "addUser");
-        viewUser(view,"","", "", false);
+        viewUser(view,"","", "", "", false);
     }
 
     /**

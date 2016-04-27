@@ -64,7 +64,25 @@
             android:id="@+id/newPinField"
             android:layout_column="2" />
     </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Telegram ChatId"
+            android:id="@+id/textView4"
+            android:layout_column="1" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="10"
+            android:id="@+id/telegramChatId"
+            android:layout_column="2" />
+    </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent">

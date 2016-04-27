@@ -5,5 +5,10 @@ package com.davan.alarmcontroller.http.alarm;
  **/
 public interface AlarmStateListener
 {
+    /**
+     * Callback
+     * @param alarmState current alarm state
+     * @param alarmType current alarm type
+     */
     void alarmStateUpdate(String alarmState,String alarmType);
 }

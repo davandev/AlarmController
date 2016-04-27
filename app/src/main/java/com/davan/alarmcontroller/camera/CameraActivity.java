@@ -2,7 +2,7 @@ package com.davan.alarmcontroller.camera;
 
 /**
  * Created by davandev on 2016-04-18.
- */
+ **/
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -103,7 +103,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         if (authenticationOk)
         {
             Toast.makeText(getBaseContext(), getString(R.string.pref_message_welcome_home) + authenticatedUser, Toast.LENGTH_LONG).show();
-            telegram.sendMessage("Home Alarm disarmed by " + authenticatedUser);
+            telegram.sendMessage(authenticatedUser + getString(R.string.pref_message_alarm_disarmed_by)  + alarmType);
 
             Intent intent = new Intent(this, Disarmed.class);
             startActivity(intent);
@@ -111,7 +111,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         else
         {
             Toast.makeText(getBaseContext(), R.string.pref_message_faulty_password, Toast.LENGTH_LONG).show();
-            telegram.sendMessage("A faulty disarm attempt has occured.");
+            telegram.sendMessage(getString(R.string.pref_message_faulty_disarm_attempt));
 
             Intent intent = new Intent(this, Disarm.class);
             intent.putExtra("AlarmType",alarmType);

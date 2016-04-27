@@ -73,6 +73,9 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
         }
     }
 
+    /**
+     * OnResume, check the current alarmstate, it might have changed.
+     */
     @Override
     protected void onResume()
     {
@@ -109,6 +112,9 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
         return true;
     }
 
+    /**
+     * Disarm the alarm.
+     */
     public void disarmAlarm(View view)
     {
         Log.d(TAG, "Disarm alarm");

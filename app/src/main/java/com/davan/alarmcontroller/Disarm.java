@@ -66,6 +66,9 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
         }
     }
 
+    /**
+     * OnPause load locked screen again.
+     */
     @Override
     public void onPause()
     {
@@ -78,7 +81,6 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
             intent.putExtra(getResources().getString(R.string.alarm_type), alarmType);
             startActivity(intent);
         }
-
     }
 
     public void buttonPushed(View view)
@@ -116,11 +118,13 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
     }
 
     @Override
-    public void resultReceived(boolean success, String result) {
+    public void resultReceived(boolean success, String result)
+    {
         Log.d(TAG, "resultReceived");
         authenticationOk = success;
         authenticatedUser = result;
 
+        // Should take a picture during disarm
         if (resources.isPictureAtDisarmEnabled())
         {
             Intent intent = new Intent(this, CameraActivity.class);
@@ -150,6 +154,4 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
             }
         }
     }
-
-
 }

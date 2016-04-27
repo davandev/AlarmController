@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     {
         if (resources.isWakeUpServiceEnabled())
         {
-            Log.d(TAG,"Starting WakeUpService");startService(new Intent(getBaseContext(), WakeUpService.class));
+            Log.d(TAG,"Starting WakeUpService");
+            startService(new Intent(getBaseContext(), WakeUpService.class));
             wakeUpScreen = new WakeUpScreen(this);
         }
     }
@@ -112,21 +113,9 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
 
         }
     }
-    // Method to start the service
-/*    public void startService(View view)
+
+    public void takePicture(View view)
     {
-        Log.d(TAG, "Start service");
-        startService(new Intent(getBaseContext(), WakeUpService.class));
-    }
-*/
-    // Method to stop the service
-  /*  public void stopService(View view)
-    {
-        Log.d(TAG, "Stop service");
-        stopService(new Intent(getBaseContext(), WakeUpService.class));
-    }
-*/
-    public void takePicture(View view) {
         Log.d(TAG,"takePicture");
         TelegramActivity telegram = new TelegramActivity(resources);
        telegram.sendMessage("test sending message");
@@ -135,39 +124,35 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
        // startActivity(intent);
 
     }
+
+    /**
+     * Verify configuration and start keypad
+     * @param view
+     */
     public void startAlarmKeypad(View view)
     {
         Log.d(TAG, "Starting AlarmKeyPad");
-        if( verifyConfiguration())
+        try
         {
-            // Check if AlarmState has changed.
+            resources.verifyConfiguration();
             if (!new AlarmStateChecker(wifiChecker, resources, this).updateAlarmState())
             {
                 Log.d(TAG, "No wifi connection available");
                 Toast.makeText(getBaseContext(), R.string.pref_message_no_network_connection, Toast.LENGTH_LONG).show();
             }
         }
-        else
-        {
-                Log.d(TAG, "Configuration not ok");
-                Toast.makeText(getBaseContext(), R.string.pref_message_configuration_not_ok, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private boolean verifyConfiguration()
-    {
-        try
-        {
-            resources.verifyConfiguration();
-        }
         catch (Exception e)
         {
-            Log.d(TAG,e.getMessage());
-            return false;
+            Log.d(TAG, "Configuration not ok");
+            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        return true;
     }
 
+    /**
+     * Receive callback with current alarm status
+     * @param alarmState the current alarm state
+     * @param alarmType the current alarm type
+     */
     @Override
     public void alarmStateUpdate(String alarmState, String alarmType)
     {

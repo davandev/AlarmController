@@ -139,5 +139,11 @@
     <string name="pref_summary_configure_fibaro_users">Configure Fibaro users</string>
     <string name="pref_message_alarm_disarmed_by">" disarmed the "</string>
     <string name="pref_message_faulty_disarm_attempt">A faulty disarm attempt has occured.</string>
+    <string name="pref_message_about_contact">Contact davan_at_work@hotmail.com</string>
+    <string name="pref_title_user_add">Add user</string>
+    <string name="pref_title_user_edit">Edit user</string>
+    <string name="pref_button_delete_user">Delete</string>
+    <string name="pref_button_save_user">Save</string>
+    <string name="pref_title_close_user">Close</string>
 
 </resources>

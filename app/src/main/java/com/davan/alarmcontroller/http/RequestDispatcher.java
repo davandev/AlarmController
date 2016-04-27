@@ -20,6 +20,7 @@ public class RequestDispatcher extends AsyncTask<String, Void, String>
 {
     private static final String TAG = RequestDispatcher.class.getName();
 
+    // Result listener
     private RequestDispatcherResultListener listener;
 
     public RequestDispatcher(RequestDispatcherResultListener callbackListener)

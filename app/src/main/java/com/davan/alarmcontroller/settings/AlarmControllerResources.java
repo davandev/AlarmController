@@ -9,6 +9,7 @@ import android.util.Pair;
 
 import com.davan.alarmcontroller.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -67,6 +68,22 @@ public class AlarmControllerResources
         url = url.replace("<chatId>",chatId);
         return url;
     }
+
+    public ArrayList<String> getAllTelegramChatIds()
+    {
+        ArrayList<String> chatIds = new ArrayList<>();
+        for( Map.Entry entry : userPreferences.getAll().entrySet() )
+        {
+            String[] credentials = entry.getValue().toString().split(":");
+            if(credentials[2].compareTo("")!= 0)
+            {
+                Log.d(TAG,"Found chatID:" + credentials[2]);
+                chatIds.add(credentials[2]);
+            }
+        }
+        return chatIds;
+    }
+
     /* Return the fibaro user and password matching the pin code
     * Throws exception if no matching user is found */
     public Pair<String,String> getUser(String pin) throws Exception
@@ -93,12 +110,13 @@ public class AlarmControllerResources
         {
             users.put(entry.getKey().toString(), entry.getValue().toString());
         }
-        for (Object user : users.keySet()) {
+        for (Object user : users.keySet())
+        {
             String value = users.get(user);
             Log.d(TAG, "User:" + user + " Value:" + value);
             String[] userSettings = value.split(":");
-            if (userSettings.length == 3) {
-                if (Boolean.parseBoolean(userSettings[2])) {
+            if (userSettings.length == 4) {
+                if (Boolean.parseBoolean(userSettings[3])) {
                     defaultUser = (String)user;
                     defaultUserPassword = userSettings[0];
                     break;
