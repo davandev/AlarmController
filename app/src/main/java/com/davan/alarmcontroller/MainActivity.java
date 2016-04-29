@@ -2,14 +2,12 @@ package com.davan.alarmcontroller;
 /**
  * Created by davandev on 2016-04-12.
  **/
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -20,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.davan.alarmcontroller.camera.CameraActivity;
 import com.davan.alarmcontroller.http.TelegramActivity;
 import com.davan.alarmcontroller.http.WakeUpScreen;
 import com.davan.alarmcontroller.http.WakeUpService;
@@ -61,7 +58,8 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
                 PreferenceManager.getDefaultSharedPreferences(this),
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
-        //powerListener = new PowerConnectionReceiver();
+
+
         startServices();
     }
 
@@ -73,6 +71,12 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
             startService(new Intent(getBaseContext(), WakeUpService.class));
             wakeUpScreen = new WakeUpScreen(this);
         }
+
+        //Register for power connection callbacks
+        powerListener = new PowerConnectionReceiver(resources);
+        powerListener.registerMyReceiver(this);
+        Intent intent = this.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
     }
 
     @Override
@@ -127,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
 
     /**
      * Verify configuration and start keypad
-     * @param view
+     * @param view current view
      */
     public void startAlarmKeypad(View view)
     {

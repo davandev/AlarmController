@@ -325,5 +325,4 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             return super.onOptionsItemSelected(item);
         }
     }
-
 }

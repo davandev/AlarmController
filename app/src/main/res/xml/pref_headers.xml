@@ -26,13 +26,4 @@
         android:summary="@string/pref_summary_external_server_general"
         />
 
-
-  <!--  <header
-        android:title="Fibaro Users"
-        android:summary="Configure Fibaro users">
-        <intent android:action="android.intent.action.VIEW"
-            android:targetPackage="com.davan.alarmcontroller"
-            android:targetClass="com.davan.alarmcontroller.settings.UsersSettingsActivity"/>
-    </header>-->
-
 </preference-headers>

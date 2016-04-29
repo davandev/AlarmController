@@ -2,15 +2,12 @@ package com.davan.alarmcontroller.http;
 
 import android.util.Log;
 
-import com.davan.alarmcontroller.R;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by davandev on 2016-04-20.
- * @TODO: currently it is not possible to send messages that contain å ä ö.
+ * @TODO currently it is not possible to send messages that contain å ä ö.
  **/
 public class TelegramActivity implements RequestDispatcherResultListener
 {
@@ -20,6 +17,7 @@ public class TelegramActivity implements RequestDispatcherResultListener
 
     private String token;
     private String chatId;
+    private boolean telegramEnabled;
     private AlarmControllerResources resources;
 
     public TelegramActivity(AlarmControllerResources res)
@@ -27,18 +25,25 @@ public class TelegramActivity implements RequestDispatcherResultListener
         resources = res;
         token = resources.getTelegramToken();
         chatId = resources.getTelegramChatId();
+        telegramEnabled = resources.isTelegramEnabled();
     }
 
     public void sendMessage(String message)
     {
-        Log.d(TAG, "sendMessage [" + message + "]");
-        ArrayList<String> chatIds = resources.getAllTelegramChatIds();
-        for (String chatId1 : chatIds)
+        if(telegramEnabled)
         {
-            String url = resources.getTelegramSendMessageUrl(token, chatId1);
-            Log.d(TAG, "TelegramUrl:" + url);
-            dispatcher = new RequestDispatcher(this);
-            dispatcher.execute(url + message, "", "", "true");
+            Log.d(TAG, "sendMessage [" + message + "]");
+            ArrayList<String> chatIds = resources.getAllTelegramChatIds();
+            for (String chatId1 : chatIds) {
+                String url = resources.getTelegramSendMessageUrl(token, chatId1);
+                Log.d(TAG, "TelegramUrl:" + url);
+                dispatcher = new RequestDispatcher(this);
+                dispatcher.execute(url + message, "", "", "true");
+            }
+        }
+        else
+        {
+            Log.d(TAG,"Telegram is disabled");
         }
     }
     @Override

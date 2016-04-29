@@ -11,7 +11,6 @@ import com.davan.alarmcontroller.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class AlarmControllerResources
@@ -42,7 +41,7 @@ public class AlarmControllerResources
     public String getDefaultPassword() { return defaultUserPassword; }
     /* Return the password protecting settings menu*/
     public String getSettingsPassword() { return preferences.getString("settings_protection", "1234");}
-    public String getEscapingTime() { return preferences.getString("escaping_time","30");}
+    public String getEscapingTime() { return preferences.getString("escaping_time", "30");}
 
     public boolean isFibaroServerEnabled() { return preferences.getBoolean("fibaro_server_enabled", false); }
     public boolean isExternalServerEnabled() { return preferences.getBoolean("ext_server_enabled", false); }
@@ -58,7 +57,6 @@ public class AlarmControllerResources
     public String getFibaroAlarmTypeValuePerimeterArmed() { return preferences.getString("fibaro_variable_alarmtype_perimeter", "Perimeter");}
 
     public String getTelegramToken() { return preferences.getString("telegram_token","");}
-    public String getTelegramChatId() { return preferences.getString("telegram_chat_id","");}
     public boolean isTelegramEnabled() { return preferences.getBoolean("telegram_enabled", false);}
 
     public String getTelegramSendMessageUrl(String token, String chatId)
@@ -127,6 +125,7 @@ public class AlarmControllerResources
 
     public void verifyConfiguration() throws Exception
     {
+        findDefaultUser();
         if (getDefaultUser() == null || getDefaultUser().compareTo("") == 0)
         {
             throw new Exception(resources.getString(R.string.pref_message_default_user_not_configured));
@@ -137,15 +136,26 @@ public class AlarmControllerResources
         }
         if (getFibaroServerAddress().compareTo("") == 0)
         {
-            throw new Exception("Fibaro server address not configured");
+            throw new Exception(resources.getString(R.string.pref_message_fibaro_server_address_not_configured));
         }
         if (!isFibaroServerEnabled() && !isExternalServerEnabled())
         {
-            throw new Exception("Either Fibaro server procedure or External server procedure needs to be configured.");
+            throw new Exception(resources.getString(R.string.pref_message_no_procedure_server_configured));
         }
         if (isFibaroServerEnabled() && isExternalServerEnabled())
         {
-            throw new Exception("Both Fibaro server procedure or External server procedure is currently configured.");
+            throw new Exception(resources.getString(R.string.pref_message_both_fibaro_and_external_server_configured));
+        }
+        if (isTelegramEnabled())
+        {
+            if (getAllTelegramChatIds().size() == 0)
+            {
+                throw new Exception(resources.getString(R.string.pref_message_no_telegram_chat_id_configured));
+            }
+            if(getTelegramToken().compareTo("") == 0)
+            {
+                throw new Exception(resources.getString(R.string.pref_message_not_token_configured));
+            }
         }
     }
 

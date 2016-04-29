@@ -145,5 +145,11 @@
     <string name="pref_button_delete_user">Delete</string>
     <string name="pref_button_save_user">Save</string>
     <string name="pref_title_close_user">Close</string>
+    <string name="pref_message_fibaro_server_address_not_configured">Fibaro server address not configured</string>
+    <string name="pref_message_no_procedure_server_configured">Either Fibaro server procedure or External server procedure needs to be configured.</string>
+    <string name="pref_message_both_fibaro_and_external_server_configured">Both Fibaro server procedure or External server procedure is currently configured.</string>
+    <string name="pref_message_no_telegram_chat_id_configured">No chat id has been configured, configure at least one chat id or disable telegram</string>
+    <string name="pref_message_not_token_configured">Telegram token has not been configured, configure it or disable telegram</string>
+    <string name="pref_message_low_battery_level">Battery level of keypad is low</string>
 
 </resources>
