@@ -1,5 +1,15 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <EditTextPreference
+        android:key="keypad_id"
+        android:title="Keypad id"
+        android:summary="@string/pref_title_keypad_name"
+        android:defaultValue=""
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:maxLines="1" />
+    <EditTextPreference
         android:key="escaping_time"
         android:title="@string/pref_title_escaping_time"
         android:summary="@string/pref_summary_escaping_time"
@@ -71,4 +81,44 @@
             android:textColorHint="#000000"
             android:maxLines="1" />
     </PreferenceScreen>
+    <PreferenceScreen
+        android:key="battery_settings"
+        android:title="@string/pref_title_battery_settings">
+        <Preference
+            android:summary="@string/pref_summary_battery_settings"
+            android:selectable="false">
+        </Preference>
+        <CheckBoxPreference
+            android:key="charging_enabled"
+            android:title="@string/pref_title_enable_charging_control"
+            android:defaultValue="false"
+            android:enabled="true"
+            android:summaryOn="Control charging when low battery level"
+            android:summaryOff=""/>
+        <EditTextPreference
+            android:key="battery_turn_on_charging"
+            android:dependency="charging_enabled"
+            android:title="@string/pref_title_charging_turn_on"
+            android:summary=""
+            android:defaultValue=""
+            android:selectAllOnFocus="true"
+            android:inputType="text"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:textColorHint="#000000"
+            android:maxLines="1" />
+        <EditTextPreference
+            android:key="battery_turn_off_charging"
+            android:dependency="charging_enabled"
+            android:title="@string/pref_title_charging_turn_off"
+            android:summary=""
+            android:defaultValue=""
+            android:selectAllOnFocus="true"
+            android:inputType="text"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:textColorHint="#000000"
+            android:maxLines="1" />
+    </PreferenceScreen>
+
 </PreferenceScreen>

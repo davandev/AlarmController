@@ -12,19 +12,21 @@ import android.widget.Toast;
 import com.davan.alarmcontroller.R;
 import com.davan.alarmcontroller.http.TelegramActivity;
 import com.davan.alarmcontroller.http.WakeUpService;
+import com.davan.alarmcontroller.procedures.CustomSceneProcedure;
+import com.davan.alarmcontroller.procedures.CustomSceneProcedureResultListener;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
 /**
  * Created by davandev on 2016-04-23.
  **/
-public class PowerConnectionReceiver
-{
+public class PowerConnectionReceiver implements CustomSceneProcedureResultListener {
     private static final String TAG = PowerConnectionReceiver.class.getName();
 
     private int mBatteryLevel;
     private IntentFilter mBatteryLevelFilter;
     private AlarmControllerResources resources;
-    private boolean shouldSendTelegram = true;
+    private boolean shouldInvokeAction = true;
+    private CustomSceneProcedure sceneProcedure;
 
     public PowerConnectionReceiver(AlarmControllerResources res)
     {
@@ -36,26 +38,55 @@ public class PowerConnectionReceiver
         @Override
         public void onReceive(Context context, Intent intent) {
             mBatteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-            if (mBatteryLevel < 10)
+            if (mBatteryLevel < 15)
             {
-                if (resources.isTelegramEnabled())
-                {
-                    if (shouldSendTelegram)
-                    {
-                        TelegramActivity activity = new TelegramActivity(resources);
-                        activity.sendMessage(context.getString(R.string.pref_message_low_battery_level));
-                        shouldSendTelegram = false;
-                    }
-                }
+                handleLowBatteryLevel(context);
+            }
+            else if (mBatteryLevel > 95)
+            {
+                handleHighBatteryLevel(context);
             }
             else
             {
-                shouldSendTelegram = true;
+                shouldInvokeAction = true;
             }
         }
     };
 
-
+    public void handleLowBatteryLevel(Context context)
+    {
+        if (shouldInvokeAction)
+        {
+            if (resources.isTelegramEnabled())
+            {
+                TelegramActivity activity = new TelegramActivity(resources);
+                activity.sendMessage("Keypad["+resources.getKeypadId()+"]: " +context.getString(R.string.pref_message_low_battery_level));
+            }
+            if (resources.isChargingControlEnabled())
+            {
+                sceneProcedure = new CustomSceneProcedure(resources, this);
+                sceneProcedure.runScene(resources.getTurnOnChargingSceneId());
+            }
+            shouldInvokeAction = false;
+        }
+    }
+    public void handleHighBatteryLevel(Context context)
+    {
+        if (shouldInvokeAction)
+        {
+            if (resources.isTelegramEnabled())
+            {
+                TelegramActivity activity = new TelegramActivity(resources);
+                activity.sendMessage("Keypad["+resources.getKeypadId()+"]: "+context.getString(R.string.pref_message_battery_level_ok));
+            }
+            if (resources.isChargingControlEnabled())
+            {
+                sceneProcedure = new CustomSceneProcedure(resources, this);
+                sceneProcedure.runScene(resources.getTurnOffChargingSceneId());
+            }
+            shouldInvokeAction = false;
+        }
+    }
     public void registerMyReceiver(Context context)
     {
         mBatteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);

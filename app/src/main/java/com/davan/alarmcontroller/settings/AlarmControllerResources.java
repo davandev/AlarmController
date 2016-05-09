@@ -56,9 +56,14 @@ public class AlarmControllerResources
     public String getFibaroAlarmTypeValueFullHouseArmed() { return preferences.getString("fibaro_variable_alarmtype_fullhouse", "Alarm");}
     public String getFibaroAlarmTypeValuePerimeterArmed() { return preferences.getString("fibaro_variable_alarmtype_perimeter", "Perimeter");}
 
-    public String getTelegramToken() { return preferences.getString("telegram_token","");}
-    public boolean isTelegramEnabled() { return preferences.getBoolean("telegram_enabled", false);}
+    public String getTelegramToken() { return preferences.getString("telegram_token", "");}
 
+    public boolean isTelegramEnabled() { return preferences.getBoolean("telegram_enabled", false);}
+    public boolean isChargingControlEnabled() { return preferences.getBoolean("charging_enabled", false);}
+    public String getTurnOnChargingSceneId() {return preferences.getString("battery_turn_on_charging", "");}
+    public String getTurnOffChargingSceneId() {return preferences.getString("battery_turn_off_charging", "");}
+    public String getFibaroRunSceneUrl() {return resources.getString(R.string.pref_fibaro_server_run_scene_url);}
+    public String getKeypadId() {return preferences.getString("keypad_id", "");}
     public String getTelegramSendMessageUrl(String token, String chatId)
     {
         String url = resources.getString(R.string.pref_url_telegram_send_message);

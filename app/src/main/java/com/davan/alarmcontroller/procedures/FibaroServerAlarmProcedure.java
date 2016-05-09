@@ -17,7 +17,7 @@ public class FibaroServerAlarmProcedure implements AlarmProcedureIf, RequestDisp
 
     private RequestDispatcher requestDispatcher;
     private AlarmProcedureResultListener resultListener;
-    private String url = "http://<serveraddress>/api/sceneControl?id=<id>&action=start";
+    private String url = "";
     private AlarmControllerResources resources;
     private String action;
     private String authenticatedUser ="";
@@ -29,6 +29,7 @@ public class FibaroServerAlarmProcedure implements AlarmProcedureIf, RequestDisp
         resources = alarmControllerResources;
         resultListener = listener;
         requestDispatcher = new RequestDispatcher(this);
+        url = resources.getFibaroRunSceneUrl();
         url = url.replace("<serveraddress>", resources.getFibaroServerAddress());
 
     }

@@ -277,6 +277,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             addPreferencesFromResource(R.xml.pref_general_settings);
             setHasOptionsMenu(true);
             bindPreferenceSummaryToValue(findPreference("escaping_time"));
+            bindPreferenceSummaryToValue(findPreference("keypad_id"));
+            bindPreferenceSummaryToValue(findPreference("battery_turn_off_charging"));
+            bindPreferenceSummaryToValue(findPreference("battery_turn_on_charging"));
+
         }
 
         @Override

@@ -151,5 +151,13 @@
     <string name="pref_message_no_telegram_chat_id_configured">No chat id has been configured, configure at least one chat id or disable telegram</string>
     <string name="pref_message_not_token_configured">Telegram token has not been configured, configure it or disable telegram</string>
     <string name="pref_message_low_battery_level">Battery level of keypad is low</string>
+    <string name="pref_message_battery_level_ok">Battery level is ok</string>
+    <string name="pref_title_battery_settings">Battery settings</string>
+    <string name="pref_summary_battery_settings">Settings for battery management</string>
+    <string name="pref_title_enable_charging_control">Enable charging control</string>
+    <string name="pref_title_charging_turn_on">Run scene id when low battery</string>
+    <string name="pref_title_charging_turn_off">Run scene id when battery level is ok</string>
+    <string name="pref_fibaro_server_run_scene_url"><![CDATA[http://<serveraddress>/api/sceneControl?id=<id>&action=start]]></string>
+    <string name="pref_title_keypad_name">Name of the keypad</string>
 
 </resources>

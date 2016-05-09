@@ -24,7 +24,6 @@ public class TelegramActivity implements RequestDispatcherResultListener
     {
         resources = res;
         token = resources.getTelegramToken();
-        chatId = resources.getTelegramChatId();
         telegramEnabled = resources.isTelegramEnabled();
     }
 

@@ -51,7 +51,8 @@ public class WakeUpService extends Service implements WakeUpReceiver
         }
         catch( IOException ioe )
         {
-            Log.d(TAG, "WakeUpService Couldn't start server" + ioe );
+            Log.d(TAG, "WakeUpService Couldn't start server" + ioe);
+            Toast.makeText(this, "Failed to start WakeUpService :" + ioe.getMessage(), Toast.LENGTH_LONG).show();
             return START_STICKY;
         }
         Log.d(TAG, "WakeUpService Listening on port 8080");
