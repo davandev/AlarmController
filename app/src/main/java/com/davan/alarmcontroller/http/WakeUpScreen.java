@@ -18,6 +18,8 @@ public class WakeUpScreen
 
     public WakeUpScreen(Context context)
     {
+        Log.d(TAG,"Register for wakeup callbacks");
+        //Register to received wakeup callbacks
         LocalBroadcastManager.getInstance(context).registerReceiver(
                 mMessageReceiver, new IntentFilter("wakeup-event"));
 

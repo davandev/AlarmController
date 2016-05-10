@@ -1,0 +1,156 @@
+<resources>
+    <string name="app_name">SmartHome SoftKeypad</string>
+    <string name="alarm_type_skalskydd">Skalskydd</string>
+    <string name="alarm_type_alarm">Alarm</string>
+    <string name="arming">Arming</string>
+    <string name="disarming">Disarming</string>
+    <string name="alarm_state_disarmed">Disarmed</string>
+    <string name="alarm_state_armed">Armed</string>
+    <string name="alarm_type">AlarmType</string>
+    <string name="title_activity_settings">Inställningar</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_fibaro_server_general">Fibaro server inställningar</string>
+    <string name="pref_external_server_general">Extern server inställningar</string>
+    <string name="pref_general_application_settings">Applikations inställningar</string>
+
+    <!-- External authentication server settings -->
+        <string name="pref_title_ext_auth_server_ip">Extern server adress(:port)</string>
+        <string name="pref_default_external_auth_server_ip">192.168.2.50:8080</string>
+
+        <!-- Alarm settings -->
+        <string name="pref_title_ext_arm_alarm_url">Aktivera alarm url</string>
+        <string name="pref_default_ext_arm_alarm_url">/authenticate?action=armAlarm</string>
+
+        <string name="pref_title_ext_disarm_alarm_url">Avaktivera alarm url</string>
+        <string name="pref_default_ext_disarm_alarm_url">/authenticate?action=disarmAlarm&amp;pin=</string>
+
+        <!-- Shell protection -->
+        <string name="pref_title_ext_arm_shell_url">Aktivera skalskydd url</string>
+        <string name="pref_default_ext_arm_shell_url">/authenticate?action=armSkalskydd</string>
+
+        <string name="pref_title_ext_disarm_shell_url">Avaktivera skalskydd url</string>
+        <string name="pref_default_ext_disarm_shell_url">/authenticate?action=disarmSkalskydd&amp;pin=</string>
+
+    <!-- Fibaro server settings -->
+        <string name="pref_title_display_name">Fibaro server address</string>
+        <string name="pref_default_display_name"></string>
+
+        <!-- Alarm settings -->
+        <string name="pref_title_arm_alarm_scene">Scen id för att larma hela huset.</string>
+        <string name="pref_title_disarm_alarm_scene">Scen id för att larma av hela huset.</string>
+
+        <!-- Shell protection -->
+        <string name="pref_title_arm_shell_scene">Scen id för att larma skalskyddet.</string>
+        <string name="pref_title_disarm_shell_scene">Scen id för att larma av skalskyddet.</string>
+        <string name="pref_default_arm_scene">34</string>
+
+        <string name="pref_title_external_server_authentication">Använd extern server</string>
+
+    <string name="title_activity_listviewtest">Listviewtest</string>
+    <string name="title_activity_alarm_controller_settings">Inställningar</string>
+
+    <!-- General application settings  -->
+        <string name="pref_title_escaping_time">Escape time</string>
+        <string name="pref_default_escaping_time">30</string>
+        <string name="pref_summary_escaping_time">Sätter nedräkning när larmet aktiveras</string>
+
+        <string name="pref_protect_settings">Pinkod för inställningar</string>
+        <string name="pref_default_protect_settings">1234</string>
+        <string name="pref_summary_protect_settings">Pinkod för att skydda meny inställningarna</string>
+
+        <string name="pref_title_wake_up_service">Aktivera tänd skärm</string>
+        <string name="pref_summary_wake_up_service">Tänd skärmen när meddelande tas emot.</string>
+
+    <!-- Menus -->
+    <string name="action_settings">Inställningar</string>
+    <string name="action_help">Hjälp</string>
+    <string name="action_about">Om</string>
+    <string name="pref_title_screen_wakeup">Tänd skärmen</string>
+    <string name="pref_summary_wakeup_service">När tjänsten är aktiverad startas en webserver som väntar på att ta emot meddelanden. I Fibaro systemet behöver du skapa en scen som skickar ett meddelande när en rörelsedetektor eller en dörr sensor bryts.</string>
+    <string name="pref_summaryon_wakeup_service">Servern är startad och kommer tända skärmen ner ett meddelande mottas</string>
+    <string name="pref_title_future_features">Kommande funktioner</string>
+    <string name="pref_summary_coming_features">Listan nedan visar kommande funktioner.</string>
+    <string name="pref_title_fibaro_server_enabled">Fibaro server</string>
+    <string name="pref_summary_fibaro_server_enabled">Larma på/av direkt via Fibaro systemet.</string>
+    <string name="pref_title_required_configuration">Nödvändig konfigurering</string>
+    <string name="pref_summary_required_configuration">Följande inställningar måste konfigureras och används för att hämta den aktuella larm statusen från Fibaro systemet. Åtminstone en Fibaro användare måste konfigureras.</string>
+    <!--Messages-->
+    <string name="pref_message_no_network_connection">Inget nätverk tillgängligt.</string>
+    <string name="pref_message_configuration_not_ok">Något är fel med konfigurationen, rätta till det och försök igen.</string>
+    <string name="pref_message_no_server_enabled">Ingen server aktiv.</string>
+    <string name="pref_message_welcome_home">"Välkommen hem "</string>
+    <string name="pref_message_faulty_password">Felaktigt lösenord</string>
+    <string name="pref_title_telegram">Telegram inställningar</string>
+    <string name="pref_summary_telegram">Skicka Telegram meddelanden ifrån applikationen.</string>
+    <string name="pref_title_telegram_token">Telegram token</string>
+    <string name="pref_summary_telegram_token">Genererat telegram token, </string>
+    <string name="pref_title_telegram_chatid">Chat Id</string>
+    <string name="pref_title_enable_telegram_messages">Aktivera skicka Telegram meddelanden.</string>
+    <string name="pref_summary_telegram_chat_id">Genererat telegram chat id</string>
+    <string name="pref_url_telegram_send_message"><![CDATA[https://api.telegram.org/bot<token>/sendMessage?chat_id=<chatId>&text=]]></string>
+    <string name="pref_summary_general_application_settings">Generalla app inställningar</string>
+    <string name="pref_title_fibaro_general_settings">Fibaro inställningar</string>
+    <string name="pref_summary_fibaro_general_settings">Allmänna inställningar för Fibaro systemet</string>
+    <string name="pref_summary_fibaro_server_general">Inställningar när larm aktivering och avaktivering görs direkt mot Fibaro systemet.</string>
+    <string name="pref_summary_external_server_general">Inställningar när larm aktivering och avaktivering görs mot en extern server.</string>
+    <string name="pref_title_camera">Kamera</string>
+    <string name="pref_summary_on_camera">Tar ett foto när larmet stängs av.</string>
+    <string name="pref_summary_off_camera">Inget foto tas när larmet stängs av.</string>
+    <string name="pref_title_fibaro_variable_alarmstate_disarmed">Värde när larmet är av</string>
+    <string name="pref_hint_fibaro_server_address">Addressen till Fibaro server</string>
+    <string name="pref_summary_fibaro_server_address">Konfiguerar Fibaro server address</string>
+    <string name="pref_title_fibaro_users">Fibaro användare</string>
+    <string name="pref_summary_fibaro_users">Konfiguera användare som finns i Fibaro systemet</string>
+
+    <string name="pref_summary_fibaro_variable_alarmtype">Variabeln måste vara konfiguerad som en global variabek i ditt Fibaro system och ska ange vilka typer av alarm som finns.\n Idag stöds endast 2 stycken larm sekvenser. (Alarm och skalskydd).\n Alarm = Alla enheter larmas (dörr/fönster/rörelse sensorer)\n Skalskydd = Endast skalskydd (dörr/fönster sensorer)</string>
+    <string name="pref_title_fibaro_variable_alarmtype">Global variabel som ger den aktuella alarm typen</string>
+    <string name="pref_title_desc_fibaro_variable_alarmtype">Fibaro global variabel Alarm Type</string>
+    <string name="pref_summary_desc_fibaro_variable_alarmtype">Konfigurera Fibaro variabeln alarm typ och dess värden</string>
+
+    <string name="pref_title_variable_alarmtype_fullhouse">Värde när alarmet är aktivt</string>
+    <string name="pref_default_fibaro_variable_alarmtype_fullhouse">Alarm</string>
+
+    <string name="pref_title_fibaro_variable_alarmtype_perimeter">Värde när skalskyddet är aktivt</string>
+    <string name="pref_default_fibaro_variable_alarmtype_permiter">Skalskydd</string>
+    <string name="pref_title_unlock_settings_menu">Lås upp menyn med inställningar</string>
+
+    <string name="pref_text_password">Lösenord</string>
+    <string name="pref_test_take_picture">Ta en bild</string>
+    <string name="pref_text_view_alarmkeypad">Starta Alarm Keypad</string>
+    <string name="pref_title_config_fibaro_users">Konfigurera användare</string>
+    <string name="pref_text_fibaro_users">Listan ska innehålla alla användare som kommmer behöver kunna larma/larma av.\n Användarnamnet och lösenordet måste vara samma som på Fibaro systemet. Du bör endast ha en standard användare, denna användares användarnamn och lösenord kommer användas av appen för att hämta larmets aktuella status.</string>
+    <string name="pref_text_fibaro_user">Fibaro användare:</string>
+    <string name="pref_text_fibaro_password">Fibaro lösenord</string>
+    <string name="pref_text_pin">Pin</string>
+    <string name="pref_text_default_user">Standard användare</string>
+    <string name="pref_message_password_not_configured">Lösenordet för standard användaren är inte konfiguerat.</string>
+    <string name="pref_message_default_user_not_configured">Det finns ingen standard användare konfiguerad.</string>
+    <string name="pref_title_external_server">Extern server</string>
+    <string name="pref_summary_external_server">Aktivera för att larma/larma av mot en extern server.</string>
+    <string name="pref_hint_configure_fibaro_server_address">Konfigurera addressen till Fibaro servern</string>
+    <string name="pref_summary_configure_fibaro_users">Konfigurera Fibaro användare</string>
+    <string name="pref_message_alarm_disarmed_by">" larmade av "</string>
+    <string name="pref_message_faulty_disarm_attempt">Ett misslyckat försök att stänga av alarmet har gjorts.</string>
+    <string name="pref_message_about_contact">Kontakt davan_at_work@hotmail.com</string>
+    <string name="pref_title_user_add">Lägg till användare</string>
+    <string name="pref_title_user_edit">Ändra användare</string>
+    <string name="pref_button_delete_user">Ta bort</string>
+    <string name="pref_button_save_user">Spara</string>
+    <string name="pref_title_close_user">Stäng</string>
+    <string name="pref_message_fibaro_server_address_not_configured">Addressen till Fibaro server är inte konfigurerad</string>
+    <string name="pref_message_no_procedure_server_configured">Antingen måste Fibaro server eller en extern server vara konfigurerad att användas.</string>
+    <string name="pref_message_both_fibaro_and_external_server_configured">Både Fibaro server och en extern server är konfigurerad att användas.</string>
+    <string name="pref_message_no_telegram_chat_id_configured">Inget Telegram chat id är konfiguerat, lägg till åtminstone ett chat id eller stäng av användandet av Telegram</string>
+    <string name="pref_message_not_token_configured">Telegram token är inte konfigurerat, lägg till ett token eller stäng av Telegram</string>
+    <string name="pref_message_low_battery_level">Batterinivån är låg.</string>
+    <string name="pref_message_battery_level_ok">Batterinivån är ok</string>
+    <string name="pref_title_battery_settings">Batteri inställningar</string>
+    <string name="pref_summary_battery_settings">Inställningar för batteri hantering</string>
+    <string name="pref_title_enable_charging_control">Aktivera styrning av laddning</string>
+    <string name="pref_title_charging_turn_on">Kör scen id vid låg batteri nivå</string>
+    <string name="pref_title_charging_turn_off">Kör scen id vid hög batteri nivå</string>
+    <string name="pref_title_keypad_name">Knappsatsens namn</string>
+</resources>

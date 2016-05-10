@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.davan.alarmcontroller.MainActivity"
+>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:id="@+id/tableLayout2"
+        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentRight="true">
+
+        <TableRow
+            android:gravity="center"
+            android:layout_weight="1"
+            android:padding="@dimen/abc_button_padding_vertical_material">
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pref_text_view_alarmkeypad"
+                android:onClick="startAlarmKeypad"
+                android:id="@+id/button25"
+
+                android:layout_column="0"
+                android:paddingStart="@dimen/abc_button_padding_horizontal_material"
+                android:paddingEnd="@dimen/abc_button_padding_horizontal_material" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:src="@drawable/locked_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tableLayout2"
+                android:layout_toEndOf="@+id/tableLayout2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_column="0" />
+        </TableRow>
+
+    </TableLayout>
+</RelativeLayout>

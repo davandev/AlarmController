@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,11 +31,12 @@ import java.util.List;
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String TAG = SettingsActivity.class.getSimpleName();
-
+    private int oneClickOnly = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "OnCreate");
         setupActionBar();
         Context context = getApplicationContext();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
@@ -44,6 +46,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     @Override
     protected void onPostCreate(Bundle savedInstanceState)
     {
+        Log.d(TAG, "OnPostCreate");
         super.onPostCreate(savedInstanceState);
         final Preference pref = findPreference("checkbox");
 
@@ -62,6 +65,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 finish();
             }
         });
+    }
+    @Override
+    protected void onDestroy()
+
+    {
+        super.onDestroy();
+        Log.d(TAG,"onDestroy");
+        Context context = getApplicationContext();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        settings.unregisterOnSharedPreferenceChangeListener(this);
     }
     /**
      * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -190,8 +203,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Log.d(TAG,"onSharedPreferenceChanged");
+        oneClickOnly++;
+        if(oneClickOnly != 1)
+            return;
+
         if (key.compareTo("wake_up_service_enabled") == 0)
         {
+            Log.d(TAG,"wake_up_service_enabled");
+
             if (sharedPreferences.getBoolean(key, false))
             {
                 startService(new Intent(SettingsActivity.this, WakeUpService.class));
@@ -200,6 +220,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             {
                 stopService(new Intent(SettingsActivity.this, WakeUpService.class));
             }
+            oneClickOnly = 0;
         }
 
     }

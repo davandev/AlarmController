@@ -32,7 +32,6 @@ import com.davan.alarmcontroller.settings.SettingsLauncher;
 public class MainActivity extends AppCompatActivity implements AlarmStateListener
 {
     private static final String TAG = MainActivity.class.getSimpleName();
-
     private PowerManager.WakeLock mWakeLock = null;
     private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
@@ -72,11 +71,13 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
             wakeUpScreen = new WakeUpScreen(this);
         }
 
-        //Register for power connection callbacks
-        powerListener = new PowerConnectionReceiver(resources);
-        powerListener.registerMyReceiver(this);
-        Intent intent = this.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-
+        if (resources.isChargingControlEnabled())
+        {
+            //Register for power connection callbacks
+            powerListener = new PowerConnectionReceiver(resources);
+            powerListener.registerMyReceiver(this);
+            Intent intent = this.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        }
     }
 
     @Override

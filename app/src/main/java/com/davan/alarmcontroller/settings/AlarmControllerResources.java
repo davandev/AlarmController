@@ -95,12 +95,15 @@ public class AlarmControllerResources
         for( Map.Entry entry : userPreferences.getAll().entrySet() )
         {
             String[] credentials = entry.getValue().toString().split(":");
+            Log.d(TAG,"user:" + entry.getKey().toString() +" "+ credentials[1]);
             if(pin.compareTo(credentials[1]) == 0)
             {
                 Log.d(TAG,"Found user:" + entry.getKey().toString());
                 return new Pair<>(entry.getKey().toString(),credentials[0]);
             }
         }
+        Log.d(TAG,"No user with that pin");
+
         throw new Exception("User not found");
     }
 
@@ -116,7 +119,7 @@ public class AlarmControllerResources
         for (Object user : users.keySet())
         {
             String value = users.get(user);
-            Log.d(TAG, "User:" + user + " Value:" + value);
+            Log.d(TAG, "User:" + user);
             String[] userSettings = value.split(":");
             if (userSettings.length == 4) {
                 if (Boolean.parseBoolean(userSettings[3])) {

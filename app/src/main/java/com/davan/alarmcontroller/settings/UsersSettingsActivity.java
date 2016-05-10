@@ -152,7 +152,7 @@ public class UsersSettingsActivity extends AppCompatActivity
                 String user = userInput.getText().toString();
                 if( users.containsKey(user))
                 {
-                    Log.d(TAG, "Deleting user" + user);
+                    Log.d(TAG, "Deleting user:" + user);
                     users.remove(user);
                     adapter.remove(user);
                     adapter.notifyDataSetChanged();
@@ -219,8 +219,9 @@ public class UsersSettingsActivity extends AppCompatActivity
     public void storeUsers()
     {
         SharedPreferences.Editor editor = getSharedPreferences("com.davan.alarmcontroller.users", 0).edit();
-        for( Map.Entry entry : users.entrySet() ) {
-            Log.d(TAG, "Key" + entry.getKey().toString() + " Value: " + entry.getValue().toString());
+        editor.clear();
+        for( Map.Entry entry : users.entrySet() )
+        {
             editor.putString(entry.getKey().toString(), entry.getValue().toString());
         }
         editor.commit();
