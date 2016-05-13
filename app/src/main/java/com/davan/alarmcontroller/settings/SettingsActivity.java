@@ -31,7 +31,7 @@ import java.util.List;
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String TAG = SettingsActivity.class.getSimpleName();
-    private int oneClickOnly = 0;
+    private static int oneClickOnly = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -67,8 +67,27 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         });
     }
     @Override
-    protected void onDestroy()
+    protected void onResume()
+    {
+        super.onResume();
+        Log.d(TAG, "OnResume");
+        Context context = getApplicationContext();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        settings.registerOnSharedPreferenceChangeListener(this);
+    }
 
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        Log.d(TAG, "onPause");
+        Context context = getApplicationContext();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        settings.unregisterOnSharedPreferenceChangeListener(this);
+
+    }
+    @Override
+    protected void onDestroy()
     {
         super.onDestroy();
         Log.d(TAG,"onDestroy");
@@ -86,9 +105,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         {
             // Show the Up button in the action bar.
             actionBar.setDisplayHomeAsUpEnabled(true);
-            //actionBar.setSubtitle("mytest");
             actionBar.setTitle("AlarmController Settings");
-
         }
     }
 
@@ -203,7 +220,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d(TAG,"onSharedPreferenceChanged");
+        Log.d(TAG,"onSharedPreferenceChanged " +oneClickOnly );
         oneClickOnly++;
         if(oneClickOnly != 1)
             return;
@@ -237,10 +254,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             addPreferencesFromResource(R.xml.pref_fibaro_server);
             setHasOptionsMenu(true);
 
-            bindPreferenceSummaryToValue(findPreference("arm_alarm_scene"));
-            bindPreferenceSummaryToValue(findPreference("disarm_alarm_scene"));
-            bindPreferenceSummaryToValue(findPreference("arm_shell_scene"));
-            bindPreferenceSummaryToValue(findPreference("disarm_shell_scene"));
+            bindPreferenceSummaryToValue(findPreference("virtual_device_id"));
+            bindPreferenceSummaryToValue(findPreference("arm_alarm_button_id"));
+            bindPreferenceSummaryToValue(findPreference("disarm_alarm_button_id"));
+            bindPreferenceSummaryToValue(findPreference("arm_shell_button_id"));
+            bindPreferenceSummaryToValue(findPreference("disarm_shell_button_id"));
         }
 
         @Override
@@ -301,7 +319,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             bindPreferenceSummaryToValue(findPreference("keypad_id"));
             bindPreferenceSummaryToValue(findPreference("battery_turn_off_charging"));
             bindPreferenceSummaryToValue(findPreference("battery_turn_on_charging"));
-
         }
 
         @Override
@@ -336,6 +353,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             bindPreferenceSummaryToValue(findPreference("fibaro_variable_alarmstate"));
             bindPreferenceSummaryToValue(findPreference("fibaro_variable_alarmstate_armed"));
             bindPreferenceSummaryToValue(findPreference("fibaro_variable_alarmstate_disarmed"));
+            bindPreferenceSummaryToValue(findPreference("fibaro_variable_alarmstate_breached"));
+
         }
 
         @Override

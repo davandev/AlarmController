@@ -11,6 +11,13 @@ public class AlarmProcedureFactory
 {
     private static final String TAG = AlarmProcedureFactory.class.getSimpleName();
 
+    /**
+     * Create an alarmProcedure depending on configuration
+     * @param resources
+     * @param listener,
+     * @return the alarmprocedure
+     * @throws Exception when configuration is faulty
+     */
     public static AlarmProcedureIf createProcedure(
             AlarmControllerResources resources,
             AlarmProcedureResultListener listener) throws Exception
@@ -20,7 +27,6 @@ public class AlarmProcedureFactory
         {
             Log.d(TAG,"Creating FibarServerAlarmProcedure");
             return new FibaroServerAlarmProcedure(resources, listener);
-
         }
 
         if (resources.isExternalServerEnabled())

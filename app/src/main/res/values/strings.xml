@@ -39,12 +39,12 @@
         <string name="pref_default_display_name">192.0.0.0</string>
 
         <!-- Alarm settings -->
-        <string name="pref_title_arm_alarm_scene">Arm alarm scene id</string>
-        <string name="pref_title_disarm_alarm_scene">Disarm alarm scene id</string>
+        <string name="pref_title_arm_alarm_button_id">Button id to arm alarm </string>
+        <string name="pref_title_disarm_alarm_button_id">Button id to disarm alarm</string>
 
         <!-- Shell protection -->
-        <string name="pref_title_arm_shell_scene">Arm shell protection scene id</string>
-        <string name="pref_title_disarm_shell_scene">Disarm shell protection scene id</string>
+        <string name="pref_title_arm_shell_button_id">Button id to arm shell protection</string>
+        <string name="pref_title_disarm_shell_button_id">Button id to disarm shell protection </string>
         <string name="pref_default_arm_scene">34</string>
 
         <string name="pref_title_external_server_authentication">Authenticate via external server</string>
@@ -78,7 +78,7 @@
     <string name="pref_title_required_configuration">Required configuration</string>
     <string name="pref_summary_required_configuration">Following settings are mandatory, and are used to fetch the current state of the Fibaro security system. At least one Fibaro user needs to be configured.</string>
     <!--Messages-->
-    <string name="pref_message_no_network_connection">No network connection available.</string>
+    <string name="pref_message_no_network_connection">No wifi network connection available.</string>
     <string name="pref_message_configuration_not_ok">Configuration is not ok, update configuration.</string>
     <string name="pref_message_no_server_enabled">No authentication server enabled.</string>
     <string name="pref_message_welcome_home">"Welcome home "</string>
@@ -160,5 +160,9 @@
     <string name="pref_fibaro_server_run_scene_url"><![CDATA[http://<serveraddress>/api/sceneControl?id=<id>&action=start]]></string>
     <string name="pref_title_keypad_name">Name of the keypad</string>
     <string name="pref_button_view_logs">View Logs</string>
+    <string name="pref_actionbar_user_settings">User settings</string>
+    <string name="pref_message_no_charging_turn_on_configured">No scene is configured to invoke when battery level is low</string>
+    <string name="pref_message_no_charging_turn_off_configured">No scene is configured to invoke when battery level is high</string>
+    <string name="pref_fibaro_server_run_virtual_device_url"><![CDATA[http://<serveraddress>/api/callAction?deviceID=<id>&name=pressButton&arg1=<buttonId>]]></string>
 
 </resources>

@@ -30,21 +30,15 @@ tools:context=".Disarmed"
             android:background="?android:attr/selectableItemBackground"
             android:onClick="armSkalskydd" />
 
+        <ImageButton
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:scaleType="fitCenter"
+            android:layout_weight="0"
+            android:id="@+id/imageButton"
+            android:src="@drawable/unlock_alarm"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="armAlarm"/>
     </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageButton
-                android:layout_width="260dp"
-                android:layout_height="260dp"
-                android:scaleType="fitCenter"
-                android:layout_weight="0"
-                android:id="@+id/imageButton3"
-                android:src="@drawable/unlock_alarm"
-                android:background="?android:attr/selectableItemBackground"
-                android:onClick="armAlarm" />
-        </TableRow>
-    </TableLayout>
+</TableLayout>
 </RelativeLayout>

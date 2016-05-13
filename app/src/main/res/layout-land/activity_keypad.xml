@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DisarmActivity"
+    android:background="@android:color/background_dark">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/tableLayout">
+
+        <TableRow
+            android:gravity="center">
+            android:layout_weight="1"
+
+
+            <EditText
+                android:gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberPassword"
+                android:ems="10"
+                android:textSize="30sp"
+                android:id="@+id/editText2"
+                android:layout_column="0"
+                android:layout_span="3"
+                android:textColor="@android:color/white" />
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="buttonPushed"
+                android:text="1"
+                android:textSize="40sp"
+                android:background="@drawable/mybutton"
+                android:id="@+id/button"
+                 />
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:textSize="40sp"
+                android:onClick="buttonPushed"
+                android:text="2"
+                android:background="@drawable/mybutton"
+                android:id="@+id/button10"/>
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="buttonPushed"
+                android:textSize="40sp"
+                android:text="3"
+                android:background="@drawable/mybutton"
+                android:id="@+id/button13"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+        <Button
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="4"
+                android:onClick="buttonPushed"
+                android:textSize="40sp"
+                android:background="@drawable/mybutton"
+                android:id="@+id/button14" />
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:textSize="40sp"
+                android:onClick="buttonPushed"
+
+                android:text="5"
+                android:background="@drawable/mybutton"
+                android:id="@+id/button15"/>
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/mybutton"
+                android:onClick="buttonPushed"
+                android:textSize="40sp"
+                android:text="6"
+                android:id="@+id/button16"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="buttonPushed"
+                android:background="@drawable/mybutton"
+                android:textSize="40sp"
+                android:text="7"
+                android:id="@+id/button17"/>
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/mybutton"
+                android:onClick="buttonPushed"
+                android:textSize="40sp"
+                android:text="8"
+                android:id="@+id/button18"/>
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/mybutton"
+                android:textSize="40sp"
+                android:text="9"
+                android:onClick="buttonPushed"
+                android:id="@+id/button19"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/mybutton"
+                android:textSize="40sp"
+                android:onClick="buttonPushed"
+                android:text="&lt;&lt;"
+                android:id="@+id/button20" />
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/mybutton"
+                android:textSize="40sp"
+                android:onClick="buttonPushed"
+                android:text="0"
+                android:id="@+id/button21"/>
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/mybutton"
+                android:textSize="40sp"
+                android:onClick="buttonPushed"
+                android:text="OK"
+                android:id="@+id/button22"/>
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>

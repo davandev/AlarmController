@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Helper class to access preferences, strings, configuration
+ */
 public class AlarmControllerResources
 {
     private static final String TAG = AlarmControllerResources.class.getSimpleName();
@@ -41,6 +44,7 @@ public class AlarmControllerResources
     public String getDefaultPassword() { return defaultUserPassword; }
     /* Return the password protecting settings menu*/
     public String getSettingsPassword() { return preferences.getString("settings_protection", "1234");}
+    /* Return the configured escape time */
     public String getEscapingTime() { return preferences.getString("escaping_time", "30");}
 
     public boolean isFibaroServerEnabled() { return preferences.getBoolean("fibaro_server_enabled", false); }
@@ -48,22 +52,44 @@ public class AlarmControllerResources
     public boolean isWakeUpServiceEnabled() {return preferences.getBoolean("wake_up_service_enabled", false);}
     public Resources getResources() { return resources; }
     public SharedPreferences getPreferences() { return preferences; }
+    /* Return the configured Fibaro variable for AlarmState*/
     public String getFibaroAlarmStateVariableName() { return preferences.getString("fibaro_variable_alarmstate", "AlarmState");}
+    /* Return the configured Fibaro variable when alarmstate is disarmed*/
     public String getFibaroAlarmStateValueDisarmed() { return preferences.getString("fibaro_variable_alarmstate_disarmed", "Disarmed");}
+    /* Return the configured Fibaro variable when alarmstate is disarmed*/
+    public String getFibaroAlarmStateValueBreached() { return preferences.getString("fibaro_variable_alarmstate_breached", "Breached");}
+    /* Return the configured Fibaro variable when alarmstate is armed*/
     public String getFibaroAlarmStateValueArmed() { return preferences.getString("fibaro_variable_alarmstate_armed", "Armed");}
-
+    /* Return the configured Fibaro variable for alarmtype*/
     public String getFibaroAlarmTypeVariableName() { return preferences.getString("fibaro_variable_alarmtype", "AlarmType");}
     public String getFibaroAlarmTypeValueFullHouseArmed() { return preferences.getString("fibaro_variable_alarmtype_fullhouse", "Alarm");}
     public String getFibaroAlarmTypeValuePerimeterArmed() { return preferences.getString("fibaro_variable_alarmtype_perimeter", "Perimeter");}
 
+    /* Return the configured telegram token*/
     public String getTelegramToken() { return preferences.getString("telegram_token", "");}
 
     public boolean isTelegramEnabled() { return preferences.getBoolean("telegram_enabled", false);}
+    /* Return true if charging control is enabled in configuration*/
     public boolean isChargingControlEnabled() { return preferences.getBoolean("charging_enabled", false);}
+    /* Return the scene id to invoke when charging should be turned on. */
     public String getTurnOnChargingSceneId() {return preferences.getString("battery_turn_on_charging", "");}
+    /* Return the scene id to invoke when charging should be turned off. */
     public String getTurnOffChargingSceneId() {return preferences.getString("battery_turn_off_charging", "");}
-    public String getFibaroRunSceneUrl() {return resources.getString(R.string.pref_fibaro_server_run_scene_url);}
+
+    public String getFibaroRunSceneUrl() {
+        return resources.getString(R.string.pref_fibaro_server_run_scene_url);
+    }
+    public String getFibaroRunVirtualDeviceUrl()
+    {
+        return resources.getString(R.string.pref_fibaro_server_run_virtual_device_url);
+    }
+    public String getVirtualDeviceId()
+    {
+        return preferences.getString("virtual_device_id", "");
+    }
+
     public String getKeypadId() {return preferences.getString("keypad_id", "");}
+    /* Return the telegram url with token and chatid */
     public String getTelegramSendMessageUrl(String token, String chatId)
     {
         String url = resources.getString(R.string.pref_url_telegram_send_message);
@@ -72,6 +98,7 @@ public class AlarmControllerResources
         return url;
     }
 
+    /* Return a list of all the users chatids */
     public ArrayList<String> getAllTelegramChatIds()
     {
         ArrayList<String> chatIds = new ArrayList<>();
@@ -95,7 +122,7 @@ public class AlarmControllerResources
         for( Map.Entry entry : userPreferences.getAll().entrySet() )
         {
             String[] credentials = entry.getValue().toString().split(":");
-            Log.d(TAG,"user:" + entry.getKey().toString() +" "+ credentials[1]);
+            Log.d(TAG, "user:" + entry.getKey().toString() + " " + credentials[1]);
             if(pin.compareTo(credentials[1]) == 0)
             {
                 Log.d(TAG,"Found user:" + entry.getKey().toString());
@@ -119,7 +146,6 @@ public class AlarmControllerResources
         for (Object user : users.keySet())
         {
             String value = users.get(user);
-            Log.d(TAG, "User:" + user);
             String[] userSettings = value.split(":");
             if (userSettings.length == 4) {
                 if (Boolean.parseBoolean(userSettings[3])) {
@@ -131,6 +157,10 @@ public class AlarmControllerResources
         }
     }
 
+    /**
+     * Verify that configuration is ok
+     * @throws Exception when configuration is faulty.
+     */
     public void verifyConfiguration() throws Exception
     {
         findDefaultUser();
@@ -165,8 +195,23 @@ public class AlarmControllerResources
                 throw new Exception(resources.getString(R.string.pref_message_not_token_configured));
             }
         }
+        if (isChargingControlEnabled())
+        {
+            if (getTurnOnChargingSceneId().compareTo("") == 0)
+            {
+                throw new Exception(resources.getString(R.string.pref_message_no_charging_turn_on_configured));
+            }
+            if (getTurnOffChargingSceneId().compareTo("") == 0)
+            {
+                throw new Exception(resources.getString(R.string.pref_message_no_charging_turn_off_configured));
+            }
+        }
     }
 
+    /**
+     * Determine if camera should take a picture when alarm is disarmed.
+     * @return true if enabled
+     */
     public boolean isPictureAtDisarmEnabled()
     {
         return preferences.getBoolean("take_picture_enabled",false);

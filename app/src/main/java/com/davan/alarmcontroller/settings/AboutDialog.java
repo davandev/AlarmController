@@ -19,37 +19,36 @@ import com.davan.alarmcontroller.logging.LogSaver;
  **/
 public class AboutDialog
 {
-        private static final String TAG = AboutDialog.class.getSimpleName();
+    private static final String TAG = AboutDialog.class.getSimpleName();
 
-        public static void showDialog(final Activity callingActivity)
+    /**
+     * Show the about dialog
+     * @param callingActivity
+     */
+    public static void showDialog(final Activity callingActivity)
+    {
+        Log.d(TAG, "showDialog");
+        AlertDialog.Builder alert = new AlertDialog.Builder(callingActivity);
+        LayoutInflater inflater = callingActivity.getLayoutInflater();
+        View layout=inflater.inflate(R.layout.about_dialog,null);
+        alert.setView(layout);
+        int versionCode = BuildConfig.VERSION_CODE;
+        String versionName = BuildConfig.VERSION_NAME;
+        final TextView versionField=(TextView)layout.findViewById(R.id.version);
+        versionField.setText("Version: " + versionName + " " + versionCode);
+
+        alert.setNeutralButton("ViewLogs", new DialogInterface.OnClickListener()
         {
-            Log.d(TAG, "showDialog");
-            AlertDialog.Builder alert = new AlertDialog.Builder(callingActivity);
-            LayoutInflater inflater = callingActivity.getLayoutInflater();
-            View layout=inflater.inflate(R.layout.about_dialog,null);
-            alert.setView(layout);
-            int versionCode = BuildConfig.VERSION_CODE;
-            String versionName = BuildConfig.VERSION_NAME;
-            final TextView versionField=(TextView)layout.findViewById(R.id.version);
-            versionField.setText("Version: " + versionName + " " + versionCode);
-
-            alert.setNeutralButton("ViewLogs", new DialogInterface.OnClickListener()
+            public void onClick(DialogInterface dialog, int whichButton)
             {
-                public void onClick(DialogInterface dialog, int whichButton)
-                {
-                    Log.d(TAG, "viewLogs");
-                    Intent intent = new Intent(callingActivity, LogSaver.class);
-                    callingActivity.startActivity(intent);
-                }
-            });
-            AlertDialog dialog = alert.create();
-            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-            dialog.show();
-        }
-
-        public void viewLogs(View view)
-        {
-            Log.d(TAG, "viewLog");
-
-        }
+                // Display logs on screen
+                Log.d(TAG, "viewLogs");
+                Intent intent = new Intent(callingActivity, LogSaver.class);
+                callingActivity.startActivity(intent);
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.show();
     }
+}

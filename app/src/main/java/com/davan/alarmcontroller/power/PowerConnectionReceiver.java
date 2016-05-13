@@ -53,6 +53,13 @@ public class PowerConnectionReceiver implements CustomSceneProcedureResultListen
         }
     };
 
+    /**
+     * Low battery level, invoke scene on fibaro system
+     * if enabled. The scene could do anything, but the
+     * intention is to turn on a wallsocket and start charging
+     * the device.
+     * @param context
+     */
     public void handleLowBatteryLevel(Context context)
     {
         if (shouldInvokeAction)
@@ -70,6 +77,14 @@ public class PowerConnectionReceiver implements CustomSceneProcedureResultListen
             shouldInvokeAction = false;
         }
     }
+
+    /**
+     * Battery level ok, invoke scene on fibaro system
+     * if enabled. The scene could do anything, but the
+     * intention is to turn off a wallsocket and stop charging
+     * the device.
+     * @param context
+     */
     public void handleHighBatteryLevel(Context context)
     {
         if (shouldInvokeAction)
@@ -87,6 +102,11 @@ public class PowerConnectionReceiver implements CustomSceneProcedureResultListen
             shouldInvokeAction = false;
         }
     }
+
+    /**
+     * Register to receive battery level changes.
+     * @param context
+     */
     public void registerMyReceiver(Context context)
     {
         mBatteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);

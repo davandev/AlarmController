@@ -27,6 +27,10 @@ public class TelegramActivity implements RequestDispatcherResultListener
         telegramEnabled = resources.isTelegramEnabled();
     }
 
+    /**
+     * Sends a message via telegram to all users with configured chat ids
+     * @param message message to send
+     */
     public void sendMessage(String message)
     {
         if(telegramEnabled)
@@ -45,6 +49,12 @@ public class TelegramActivity implements RequestDispatcherResultListener
             Log.d(TAG,"Telegram is disabled");
         }
     }
+
+    /**
+     * Result received
+     * @param result
+     * @todo Implement error handling
+     */
     @Override
     public void resultReceived(String result)
     {

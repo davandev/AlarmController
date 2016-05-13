@@ -4,6 +4,12 @@ package com.davan.alarmcontroller;
  **/
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.media.ToneGenerator;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +30,7 @@ import java.util.Random;
 public class Arm extends AppCompatActivity implements AlarmProcedureResultListener
 {
     private static final String TAG = Arm.class.getSimpleName();
+
     private AlarmProcedureIf handler;
     private String alarmType = "0";
     private AlarmControllerResources resources;
@@ -88,6 +95,10 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
      */
     public void startArmingCountDown()
     {
+/*        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), notification);
+        mp.start();
+*/
         int escapeTime = Integer.parseInt(resources.getEscapingTime());
         new CountDownTimer(escapeTime*1000, 100)
         {
@@ -103,6 +114,7 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
                 armed();
             }
         }.start();
+//        mp.stop();
     }
 
     /**

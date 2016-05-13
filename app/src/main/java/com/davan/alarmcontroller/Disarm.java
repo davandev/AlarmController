@@ -28,6 +28,7 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
     private static final String TAG = Disarm.class.getSimpleName();
 
     private String alarmType = "";
+    private String alarmState = "";
     private boolean authenticationOk = false;
     private String authenticatedUser = "";
 
@@ -46,6 +47,7 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
         setContentView(R.layout.activity_keypad);
         Intent myIntent = getIntent(); // gets the previously created intent
         alarmType = myIntent.getStringExtra(getResources().getString(R.string.alarm_type));
+        alarmState = myIntent.getStringExtra("AlarmState");
 
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);

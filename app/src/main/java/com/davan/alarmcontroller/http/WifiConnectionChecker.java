@@ -20,14 +20,14 @@ public class WifiConnectionChecker
     public boolean isConnectionOk()
     {
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected())
+        if (networkInfo != null && networkInfo.isConnected() && networkInfo.getType() == connMgr.TYPE_WIFI)
         {
-            Log.d(TAG,"Network connection is available");
+            Log.d(TAG,"Wifi connection is available");
             return true;
         }
         else
         {
-            Log.d(TAG, "No network connection available");
+            Log.d(TAG, "No wifi connection available");
             return false;
         }
     }

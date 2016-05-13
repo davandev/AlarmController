@@ -26,8 +26,6 @@ public class ExternalServerAlarmProcedure implements AlarmProcedureIf, RequestDi
     {
         resources = alarmControllerResources;
         resultListener = listener;
-
-
         requestSender = new RequestDispatcher(this);
     }
 
@@ -73,6 +71,10 @@ public class ExternalServerAlarmProcedure implements AlarmProcedureIf, RequestDi
         requestSender.execute(disarm_url, "", "", Boolean.toString(true));
     }
 
+    /**
+     * Callback from RequestDispatcher with result from server.
+     * @param result
+     */
     @Override
     public void resultReceived(String result)
     {
@@ -80,15 +82,16 @@ public class ExternalServerAlarmProcedure implements AlarmProcedureIf, RequestDi
         {
             if (action.compareTo(resources.getResources().getString(R.string.arming))== 0)
             {
+                //notify arming successful
                 resultListener.resultReceived(true, "");
             }
             else
             {
                 result = result.replace("200","");
-
                 try
                 {
                     JSONObject jObject = new JSONObject(result);
+                    // Notify disarming success
                     resultListener.resultReceived(true , jObject.getString("user"));
                 }
                 catch (JSONException e)
@@ -99,6 +102,7 @@ public class ExternalServerAlarmProcedure implements AlarmProcedureIf, RequestDi
         }
         else
         {
+            // Notify arming/disarming failure
             resultListener.resultReceived(false, "");
         }
     }

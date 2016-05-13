@@ -152,6 +152,7 @@ import com.davan.alarmcontroller.http.NanoHTTPD.Response.Status;
  */
 public abstract class NanoHTTPD {
 
+    private static final String TAG ="NanoHTTPD";
     /**
      * Pluggable strategy for asynchronously executing requests.
      */
@@ -179,7 +180,7 @@ public abstract class NanoHTTPD {
         }
 
         public void close() {
-            Log.d("test","NanoHTTPD close");
+            Log.d(TAG,"NanoHTTPD close");
             safeClose(this.inputStream);
             safeClose(this.acceptSocket);
         }
@@ -2271,14 +2272,18 @@ public abstract class NanoHTTPD {
      */
     public void stop() {
         try {
+            Log.d(TAG,"stop server");
             safeClose(this.myServerSocket);
             this.asyncRunner.closeAll();
             if (this.myThread != null) {
                 this.myThread.join();
             }
         } catch (Exception e) {
-            NanoHTTPD.LOG.log(Level.SEVERE, "Could not stop all connections", e);
+            Log.d(TAG, "Could not stop all connections", e);
+                    NanoHTTPD.LOG.log(Level.SEVERE, "Could not stop all connections", e);
         }
+        Log.d(TAG,"Server stopped");
+
     }
 
     public final boolean wasStarted() {

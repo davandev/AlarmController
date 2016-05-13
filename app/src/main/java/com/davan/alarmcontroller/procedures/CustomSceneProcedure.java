@@ -10,14 +10,13 @@ import com.davan.alarmcontroller.settings.AlarmControllerResources;
 /**
  * Created by davandev on 2016-05-08.
  **/
-public class CustomSceneProcedure  implements CustomSceneProcedureResultListener, RequestDispatcherResultListener
+public class CustomSceneProcedure  implements RequestDispatcherResultListener
 {
     private static final String TAG = CustomSceneProcedure.class.getSimpleName();
 
     private RequestDispatcher requestSender;
     private CustomSceneProcedureResultListener resultListener;
     private AlarmControllerResources resources;
-    private String action = "";
     private String url = "";
     public CustomSceneProcedure(AlarmControllerResources alarmControllerResources,
                                 CustomSceneProcedureResultListener listener)
@@ -27,6 +26,10 @@ public class CustomSceneProcedure  implements CustomSceneProcedureResultListener
         requestSender = new RequestDispatcher(this);
     }
 
+    /**
+     * Invoke a scene on fibaro system.
+     * @param id scene id
+     */
     public void runScene( String id)
     {
         Log.d(TAG, "runScene");

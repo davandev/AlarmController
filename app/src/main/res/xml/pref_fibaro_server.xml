@@ -5,36 +5,45 @@
         android:summary="@string/pref_summary_fibaro_server_enabled"
         android:defaultValue="false" />
     <EditTextPreference
-        android:key="arm_shell_scene"
+        android:key="virtual_device_id"
         android:dependency="fibaro_server_enabled"
-        android:title="@string/pref_title_arm_shell_scene"
+        android:title="Virtual Device Id"
         android:selectAllOnFocus="true"
         android:inputType="number"
         android:capitalize="words"
         android:singleLine="true"
         android:maxLines="1" />
     <EditTextPreference
-        android:key="disarm_shell_scene"
+        android:key="arm_shell_button_id"
         android:dependency="fibaro_server_enabled"
-        android:title="@string/pref_title_disarm_shell_scene"
+        android:title="@string/pref_title_arm_shell_button_id"
         android:selectAllOnFocus="true"
         android:inputType="number"
         android:capitalize="words"
         android:singleLine="true"
         android:maxLines="1" />
     <EditTextPreference
-        android:key="arm_alarm_scene"
+        android:key="disarm_shell_button_id"
         android:dependency="fibaro_server_enabled"
-        android:title="@string/pref_title_arm_alarm_scene"
+        android:title="@string/pref_title_disarm_shell_button_id"
         android:selectAllOnFocus="true"
         android:inputType="number"
         android:capitalize="words"
         android:singleLine="true"
         android:maxLines="1" />
     <EditTextPreference
-        android:key="disarm_alarm_scene"
+        android:key="arm_alarm_button_id"
         android:dependency="fibaro_server_enabled"
-        android:title="@string/pref_title_disarm_alarm_scene"
+        android:title="@string/pref_title_arm_alarm_button_id"
+        android:selectAllOnFocus="true"
+        android:inputType="number"
+        android:capitalize="words"
+        android:singleLine="true"
+        android:maxLines="1" />
+    <EditTextPreference
+        android:key="disarm_alarm_button_id"
+        android:dependency="fibaro_server_enabled"
+        android:title="@string/pref_title_disarm_alarm_button_id"
         android:selectAllOnFocus="true"
         android:inputType="number"
         android:capitalize="words"

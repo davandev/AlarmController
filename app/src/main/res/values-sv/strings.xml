@@ -39,12 +39,12 @@
         <string name="pref_default_display_name"></string>
 
         <!-- Alarm settings -->
-        <string name="pref_title_arm_alarm_scene">Scen id för att larma hela huset.</string>
-        <string name="pref_title_disarm_alarm_scene">Scen id för att larma av hela huset.</string>
+        <string name="pref_title_arm_alarm_button_id">Knapp id för att larma hela huset.</string>
+        <string name="pref_title_disarm_alarm_button_id">Knapp id för att larma av hela huset.</string>
 
         <!-- Shell protection -->
-        <string name="pref_title_arm_shell_scene">Scen id för att larma skalskyddet.</string>
-        <string name="pref_title_disarm_shell_scene">Scen id för att larma av skalskyddet.</string>
+        <string name="pref_title_arm_shell_button_id">Knapp id för att larma skalskyddet.</string>
+        <string name="pref_title_disarm_shell_button_id">Knapp id för att larma av skalskyddet.</string>
         <string name="pref_default_arm_scene">34</string>
 
         <string name="pref_title_external_server_authentication">Använd extern server</string>
@@ -78,7 +78,7 @@
     <string name="pref_title_required_configuration">Nödvändig konfigurering</string>
     <string name="pref_summary_required_configuration">Följande inställningar måste konfigureras och används för att hämta den aktuella larm statusen från Fibaro systemet. Åtminstone en Fibaro användare måste konfigureras.</string>
     <!--Messages-->
-    <string name="pref_message_no_network_connection">Inget nätverk tillgängligt.</string>
+    <string name="pref_message_no_network_connection">Inget wifi nätverk tillgängligt.</string>
     <string name="pref_message_configuration_not_ok">Något är fel med konfigurationen, rätta till det och försök igen.</string>
     <string name="pref_message_no_server_enabled">Ingen server aktiv.</string>
     <string name="pref_message_welcome_home">"Välkommen hem "</string>
@@ -150,7 +150,12 @@
     <string name="pref_title_battery_settings">Batteri inställningar</string>
     <string name="pref_summary_battery_settings">Inställningar för batteri hantering</string>
     <string name="pref_title_enable_charging_control">Aktivera styrning av laddning</string>
-    <string name="pref_title_charging_turn_on">Kör scen id vid låg batteri nivå</string>
-    <string name="pref_title_charging_turn_off">Kör scen id vid hög batteri nivå</string>
+    <string name="pref_title_charging_turn_on">Kör scen id vid låg batterinivå</string>
+    <string name="pref_title_charging_turn_off">Kör scen id vid hög batterinivå</string>
     <string name="pref_title_keypad_name">Knappsatsens namn</string>
+    <string name="pref_button_view_logs">Visa loggar</string>
+    <string name="pref_actionbar_user_settings">Användarinställningar</string>
+    <string name="pref_message_no_charging_turn_on_configured">Ingen scen är konfigurerad att köras när batterinivån är låg</string>
+    <string name="pref_message_no_charging_turn_off_configured">Ingen scen är konfigurerad att köras när batterinivån är hög</string>
+
 </resources>

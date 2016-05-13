@@ -108,6 +108,7 @@ public class WakeUpServer extends NanoHTTPD {
             receiver.wakeup();
         }
 
+
         String msg = "<html><body><h1>Wake up</h1>\n";
         Map<String, String> parms = session.getParms();
         msg += "</body></html>\n";

@@ -1,6 +1,7 @@
 package com.davan.alarmcontroller;
 /**
  * Created by davandev on 2016-04-12.
+ * http://192.168.2.54/api/callAction?deviceID=69&name=pressButton&arg1=6
  **/
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -132,6 +133,10 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
     @Override
     public void alarmStateUpdate(String alarmState, String alarmType)
     {
+        if (alarmState.compareTo(resources.getFibaroAlarmStateValueBreached() ) == 0)
+        {
+            ((ImageButton)findViewById(R.id.imageButton)).setImageResource(R.drawable.breached);
+        }
         if (alarmState.compareTo(resources.getFibaroAlarmStateValueDisarmed()) == 0)
         {
             Log.d(TAG,"Alarm is already disarmed");
