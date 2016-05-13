@@ -14,9 +14,11 @@ It currently supports:
 - Arming/Disarming via an external server
 - Sending Telegram messages when disarmed.
 - Turn on screen when a request is received from Fibaro system, typically triggered when a motion or door sensor is breached.
+- Execute Fibaro scene when low/high battery level occur. Used to turn on/off a wallsocket to charge the device.
+- Take a picture from front camera when disarmed.
 
 
-Be aware that the security for storing users and passwords is currently not great.., passwords are currently stored in plain text on local device. 
+Be aware that the security for storing users and passwords is currently not great.., passwords are currently stored in plain text on local device, the settings should be kept safe unless the device is rooted.
 
 - Default pin for unlocking settings menu is "1234"
 
