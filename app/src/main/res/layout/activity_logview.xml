@@ -14,6 +14,13 @@
                 android:layout_width="fill_parent"
                 android:text="">
             </TextView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send log via mail"
+                android:onClick="sendLog"
+                android:id="@+id/sendMailButton" />
         </LinearLayout>
     </ScrollView>
 
