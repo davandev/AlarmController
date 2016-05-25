@@ -22,5 +22,5 @@ Be aware that the security for storing users and passwords is currently not grea
 
 - Default pin for unlocking settings menu is "1234"
 
-Notice that this application has only been tested with a Fibaro HC2 system, but in theory it should be able to work with other systems as well. It is tested on a phone running android 4.5.x
+Notice that this application has only been tested with a Fibaro HC2 system, but in theory it should be able to work with other systems as well. It is tested on a phone running android 4.4.x
 
