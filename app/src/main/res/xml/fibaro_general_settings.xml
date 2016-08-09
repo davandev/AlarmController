@@ -31,11 +31,7 @@
             android:title="Fibaro global variable Alarm Type"
             android:summary="Configure Fibaro alarm type variable and possible values">
             <Preference
-                android:summary="
-The variable needs to be configured as a global variable in the Fibaro system and should reflect the different type of alarms.\n
-Only two different protection types are currently supported (Alarm and Shell).\n
-Alarm = All devices are armed (door/window/motion sensors)\n
-Shell = Only the outer shell are armed (door/window sensors)"
+                android:summary="@string/pref_summary_var_alarm_type"
                 android:selectable="false">
             </Preference>
             <EditTextPreference

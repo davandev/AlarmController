@@ -164,5 +164,6 @@
     <string name="pref_message_no_charging_turn_on_configured">No scene is configured to invoke when battery level is low</string>
     <string name="pref_message_no_charging_turn_off_configured">No scene is configured to invoke when battery level is high</string>
     <string name="pref_fibaro_server_run_virtual_device_url"><![CDATA[http://<serveraddress>/api/callAction?deviceID=<id>&name=pressButton&arg1=<buttonId>]]></string>
+    <string name="pref_summary_var_alarm_type">The variable needs to be configured as a global variable in the Fibaro system and should reflect the different type of alarms.\n Only two different protection types are currently supported (Alarm and Shell).\n Alarm = All devices are armed (door/window/motion sensors)\n Shell = Only the outer shell are armed (door/window sensors)</string>
 
 </resources>
