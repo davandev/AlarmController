@@ -1,7 +1,7 @@
 # Android alarm keypad for home automation.
 
-<img src="https://cloud.githubusercontent.com/assets/756370/14658381/a270953a-0693-11e6-8a3c-236fedf1ac3d.png" width="350">
-<img src="https://cloud.githubusercontent.com/assets/756370/14658388/b798f6e6-0693-11e6-854c-9c3f64eae87b.png" width="350">
+<img src="https://cloud.githubusercontent.com/assets/756370/19986985/20d5ba4c-a219-11e6-8e46-b2338b2a16d9.png" width="350">
+<img src="https://cloud.githubusercontent.com/assets/756370/19987009/3b7b3534-a219-11e6-905e-066f43ab8238.png" width="350">
 <img src="https://cloud.githubusercontent.com/assets/756370/14658397/c731e7ca-0693-11e6-8584-482df136bd69.png" width="350">
 <img src="https://cloud.githubusercontent.com/assets/756370/14658623/9314a17e-0695-11e6-81a8-83a59a2198fd.png" width="350">
 
