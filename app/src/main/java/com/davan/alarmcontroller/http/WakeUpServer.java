@@ -107,7 +107,12 @@ public class WakeUpServer extends NanoHTTPD {
         {
             receiver.wakeup();
         }
-
+        if(uri.compareTo("/Ping") == 0)
+        {
+            String msg = "Ping\n";
+            Map<String, String> parms = session.getParms();
+            return newFixedLengthResponse(msg);
+        }
 
         String msg = "<html><body><h1>Wake up</h1>\n";
         Map<String, String> parms = session.getParms();
