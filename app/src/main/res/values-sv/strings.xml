@@ -61,8 +61,8 @@
         <string name="pref_default_protect_settings">1234</string>
         <string name="pref_summary_protect_settings">Pinkod för att skydda meny inställningarna</string>
 
-        <string name="pref_title_wake_up_service">Aktivera tänd skärm</string>
-        <string name="pref_summary_wake_up_service">Tänd skärmen när meddelande tas emot.</string>
+        <string name="pref_title_wake_up_service">Aktivera http tjänster</string>
+        <string name="pref_summary_wake_up_service">Aktiverar http tjänster</string>
 
     <!-- Menus -->
     <string name="action_settings">Inställningar</string>
@@ -157,5 +157,7 @@
     <string name="pref_actionbar_user_settings">Användarinställningar</string>
     <string name="pref_message_no_charging_turn_on_configured">Ingen scen är konfigurerad att köras när batterinivån är låg</string>
     <string name="pref_message_no_charging_turn_off_configured">Ingen scen är konfigurerad att köras när batterinivån är hög</string>
+    <string name="pref_title_tts_service">TTS service enabled</string>
+    <string name="pref_summaryon_tts_service">Generates a wav file on received http request</string>
 
 </resources>

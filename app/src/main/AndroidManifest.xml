@@ -45,7 +45,7 @@
             android:name=".camera.CameraActivity"
             android:screenOrientation="landscape" />
 
-        <service android:name=".http.WakeUpService" />
+        <service android:name=".http.KeypadHttpService" />
 
         <activity
             android:name=".settings.SettingsActivity"

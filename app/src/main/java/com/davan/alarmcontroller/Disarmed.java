@@ -16,13 +16,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.davan.alarmcontroller.http.WakeUpScreen;
+import com.davan.alarmcontroller.http.services.WakeUpScreen;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateListener;
 import com.davan.alarmcontroller.settings.AboutDialog;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.settings.SettingsLauncher;
+import com.davan.alarmcontroller.http.services.TtsCreator;
 
 public class Disarmed extends AppCompatActivity implements AlarmStateListener
 {
@@ -31,6 +32,7 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
     private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
     private WakeUpScreen wakeUpScreen;
+    private TtsCreator ttsCreator;
 
 
     @Override
@@ -47,7 +49,9 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
                 PreferenceManager.getDefaultSharedPreferences(this),
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
-        wakeUpScreen = new WakeUpScreen(this);
+//        wakeUpScreen = new WakeUpScreen(this);
+//        ttsCreator = new TtsCreator(this);
+
 
         WindowManager.LayoutParams attrs = getWindow().getAttributes();
         attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN;

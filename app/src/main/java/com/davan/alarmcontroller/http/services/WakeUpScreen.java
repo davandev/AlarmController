@@ -1,4 +1,4 @@
-package com.davan.alarmcontroller.http;
+package com.davan.alarmcontroller.http.services;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,21 +7,25 @@ import android.content.IntentFilter;
 import android.os.PowerManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by davandev on 2016-04-18.
+ *
+ * Responsible to turn on screen when a http request wakeup request has
+ * been received.
+ * Registers as receiver for wakeup-event's
  **/
 public class WakeUpScreen
 {
     private static final String TAG = WakeUpScreen.class.getSimpleName();
 
-    public WakeUpScreen(Context context)
+    public WakeUpScreen()
     {
         Log.d(TAG,"Register for wakeup callbacks");
-        //Register to received wakeup callbacks
-        LocalBroadcastManager.getInstance(context).registerReceiver(
-                mMessageReceiver, new IntentFilter("wakeup-event"));
+
+        //Register to received wakeup events
+//        LocalBroadcastManager.getInstance(context).registerReceiver(
+//                mMessageReceiver, new IntentFilter("wakeup-event"));
 
     }
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
@@ -29,10 +33,15 @@ public class WakeUpScreen
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            Log.d(TAG, "Received WakeUp");
+            Log.d(TAG, "Received WakeUp event");
             wakeUpScreen(context);
         }
     };
+
+    /**
+     * Received request to wakeup screen.
+     * @param context
+     */
     public void wakeUpScreen(Context context)
     {
         Log.d(TAG, "WakeUp Screen");
@@ -41,4 +50,19 @@ public class WakeUpScreen
         mWakeLock.acquire();
         mWakeLock.release();
     }
+
+    /*
+     * Register to received wakeup events
+     */
+    public void registerForEvents(Context context)
+    {
+        LocalBroadcastManager.getInstance(context).registerReceiver(
+                mMessageReceiver, new IntentFilter("wakeup-event"));
+    }
+    public void unregisterForEvents(Context context)
+    {
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(
+                mMessageReceiver);
+    }
+
 }

@@ -33,34 +33,36 @@ package com.davan.alarmcontroller.http;
  * #L%
  */
 
+import android.os.Environment;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import com.davan.alarmcontroller.http.util.ServerRunner;
-import com.davan.alarmcontroller.http.util.WakeUpReceiver;
-public class WakeUpServer extends NanoHTTPD {
+import com.davan.alarmcontroller.http.util.KeypadHttpRequestListener;
+public class KeypadHttpServer extends NanoHTTPD {
 
     /**
      * logger to log to.
      */
-    private static final String CLASSNAME = WakeUpServer.class.getName();
+    private static final String CLASSNAME = KeypadHttpServer.class.getName();
     /**
      * Listener of received requests.
      */
-    private WakeUpReceiver receiver;
+    private KeypadHttpRequestListener receiver;
 
     public static void main(String[] args) {
-        ServerRunner.run(WakeUpServer.class);
+        ServerRunner.run(KeypadHttpServer.class);
     }
 
-    public WakeUpServer(WakeUpReceiver callbackReceiver)
+    public KeypadHttpServer(KeypadHttpRequestListener callbackReceiver)
     {
         super(8080);
         receiver = callbackReceiver;
@@ -73,7 +75,6 @@ public class WakeUpServer extends NanoHTTPD {
             Log.d(CLASSNAME,"Failed to retrieve ipaddress: "+ e.getMessage());
         }
     }
-
 
     public void printLocalAddress()throws IOException
     {
@@ -102,21 +103,51 @@ public class WakeUpServer extends NanoHTTPD {
         Method method = session.getMethod();
         String uri = session.getUri();
         Log.d(CLASSNAME, method + " '" + uri + "' ");
+        String responseMessage ="";
+        boolean serviceEnabled = false;
 
-        if(uri.compareTo("/WakeUp") == 0)
+
+        if(uri.contains("/tts=")) // Request to perform tts
         {
-            receiver.wakeup();
+            uri = uri.replace("/tts=","");
+            serviceEnabled = receiver.tts(uri);
+            responseMessage = "TTS initiated";
         }
-        if(uri.compareTo("/Ping") == 0)
+        if(uri.compareTo("/ttsFetch") == 0) // Request to fetch a completed tts.
+        {
+            String TTS_DIRECTORY_NAME = "GeneratedTTS";
+            File mediaStorageDir = new File(Environment.getExternalStorageDirectory(),TTS_DIRECTORY_NAME);
+            File mediaFile = new File(mediaStorageDir.getPath() + File.separator+ "TTS.wav");
+            Log.d(CLASSNAME, "Return Ttsfile: "+ mediaFile.getAbsolutePath());
+
+            try {
+                FileInputStream fis = new FileInputStream(mediaFile);
+                return newFixedLengthResponse(
+                        Response.Status.OK,
+                        "audio/mpeg",
+                        fis,
+                        mediaFile.length());
+            }
+            catch(IOException e)
+            {
+                Log.d(CLASSNAME, "Failed to return Ttsfile");
+            }
+//            receiver.tts(uri);
+        }
+        if(uri.compareTo("/WakeUp") == 0) // Request to wakeup screen
+        {
+            serviceEnabled = receiver.wakeup();
+            responseMessage = "Wake up";
+        }
+        if(uri.compareTo("/Ping") == 0) // Recevied alive message
         {
             String msg = "Ping\n";
             Map<String, String> parms = session.getParms();
             return newFixedLengthResponse(msg);
         }
 
-        String msg = "<html><body><h1>Wake up</h1>\n";
         Map<String, String> parms = session.getParms();
-        msg += "</body></html>\n";
+        String msg = "<html><body><h1>"+responseMessage+"</h1>\nServiceEnabled["+serviceEnabled+"]</body></html>\n";
         return newFixedLengthResponse(msg);
     }
 }

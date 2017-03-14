@@ -3,14 +3,11 @@ package com.davan.alarmcontroller;
  * Created by davandev on 2016-04-12.
  * http://192.168.2.54/api/callAction?deviceID=69&name=pressButton&arg1=6
  **/
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,13 +19,14 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.davan.alarmcontroller.http.WakeUpScreen;
+import com.davan.alarmcontroller.http.services.WakeUpScreen;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateListener;
 import com.davan.alarmcontroller.settings.AboutDialog;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.settings.SettingsLauncher;
+import com.davan.alarmcontroller.http.services.TtsCreator;
 
 public class Armed extends AppCompatActivity implements AlarmStateListener
 {
@@ -40,6 +38,8 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
     private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
     private WakeUpScreen wakeUpScreen;
+    private TtsCreator ttsCreator;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,7 +56,8 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
 
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
-        wakeUpScreen = new WakeUpScreen(this);
+//        wakeUpScreen = new WakeUpScreen(this);
+//        ttsCreator = new TtsCreator(this);
 
         wifiChecker = new WifiConnectionChecker(connMgr);
         resources = new AlarmControllerResources(

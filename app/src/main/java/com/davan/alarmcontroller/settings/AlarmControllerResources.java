@@ -49,7 +49,18 @@ public class AlarmControllerResources
 
     public boolean isFibaroServerEnabled() { return preferences.getBoolean("fibaro_server_enabled", false); }
     public boolean isExternalServerEnabled() { return preferences.getBoolean("ext_server_enabled", false); }
-    public boolean isWakeUpServiceEnabled() {return preferences.getBoolean("wake_up_service_enabled", false);}
+    /* Return the configured url to receiver of tts callbacks */
+    public String getTtsCallbackUrl() { return preferences.getString("tts_callback_url", "");}
+
+    /* Return true if http services is enabled */
+    public boolean isHttpServicesEnabled() {return preferences.getBoolean("http_service_enabled", false);}
+    /* Return true if wakeup service is enabled*/
+    public boolean isWakeUpServiceEnabled() {return preferences.getBoolean("wakeup_service_enabled", false);}
+    /* Return true if tts service is enabled*/
+    public boolean isTtsServiceEnabled() {return preferences.getBoolean("tts_service_enabled", false);}
+    /* Return true if tts should be played on device */
+    public boolean isTtsPlayOnDeviceEnabled() {return preferences.getBoolean("tts_play_on_device_enabled", false);}
+
     public Resources getResources() { return resources; }
     public SharedPreferences getPreferences() { return preferences; }
     /* Return the configured Fibaro variable for AlarmState*/
@@ -204,6 +215,17 @@ public class AlarmControllerResources
             if (getTurnOffChargingSceneId().compareTo("") == 0)
             {
                 throw new Exception(resources.getString(R.string.pref_message_no_charging_turn_off_configured));
+            }
+        }
+
+        if(isHttpServicesEnabled())
+        {
+            if(isTtsServiceEnabled())
+            {
+                if(getTtsCallbackUrl().compareTo("") == 0)
+                {
+                    throw new Exception(resources.getString(R.string.pref_message_no_callback_url_configured));
+                }
             }
         }
     }
