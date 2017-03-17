@@ -3,6 +3,8 @@ package com.davan.alarmcontroller.http;
  * Created by davandev on 2016-04-12.
  **/
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import android.app.Notification;
@@ -11,6 +13,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
+import android.os.Environment;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
@@ -23,6 +26,7 @@ import android.widget.Toast;
 import com.davan.alarmcontroller.R;
 import com.davan.alarmcontroller.http.util.KeypadHttpRequestListener;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
+import com.davan.alarmcontroller.http.NanoHTTPD;
 
 public class KeypadHttpService extends Service implements KeypadHttpRequestListener {
     private static final String TAG = KeypadHttpService.class.getName();
@@ -97,6 +101,10 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
         mWakeLock = manager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
     }
 
+    /**
+     * Wakeup request received, check if service is enabled and notify receivers.
+     * @return true if enabled, false otherwise
+     */
     public boolean wakeup() {
         if (resources.isWakeUpServiceEnabled()) {
             Log.d(TAG, "wakeup request received");
@@ -107,6 +115,11 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
         return false;
     }
 
+    /**
+     * TTS request received, check if service is enabled and notify receivers.
+     * @param message message to speak
+     * @return true if enabled, false otherwise
+     */
     public boolean tts(String message) {
         if (resources.isTtsServiceEnabled()) {
             Log.d(TAG, "tts request received");
@@ -116,5 +129,41 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
             return true;
         }
         return false;
+    }
+
+    /**
+     * Returns the generated speech media file
+     * @return Response the generated media file
+     */
+    public NanoHTTPD.Response getSpeechFile()
+    {
+        if (resources.isTtsServiceEnabled())
+        {
+            Log.d(TAG, "ttsFetch request received");
+            Intent i = new Intent("ttsFetch-event");
+            LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+
+            String TTS_DIRECTORY_NAME = "GeneratedTTS";
+            File mediaStorageDir = new File(Environment.getExternalStorageDirectory(),TTS_DIRECTORY_NAME);
+            File mediaFile = new File(mediaStorageDir.getPath() + File.separator+ "TTS.wav");
+            Log.d(TAG, "Return Ttsfile: " + mediaFile.getAbsolutePath());
+
+            try {
+                FileInputStream fis = new FileInputStream(mediaFile);
+                return NanoHTTPD.newFixedLengthResponse(
+                        NanoHTTPD.Response.Status.OK,
+                        "audio/mpeg",
+                        fis,
+                        mediaFile.length());
+            }
+            catch(IOException e)
+            {
+                Log.d(TAG, "Failed to return Ttsfile");
+            }
+
+        }
+        return NanoHTTPD.newFixedLengthResponse(
+                NanoHTTPD.Response.Status.INTERNAL_ERROR,
+                "text/html","Failed to return file");
     }
 }

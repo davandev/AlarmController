@@ -65,7 +65,13 @@ public class TtsReader implements TextToSpeech.OnInitListener
                 params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
                 t1.speak(toSpeak, TextToSpeech.QUEUE_ADD, params, "ttsToSpeak");
             }
-    }
+            else
+            {
+                HashMap<String, String> hashTts = new HashMap<String, String>();
+                hashTts.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
+                t1.speak(toSpeak, TextToSpeech.QUEUE_ADD, hashTts);
+            }
+        }
     @Override
     public void onInit(int status)
     {
@@ -73,9 +79,9 @@ public class TtsReader implements TextToSpeech.OnInitListener
         {
             // Language does not seem to matter when a custom TTS engine is selected
             t1.setLanguage(Locale.UK);
-            Bundle params = new Bundle();
-            params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
-            t1.speak("Text to speech is now initialized", TextToSpeech.QUEUE_FLUSH, params, "ttsToSpeak");
+//            Bundle params = new Bundle();
+//            params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
+//            t1.speak("Text to speech is now initialized", TextToSpeech.QUEUE_FLUSH, params, "ttsToSpeak");
 
         }
     }

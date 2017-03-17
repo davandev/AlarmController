@@ -34,12 +34,13 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
     private TextToSpeech t1;
     // Configuration
     private AlarmControllerResources resources;
+    private Context myContext;
 
     public TtsCreator(Context context, AlarmControllerResources res)
     {
         Log.d(TAG, "Register for tts requests");
         resources = res;
-
+        myContext= context;
         t1 = new TextToSpeech(context.getApplicationContext(), this);
     }
 
@@ -107,6 +108,7 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
                         Log.d(TAG, "Notify listener about the finished tts file");
                         //t1.stop();
                         notifyTtsCompleted();
+
                     }
  /*                   if (utteranceId.equals("ttsToSpeak")) {
                         Log.d(TAG, "TTS to speak is  done");
@@ -131,8 +133,11 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
      */
     public void notifyTtsCompleted()
     {
+        //if(resources.getTtsCallbackUrl().compareTo())
         dispatcher = new RequestDispatcher(this);
         dispatcher.execute(resources.getTtsCallbackUrl(), "", "", "true");
+        Intent i = new Intent("ttsCompleted-event");
+        LocalBroadcastManager.getInstance(myContext).sendBroadcast(i);
     }
 
     /**

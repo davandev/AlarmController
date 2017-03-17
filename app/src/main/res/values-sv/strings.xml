@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmartHome SoftKeypad</string>
+    <string name="app_name">ZenitGatekeeper</string>
     <string name="alarm_type_skalskydd">Skalskydd</string>
     <string name="alarm_type_alarm">Alarm</string>
     <string name="arming">Arming</string>
@@ -18,21 +18,16 @@
 
     <!-- External authentication server settings -->
         <string name="pref_title_ext_auth_server_ip">Extern server adress(:port)</string>
-        <string name="pref_default_external_auth_server_ip">192.168.2.50:8080</string>
 
-        <!-- Alarm settings -->
+    <!-- Alarm settings -->
         <string name="pref_title_ext_arm_alarm_url">Aktivera alarm url</string>
-        <string name="pref_default_ext_arm_alarm_url">/authenticate?action=armAlarm</string>
 
-        <string name="pref_title_ext_disarm_alarm_url">Avaktivera alarm url</string>
-        <string name="pref_default_ext_disarm_alarm_url">/authenticate?action=disarmAlarm&amp;pin=</string>
+    <string name="pref_title_ext_disarm_alarm_url">Avaktivera alarm url</string>
 
-        <!-- Shell protection -->
+    <!-- Shell protection -->
         <string name="pref_title_ext_arm_shell_url">Aktivera skalskydd url</string>
-        <string name="pref_default_ext_arm_shell_url">/authenticate?action=armSkalskydd</string>
 
-        <string name="pref_title_ext_disarm_shell_url">Avaktivera skalskydd url</string>
-        <string name="pref_default_ext_disarm_shell_url">/authenticate?action=disarmSkalskydd&amp;pin=</string>
+    <string name="pref_title_ext_disarm_shell_url">Avaktivera skalskydd url</string>
 
     <!-- Fibaro server settings -->
         <string name="pref_title_display_name">Fibaro server address</string>
@@ -45,23 +40,20 @@
         <!-- Shell protection -->
         <string name="pref_title_arm_shell_button_id">Knapp id för att larma skalskyddet.</string>
         <string name="pref_title_disarm_shell_button_id">Knapp id för att larma av skalskyddet.</string>
-        <string name="pref_default_arm_scene">34</string>
 
-        <string name="pref_title_external_server_authentication">Använd extern server</string>
+    <string name="pref_title_external_server_authentication">Använd extern server</string>
 
     <string name="title_activity_listviewtest">Listviewtest</string>
     <string name="title_activity_alarm_controller_settings">Inställningar</string>
 
     <!-- General application settings  -->
         <string name="pref_title_escaping_time">Escape time</string>
-        <string name="pref_default_escaping_time">30</string>
-        <string name="pref_summary_escaping_time">Sätter nedräkning när larmet aktiveras</string>
+    <string name="pref_summary_escaping_time">Sätter nedräkning när larmet aktiveras</string>
 
         <string name="pref_protect_settings">Pinkod för inställningar</string>
-        <string name="pref_default_protect_settings">1234</string>
-        <string name="pref_summary_protect_settings">Pinkod för att skydda meny inställningarna</string>
+    <string name="pref_summary_protect_settings">Pinkod för att skydda meny inställningarna</string>
 
-        <string name="pref_title_wake_up_service">Aktivera http tjänster</string>
+        <string name="pref_title_wake_up_service">Aktivera tjänsten som tänder skärmen</string>
         <string name="pref_summary_wake_up_service">Aktiverar http tjänster</string>
 
     <!-- Menus -->
@@ -90,8 +82,7 @@
     <string name="pref_title_telegram_chatid">Chat Id</string>
     <string name="pref_title_enable_telegram_messages">Aktivera skicka Telegram meddelanden.</string>
     <string name="pref_summary_telegram_chat_id">Genererat telegram chat id</string>
-    <string name="pref_url_telegram_send_message"><![CDATA[https://api.telegram.org/bot<token>/sendMessage?chat_id=<chatId>&text=]]></string>
-    <string name="pref_summary_general_application_settings">Generalla app inställningar</string>
+    <string name="pref_summary_general_application_settings">Generella app inställningar</string>
     <string name="pref_title_fibaro_general_settings">Fibaro inställningar</string>
     <string name="pref_summary_fibaro_general_settings">Allmänna inställningar för Fibaro systemet</string>
     <string name="pref_summary_fibaro_server_general">Inställningar när larm aktivering och avaktivering görs direkt mot Fibaro systemet.</string>
@@ -119,7 +110,7 @@
 
     <string name="pref_text_password">Lösenord</string>
     <string name="pref_test_take_picture">Ta en bild</string>
-    <string name="pref_text_view_alarmkeypad">Starta Alarm Keypad</string>
+    <string name="pref_text_view_alarmkeypad">Starta keypad</string>
     <string name="pref_title_config_fibaro_users">Konfigurera användare</string>
     <string name="pref_text_fibaro_users">Listan ska innehålla alla användare som kommmer behöver kunna larma/larma av.\n Användarnamnet och lösenordet måste vara samma som på Fibaro systemet. Du bör endast ha en standard användare, denna användares användarnamn och lösenord kommer användas av appen för att hämta larmets aktuella status.</string>
     <string name="pref_text_fibaro_user">Fibaro användare:</string>
@@ -157,7 +148,23 @@
     <string name="pref_actionbar_user_settings">Användarinställningar</string>
     <string name="pref_message_no_charging_turn_on_configured">Ingen scen är konfigurerad att köras när batterinivån är låg</string>
     <string name="pref_message_no_charging_turn_off_configured">Ingen scen är konfigurerad att köras när batterinivån är hög</string>
-    <string name="pref_title_tts_service">TTS service enabled</string>
+    <string name="pref_title_tts_service">Aktivera Text-till-tal tjänsten</string>
     <string name="pref_summaryon_tts_service">Generates a wav file on received http request</string>
+    <string name="pref_message_no_callback_url_configured">TTS är aktiverat men ingen callback url är konfigurerad</string>
+    <string name="pref_summary_external_server_enabled">Aktivera för att larma/larma av mot en extern server.</string>
+    <string name="pref_summary_external_server_settings">Inställningar när larm aktivering och avaktivering görs mot en extern server.</string>
+    <string name="pref_summary_fibaro_server_settings">Inställningar när larm aktivering och avaktivering görs direkt mot Fibaro systemet.</string>
+    <string name="pref_summary_general_fibaro_settings">Generella Fibaro inställning</string>
+    <string name="pref_summary_on_enable_telegram_messages">Skicka meddelanden till Telegram</string>
+    <string name="desc_view"><![CDATA[Skicka en request till den här enheten:\n\nhttp://<ipaddress>:8080/tts=<html kodat meddelande>\n\nCallbacks skickas till:\n\n<callback_url>]]></string>
+    <string name="pref_title_fibaro_variable_alarmstate">Global variabel som håller alarm state</string>
+    <string name="pref_title_http_service">Aktivera http tjänster</string>
+    <string name="pref_summaryoff_http_service"></string>
+    <string name="pref_title_http_services">Http tjänster</string>
+    <string name="pref_title_play_tts_on_device">Spela upp meddelandet i enheten</string>
+    <string name="preff_title_fibaro_general_settings">Generella Fibaro inställningar</string>
+    <string name="prf_title_external_server_enabled"></string>
+    <string name="pref_sum_off_play_tts_on_device">Genererat media </string>
+    <string name="pref_summary_http_service">Aktivera http tjänster kommer att starta en webserver på port 8080 </string>
 
 </resources>

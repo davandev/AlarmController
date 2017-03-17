@@ -115,7 +115,8 @@ public class KeypadHttpServer extends NanoHTTPD {
         }
         if(uri.compareTo("/ttsFetch") == 0) // Request to fetch a completed tts.
         {
-            String TTS_DIRECTORY_NAME = "GeneratedTTS";
+            return receiver.getSpeechFile();
+ /*           String TTS_DIRECTORY_NAME = "GeneratedTTS";
             File mediaStorageDir = new File(Environment.getExternalStorageDirectory(),TTS_DIRECTORY_NAME);
             File mediaFile = new File(mediaStorageDir.getPath() + File.separator+ "TTS.wav");
             Log.d(CLASSNAME, "Return Ttsfile: "+ mediaFile.getAbsolutePath());
@@ -132,6 +133,7 @@ public class KeypadHttpServer extends NanoHTTPD {
             {
                 Log.d(CLASSNAME, "Failed to return Ttsfile");
             }
+            */
 //            receiver.tts(uri);
         }
         if(uri.compareTo("/WakeUp") == 0) // Request to wakeup screen

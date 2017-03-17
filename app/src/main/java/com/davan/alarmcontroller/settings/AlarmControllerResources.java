@@ -136,7 +136,7 @@ public class AlarmControllerResources
             Log.d(TAG, "user:" + entry.getKey().toString() + " " + credentials[1]);
             if(pin.compareTo(credentials[1]) == 0)
             {
-                Log.d(TAG,"Found user:" + entry.getKey().toString());
+                Log.d(TAG, "Found user:" + entry.getKey().toString());
                 return new Pair<>(entry.getKey().toString(),credentials[0]);
             }
         }
@@ -167,7 +167,23 @@ public class AlarmControllerResources
             }
         }
     }
+    public void verifyTtsConfiguration() throws Exception
+    {
+        if(!isHttpServicesEnabled()) {
+            throw new Exception("Http services is not enabled.");
+        }
+        if(isTtsServiceEnabled()) {
+            throw new Exception("TTS service is not enabled");
+        }
 
+        if(getTtsCallbackUrl().compareTo("") == 0)
+        {
+                    throw new Exception(resources.getString(R.string.pref_message_no_callback_url_configured));
+        }
+
+
+
+    }
     /**
      * Verify that configuration is ok
      * @throws Exception when configuration is faulty.

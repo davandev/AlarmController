@@ -5,16 +5,19 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -22,14 +25,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
-
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,10 +39,10 @@
         <activity android:name=".Arm" />
         <activity android:name=".Disarm" />
         <activity android:name=".Disarmed" />
-        <activity android:name=".settings.UsersSettingsActivity"
-                  android:label="@string/pref_actionbar_user_settings"/>
-        <activity android:name=".logging.LogSaver"/>
-
+        <activity
+            android:name=".settings.UsersSettingsActivity"
+            android:label="@string/pref_actionbar_user_settings" />
+        <activity android:name=".logging.LogSaver" />
         <activity
             android:name=".camera.CameraActivity"
             android:screenOrientation="landscape" />
@@ -50,9 +52,7 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
-
-
-
+        <activity android:name=".TtsMode"></activity>
     </application>
 
 </manifest>

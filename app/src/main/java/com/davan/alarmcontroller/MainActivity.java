@@ -63,9 +63,11 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
 
-        startServices();
     }
 
+    /**
+     * Starts all enabled services
+     */
     private void startServices()
     {
         if (resources.isHttpServicesEnabled())
@@ -168,6 +170,8 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     public void startAlarmKeypad(View view)
     {
         Log.d(TAG, "Starting AlarmKeyPad");
+        startServices();
+
         try
         {
             resources.verifyConfiguration();
@@ -176,6 +180,26 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
                 Log.d(TAG, "No wifi connection available");
                 Toast.makeText(getBaseContext(), R.string.pref_message_no_network_connection, Toast.LENGTH_LONG).show();
             }
+        }
+        catch (Exception e)
+        {
+            Log.d(TAG, "Configuration not ok");
+            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Start TTS mode
+     * @param view
+     */
+    public void startTtsMode(View view)
+    {
+        Log.d(TAG, "Starting tts mode");
+        try
+        {
+            //resources.verifyTtsConfiguration();
+            Intent intent = new Intent(this, TtsMode.class);
+            startActivity(intent);
         }
         catch (Exception e)
         {

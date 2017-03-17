@@ -20,31 +20,34 @@ tools:context=".Disarmed"
 
         <ImageButton
             android:layout_weight="0"
-            android:layout_width="260dp"
-            android:layout_height="260dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/imageButton2"
             android:adjustViewBounds="true"
             android:cropToPadding="false"
             android:scaleType="fitCenter"
             android:src="@drawable/unlocked_shell"
             android:background="?android:attr/selectableItemBackground"
-            android:onClick="armSkalskydd" />
+            android:onClick="armSkalskydd"
+            android:layout_gravity="center" />
 
     </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:baselineAligned="false">
 
             <ImageButton
-                android:layout_width="260dp"
-                android:layout_height="260dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
-                android:layout_weight="0"
+                android:layout_weight="1"
                 android:id="@+id/imageButton3"
                 android:src="@drawable/unlock_alarm"
                 android:background="?android:attr/selectableItemBackground"
-                android:onClick="armAlarm" />
+                android:onClick="armAlarm"
+                android:layout_gravity="center" />
         </TableRow>
     </TableLayout>
 </RelativeLayout>

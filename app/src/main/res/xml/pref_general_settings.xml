@@ -41,9 +41,9 @@
         android:enabled="true"/>
     <PreferenceScreen
         android:key="http_services"
-        android:title="Http Services">
+        android:title="@string/pref_title_http_services">
         <Preference
-            android:summary="@string/pref_summary_wakeup_service"
+            android:summary="@string/pref_summary_http_service"
             android:selectable="false">
         </Preference>
         <CheckBoxPreference
@@ -51,8 +51,8 @@
             android:title="@string/pref_title_http_service"
             android:defaultValue="false"
             android:enabled="true"
-            android:summaryOn="@string/pref_summaryon_wakeup_service"
-            android:summaryOff=""/>
+            android:summaryOn="@string/pref_summaryon_http_service"
+            android:summaryOff="@string/pref_summaryoff_http_service"/>
         <CheckBoxPreference
             android:key="wakeup_service_enabled"
             android:title="@string/pref_title_wake_up_service"
@@ -60,7 +60,7 @@
             android:defaultValue="false"
             android:enabled="true"
             android:summaryOn="@string/pref_summaryon_wakeup_service"
-            android:summaryOff=""/>
+            android:summaryOff="@string/pref_summaryoff_wakeup_service"/>
         <CheckBoxPreference
             android:key="tts_service_enabled"
             android:title="@string/pref_title_tts_service"
@@ -68,23 +68,23 @@
             android:defaultValue="false"
             android:enabled="true"
             android:summaryOn="@string/pref_summaryon_tts_service"
-            android:summaryOff="Generation of tts is disabled"/>
+            android:summaryOff="@string/pref_summaryoff_text_to_speech"/>
         <CheckBoxPreference
             android:key="tts_play_on_device_enabled"
-            android:title="Play the tts message on device"
-            android:dependency="http_service_enabled"
+            android:title="@string/pref_title_play_tts_on_device"
+            android:dependency="tts_service_enabled"
             android:defaultValue="false"
             android:enabled="true"
-            android:summaryOn="Generated mediafile will be played in the device"
-            android:summaryOff="Generated mediafile will not be played in the device"/>
+            android:summaryOn="@string/pref_sum_on_play_tts_on_device"
+            android:summaryOff="@string/pref_sum_off_play_tts_on_device"/>
         <EditTextPreference
             android:key="tts_callback_url"
-            android:title="TTS callback url"
+            android:title="@string/pref_title_tts_callback_url"
             android:dependency="tts_service_enabled"
             android:defaultValue="http://192.168.10.50:8080/tts=Completed"
             android:selectAllOnFocus="true"
-            android:hint="The url to invoke to notify that tts is completed"
-            android:summary="The url to invoke to notify that tts is completed"
+            android:hint="Url to invoke to notify that tts is completed"
+            android:summary="Url to invoke to notify that tts is completed"
             android:inputType="text"
             android:capitalize="words"
             android:singleLine="true"

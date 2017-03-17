@@ -46,7 +46,11 @@ public class WakeUpScreen
     {
         Log.d(TAG, "WakeUp Screen");
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "Wakeup");
+
+        PowerManager.WakeLock mWakeLock = pm.newWakeLock(
+                PowerManager.SCREEN_BRIGHT_WAKE_LOCK |
+                PowerManager.ACQUIRE_CAUSES_WAKEUP, "Wakeup");
+
         mWakeLock.acquire();
         mWakeLock.release();
     }

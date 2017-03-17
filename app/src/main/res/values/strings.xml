@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmartHome SoftKeypad</string>
+    <string name="app_name">ZenitGatekeeper</string>
     <string name="alarm_type_skalskydd">Skalskydd</string>
     <string name="alarm_type_alarm">Alarm</string>
     <string name="arming">Arming</string>
@@ -17,60 +17,65 @@
     <string name="pref_general_application_settings">Application settings</string>
 
     <!-- External authentication server settings -->
-        <string name="pref_title_ext_auth_server_ip">External Authentication server adress(:port)</string>
-        <string name="pref_default_external_auth_server_ip">192.168.2.50:8080</string>
+    <string name="pref_title_ext_auth_server_ip">External Authentication server adress(:port)</string>
+    <string name="pref_default_external_auth_server_ip" translatable="false">192.168.2.50:8080</string>
 
-        <!-- Alarm settings -->
-        <string name="pref_title_ext_arm_alarm_url">Arm alarm url</string>
-        <string name="pref_default_ext_arm_alarm_url">/authenticate?action=armAlarm</string>
+    <!-- Alarm settings -->
+    <string name="pref_title_ext_arm_alarm_url">Arm alarm url</string>
+    <string name="pref_default_ext_arm_alarm_url" translatable="false">/authenticate?action=armAlarm</string>
 
-        <string name="pref_title_ext_disarm_alarm_url">Disarm alarm url</string>
-        <string name="pref_default_ext_disarm_alarm_url">/authenticate?action=disarmAlarm&amp;pin=</string>
+    <string name="pref_title_ext_disarm_alarm_url">Disarm alarm url</string>
+    <string name="pref_default_ext_disarm_alarm_url" translatable="false">/authenticate?action=disarmAlarm&amp;pin=</string>
 
-        <!-- Shell protection -->
-        <string name="pref_title_ext_arm_shell_url">Arm shell url</string>
-        <string name="pref_default_ext_arm_shell_url">/authenticate?action=armSkalskydd</string>
+    <!-- Shell protection -->
+    <string name="pref_title_ext_arm_shell_url">Arm shell url</string>
+    <string name="pref_default_ext_arm_shell_url" translatable="false">/authenticate?action=armSkalskydd</string>
 
-        <string name="pref_title_ext_disarm_shell_url">Disarm shell url</string>
-        <string name="pref_default_ext_disarm_shell_url">/authenticate?action=disarmSkalskydd&amp;pin=</string>
+    <string name="pref_title_ext_disarm_shell_url">Disarm shell url</string>
+    <string name="pref_default_ext_disarm_shell_url" translatable="false">/authenticate?action=disarmSkalskydd&amp;pin=</string>
 
     <!-- Fibaro server settings -->
-        <string name="pref_title_display_name">Fibaro server adress</string>
-        <string name="pref_default_display_name">192.0.0.0</string>
+    <string name="pref_title_display_name">Fibaro server adress</string>
+    <string name="pref_default_display_name" translatable="false">192.0.0.0</string>
 
-        <!-- Alarm settings -->
-        <string name="pref_title_arm_alarm_button_id">Button id to arm alarm </string>
-        <string name="pref_title_disarm_alarm_button_id">Button id to disarm alarm</string>
+    <!-- Alarm settings -->
+    <string name="pref_title_arm_alarm_button_id">Button id to arm alarm </string>
+    <string name="pref_title_disarm_alarm_button_id">Button id to disarm alarm</string>
 
-        <!-- Shell protection -->
-        <string name="pref_title_arm_shell_button_id">Button id to arm shell protection</string>
-        <string name="pref_title_disarm_shell_button_id">Button id to disarm shell protection </string>
-        <string name="pref_default_arm_scene">34</string>
+    <!-- Shell protection -->
+    <string name="pref_title_arm_shell_button_id">Button id to arm shell protection</string>
+    <string name="pref_title_disarm_shell_button_id">Button id to disarm shell protection </string>
+    <string name="pref_default_arm_scene" translatable="false">34</string>
 
-        <string name="pref_title_external_server_authentication">Authenticate via external server</string>
+    <string name="pref_title_external_server_authentication">Authenticate via external server</string>
 
     <string name="title_activity_listviewtest">Listviewtest</string>
     <string name="title_activity_alarm_controller_settings">Settings</string>
 
     <!-- General application settings  -->
-        <string name="pref_title_escaping_time">Escape time</string>
-        <string name="pref_default_escaping_time">30</string>
-        <string name="pref_summary_escaping_time">Sets the count down timer when arming alarm</string>
+    <string name="pref_title_escaping_time">Escape time</string>
+    <string name="pref_default_escaping_time" translatable="false">30</string>
+    <string name="pref_summary_escaping_time">Sets the count down timer when arming alarm</string>
 
-        <string name="pref_protect_settings">Pin code for settings menu </string>
-        <string name="pref_default_protect_settings">1234</string>
-        <string name="pref_summary_protect_settings">Pin code to protect settings menu from unauthorized access.</string>
+    <string name="pref_protect_settings">Pin code for settings menu </string>
+    <string name="pref_default_protect_settings" translatable="false">1234</string>
+    <string name="pref_summary_protect_settings">Pin code to protect settings menu from unauthorized access.</string>
 
-        <string name="pref_title_wake_up_service">Enable screen wakeup service</string>
-        <string name="pref_summary_wake_up_service">Enables screen wakeup service</string>
+    <string name="pref_title_wake_up_service">Enable screen wakeup service</string>
+    <string name="pref_summary_wake_up_service">Enables screen wakeup service</string>
 
     <!-- Menus -->
     <string name="action_settings">Settings</string>
     <string name="action_help">Help</string>
     <string name="action_about">About</string>
     <string name="pref_title_screen_wakeup">Screen WakeUp</string>
-    <string name="pref_summary_wakeup_service">Enabling http services will start a webserver and listen for http requests. At reception of a request a matching service will be invoked. In the Fibaro system you need to configure a scene that will trigger a request when a motion detector or a door sensor is breached.</string>
-    <string name="pref_summaryon_wakeup_service">Turn on the screen on received request</string>
+    <string name="pref_summary_http_service">Enabling http services will start a http server and listen for incoming http requests. At reception of a http request a matching service will be invoked. </string>
+    <string name="pref_summaryon_http_service">Http server is started</string>
+    <string name="pref_summaryoff_http_service">Http server is not running</string>
+    <string name="pref_summary_wakeup_service">Will turn on screen at reception of a wakeup request.</string>
+    <string name="pref_summaryon_wakeup_service">Turn on the screen on received wakeup request</string>
+    <string name="pref_summaryoff_wakeup_service">Wakeup service is disabled</string>
+
     <string name="pref_title_future_features">Future features</string>
     <string name="pref_summary_coming_features">Below lists coming features, if I manage to implement them</string>
     <string name="pref_title_fibaro_server_enabled">Control via Fibaro server</string>
@@ -89,7 +94,7 @@
     <string name="pref_summary_telegram_token">The generated Telegram token</string>
     <string name="pref_title_telegram_chatid">Chat Id</string>
     <string name="pref_summary_telegram_chat_id">The Telegram chat id</string>
-    <string name="pref_url_telegram_send_message"><![CDATA[https://api.telegram.org/bot<token>/sendMessage?chat_id=<chatId>&text=]]></string>
+    <string name="pref_url_telegram_send_message" translatable="false"><![CDATA[https://api.telegram.org/bot<token>/sendMessage?chat_id=<chatId>&text=]]></string>
     <string name="prf_title_external_server_enabled">External server</string>
     <string name="pref_summary_external_server_enabled">Enable to send requests to an external server.</string>
     <string name="pref_title_camera">Camera</string>
@@ -124,7 +129,7 @@
     <string name="pref_title_unlock_settings_menu">Unlock settings menu</string>
     <string name="pref_text_password">Password</string>
     <string name="pref_test_take_picture">Take Picture</string>
-    <string name="pref_text_view_alarmkeypad">View Alarm Keypad</string>
+    <string name="pref_text_view_alarmkeypad">Start Keypad mode</string>
     <string name="pref_title_config_fibaro_users">Configure Fibaro users</string>
     <string name="pref_text_fibaro_users">The list should contain all the users that will use the keypad, the user and password must equal the configuration on the fibaro system. You should only have one default user, this user will be used when fetching the alarm status from the fibaro system.</string>
     <string name="pref_text_fibaro_user">Fibaro user:</string>
@@ -157,17 +162,24 @@
     <string name="pref_title_enable_charging_control">Enable charging control</string>
     <string name="pref_title_charging_turn_on">Run scene id when low battery</string>
     <string name="pref_title_charging_turn_off">Run scene id when battery level is ok</string>
-    <string name="pref_fibaro_server_run_scene_url"><![CDATA[http://<serveraddress>/api/sceneControl?id=<id>&action=start]]></string>
+    <string name="pref_fibaro_server_run_scene_url" translatable="false"><![CDATA[http://<serveraddress>/api/sceneControl?id=<id>&action=start]]></string>
     <string name="pref_title_keypad_name">Name of the keypad</string>
     <string name="pref_button_view_logs">View Logs</string>
     <string name="pref_actionbar_user_settings">User settings</string>
     <string name="pref_message_no_charging_turn_on_configured">No scene is configured to invoke when battery level is low</string>
     <string name="pref_message_no_charging_turn_off_configured">No scene is configured to invoke when battery level is high</string>
-    <string name="pref_fibaro_server_run_virtual_device_url"><![CDATA[http://<serveraddress>/api/callAction?deviceID=<id>&name=pressButton&arg1=<buttonId>]]></string>
+    <string name="pref_fibaro_server_run_virtual_device_url" translatable="false"><![CDATA[http://<serveraddress>/api/callAction?deviceID=<id>&name=pressButton&arg1=<buttonId>]]></string>
     <string name="pref_summary_var_alarm_type">The variable needs to be configured as a global variable in the Fibaro system and should reflect the different type of alarms.\n Only two different protection types are currently supported (Alarm and Shell).\n Alarm = All devices are armed (door/window/motion sensors)\n Shell = Only the outer shell are armed (door/window sensors)</string>
-    <string name="pref_title_tts_service">Enable tts service</string>
-    <string name="pref_summaryon_tts_service">Generates a wav file on received http request</string>
+    <string name="pref_title_tts_service">Enable text-to-speech service</string>
+    <string name="pref_summaryon_tts_service">Generate synthezised speech on received tts request</string>
     <string name="pref_message_no_callback_url_configured">TTS is enabled but no callback url is configured</string>
     <string name="pref_title_http_service">Enable http services</string>
+    <string name="desc_view"><![CDATA[Generate an request towards this device on:\n\nhttp://<ipaddress>:8080/tts=<your html encoded message>\n\nCallbacks are done towards:\n\n<callback_url>]]></string>
+    <string name="pref_title_play_tts_on_device">Play the synthezised speech on device</string>
+    <string name="pref_sum_on_play_tts_on_device">Generated speech will be played in the device</string>
+    <string name="pref_sum_off_play_tts_on_device">Generated speech will not be played in the device</string>
+    <string name="pref_title_tts_callback_url">Text-to-speech callback url</string>
+    <string name="pref_title_http_services">Http services</string>
+    <string name="pref_summaryoff_text_to_speech">Text-to-speech service is disabled</string>
 
 </resources>
