@@ -81,7 +81,7 @@
             android:key="tts_callback_url"
             android:title="@string/pref_title_tts_callback_url"
             android:dependency="tts_service_enabled"
-            android:defaultValue="http://192.168.10.50:8080/tts=Completed"
+            android:defaultValue="http://192.168.2.50:8080/tts=Completed"
             android:selectAllOnFocus="true"
             android:hint="Url to invoke to notify that tts is completed"
             android:summary="Url to invoke to notify that tts is completed"

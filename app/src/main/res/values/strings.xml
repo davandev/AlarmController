@@ -174,7 +174,7 @@
     <string name="pref_summaryon_tts_service">Generate synthezised speech on received tts request</string>
     <string name="pref_message_no_callback_url_configured">TTS is enabled but no callback url is configured</string>
     <string name="pref_title_http_service">Enable http services</string>
-    <string name="desc_view"><![CDATA[Generate an request towards this device on:\n\nhttp://<ipaddress>:8080/tts=<your html encoded message>\n\nCallbacks are done towards:\n\n<callback_url>]]></string>
+    <string name="desc_view"><![CDATA[Generate an request towards this device on:\n\nhttp://<ipaddress>:8080/tts=<your html encoded message>\n\nThe synthezised speech can be downloaded from:\n\nhttp://<ipaddress>:8080/ttsFetch\n\nCallbacks are sent towards:\n\n<callback_url>]]></string>
     <string name="pref_title_play_tts_on_device">Play the synthezised speech on device</string>
     <string name="pref_sum_on_play_tts_on_device">Generated speech will be played in the device</string>
     <string name="pref_sum_off_play_tts_on_device">Generated speech will not be played in the device</string>

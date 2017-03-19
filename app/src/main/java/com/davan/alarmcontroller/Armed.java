@@ -56,8 +56,6 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
 
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
-//        wakeUpScreen = new WakeUpScreen(this);
-//        ttsCreator = new TtsCreator(this);
 
         wifiChecker = new WifiConnectionChecker(connMgr);
         resources = new AlarmControllerResources(

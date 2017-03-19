@@ -1,11 +1,17 @@
 package com.davan.alarmcontroller;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
@@ -26,18 +32,25 @@ import com.davan.alarmcontroller.http.services.WakeUpScreen;
 import com.davan.alarmcontroller.power.PowerConnectionReceiver;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.settings.SettingsLauncher;
+import com.davan.alarmcontroller.settings.UsageDialog;
+
+import java.io.File;
+import java.io.IOException;
 
 public class TtsMode extends AppCompatActivity {
 
     private static final String TAG = TtsMode.class.getSimpleName();
     private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
+    private String hostAddress;
     private static int receivedTtsRequests = 0;
     private static int receivedTtsFetchRequests = 0;
     private static int sentTtsCompletedRequests = 0;
 
     private TtsCreator ttsCreator = null;
     private TtsReader ttsReader = null;
+    private static final String TTS_DIRECTORY_NAME = "GeneratedTTS";
+
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
     {
@@ -88,9 +101,9 @@ public class TtsMode extends AppCompatActivity {
     private void loadSettings(AlarmControllerResources resources)
     {
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+        hostAddress = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
         TextView textView = (TextView) findViewById(R.id.hostAddressView);
-        textView.setText(ip);
+        textView.setText(hostAddress);
 
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -103,19 +116,13 @@ public class TtsMode extends AppCompatActivity {
         textView.setText(resources.getTtsCallbackUrl());
 
         textView = (TextView) findViewById(R.id.httpServicesView);
-        textView.setText(resources.isHttpServicesEnabled()?"Enabled":"Disabled");
+        textView.setText(resources.isHttpServicesEnabled() ? "Enabled" : "Disabled");
 
         textView = (TextView) findViewById(R.id.ttsServiceView);
-        textView.setText(resources.isTtsServiceEnabled()?"Enabled":"Disabled");
+        textView.setText(resources.isTtsServiceEnabled() ? "Enabled" : "Disabled");
 
         textView = (TextView) findViewById(R.id.playOnDeviceView);
         textView.setText(resources.isTtsPlayOnDeviceEnabled()?"Enabled":"Disabled");
-
-        String usage = getResources().getString(R.string.desc_view);
-        usage = usage.replace("<ipaddress>", ip);
-        usage = usage.replace("<callback_url>", resources.getTtsCallbackUrl());
-        textView = (TextView) findViewById(R.id.descriptionView);
-        textView.setText(usage);
 
 
     }
@@ -160,10 +167,32 @@ public class TtsMode extends AppCompatActivity {
 
 
     }
+    public void showUsageDialog(View view)
+    {
+        Log.d(TAG, "showUsageDialog");
+        String usage = getResources().getString(R.string.desc_view);
+        usage = usage.replace("<ipaddress>", hostAddress);
+        usage = usage.replace("<callback_url>", resources.getTtsCallbackUrl());
+
+        UsageDialog.showDialog(this, usage);
+    }
     public void playLastGeneratedSpeech(View view)
     {
         Log.d(TAG, "playLastGeneratedSpeech");
-
+        try {
+            File mediaStorageDir = new File(Environment.getExternalStorageDirectory(), TTS_DIRECTORY_NAME);
+            File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "TTS.wav");
+            Uri myUri = Uri.fromFile(mediaFile);
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setDataSource(getApplicationContext(), myUri);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        }
+        catch(IOException e)
+        {
+            Log.d(TAG,"Failed to play media:" + e.getMessage());
+        }
     }
     public void showSettings(View view)
     {

@@ -31,9 +31,6 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
 
     private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
-    private WakeUpScreen wakeUpScreen;
-    private TtsCreator ttsCreator;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,9 +46,6 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
                 PreferenceManager.getDefaultSharedPreferences(this),
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
-//        wakeUpScreen = new WakeUpScreen(this);
-//        ttsCreator = new TtsCreator(this);
-
 
         WindowManager.LayoutParams attrs = getWindow().getAttributes();
         attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN;

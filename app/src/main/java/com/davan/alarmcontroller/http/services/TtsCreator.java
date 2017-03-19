@@ -110,10 +110,7 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
                         notifyTtsCompleted();
 
                     }
- /*                   if (utteranceId.equals("ttsToSpeak")) {
-                        Log.d(TAG, "TTS to speak is  done");
-                    }
-   */             }
+                }
 
                 @Override
                 public void onError(String utteranceId) {
