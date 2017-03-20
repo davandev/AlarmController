@@ -106,7 +106,6 @@ public class KeypadHttpServer extends NanoHTTPD {
         String responseMessage ="";
         boolean serviceEnabled = false;
 
-
         if(uri.contains("/tts=")) // Request to perform tts
         {
             uri = uri.replace("/tts=","");
@@ -116,25 +115,6 @@ public class KeypadHttpServer extends NanoHTTPD {
         if(uri.compareTo("/ttsFetch") == 0) // Request to fetch a completed tts.
         {
             return receiver.getSpeechFile();
- /*           String TTS_DIRECTORY_NAME = "GeneratedTTS";
-            File mediaStorageDir = new File(Environment.getExternalStorageDirectory(),TTS_DIRECTORY_NAME);
-            File mediaFile = new File(mediaStorageDir.getPath() + File.separator+ "TTS.wav");
-            Log.d(CLASSNAME, "Return Ttsfile: "+ mediaFile.getAbsolutePath());
-
-            try {
-                FileInputStream fis = new FileInputStream(mediaFile);
-                return newFixedLengthResponse(
-                        Response.Status.OK,
-                        "audio/mpeg",
-                        fis,
-                        mediaFile.length());
-            }
-            catch(IOException e)
-            {
-                Log.d(CLASSNAME, "Failed to return Ttsfile");
-            }
-            */
-//            receiver.tts(uri);
         }
         if(uri.compareTo("/WakeUp") == 0) // Request to wakeup screen
         {
@@ -146,6 +126,10 @@ public class KeypadHttpServer extends NanoHTTPD {
             String msg = "Ping\n";
             Map<String, String> parms = session.getParms();
             return newFixedLengthResponse(msg);
+        }
+        if(uri.compareTo("/log") == 0)
+        {
+            return receiver.getLogFile();
         }
 
         Map<String, String> parms = session.getParms();

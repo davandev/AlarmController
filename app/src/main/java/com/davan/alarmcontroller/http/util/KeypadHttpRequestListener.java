@@ -9,4 +9,5 @@ public interface KeypadHttpRequestListener {
     boolean wakeup();
     boolean tts(String message);
     NanoHTTPD.Response getSpeechFile();
+    NanoHTTPD.Response getLogFile();
 }

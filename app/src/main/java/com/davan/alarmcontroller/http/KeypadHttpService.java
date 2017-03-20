@@ -3,9 +3,11 @@ package com.davan.alarmcontroller.http;
  * Created by davandev on 2016-04-12.
  **/
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -103,6 +105,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
 
     /**
      * Wakeup request received, check if service is enabled and notify receivers.
+     *
      * @return true if enabled, false otherwise
      */
     public boolean wakeup() {
@@ -117,6 +120,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
 
     /**
      * TTS request received, check if service is enabled and notify receivers.
+     *
      * @param message message to speak
      * @return true if enabled, false otherwise
      */
@@ -133,19 +137,18 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
 
     /**
      * Returns the generated speech media file
+     *
      * @return Response the generated media file
      */
-    public NanoHTTPD.Response getSpeechFile()
-    {
-        if (resources.isTtsServiceEnabled())
-        {
+    public NanoHTTPD.Response getSpeechFile() {
+        if (resources.isTtsServiceEnabled()) {
             Log.d(TAG, "ttsFetch request received");
             Intent i = new Intent("ttsFetch-event");
             LocalBroadcastManager.getInstance(this).sendBroadcast(i);
 
             String TTS_DIRECTORY_NAME = "GeneratedTTS";
-            File mediaStorageDir = new File(Environment.getExternalStorageDirectory(),TTS_DIRECTORY_NAME);
-            File mediaFile = new File(mediaStorageDir.getPath() + File.separator+ "TTS.wav");
+            File mediaStorageDir = new File(Environment.getExternalStorageDirectory(), TTS_DIRECTORY_NAME);
+            File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "TTS.wav");
             Log.d(TAG, "Return Ttsfile: " + mediaFile.getAbsolutePath());
 
             try {
@@ -155,15 +158,38 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
                         "audio/mpeg",
                         fis,
                         mediaFile.length());
-            }
-            catch(IOException e)
-            {
+            } catch (IOException e) {
                 Log.d(TAG, "Failed to return Ttsfile");
             }
 
         }
         return NanoHTTPD.newFixedLengthResponse(
                 NanoHTTPD.Response.Status.INTERNAL_ERROR,
-                "text/html","Failed to return file");
+                "text/html", "Failed to return file");
+    }
+
+    public NanoHTTPD.Response getLogFile() {
+        Log.d(TAG, "/log request received");
+        try {
+            Process process = Runtime.getRuntime().exec("logcat -d");
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()));
+
+            StringBuilder log = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                log.append(line + "<br>");
+            }
+            return NanoHTTPD.newFixedLengthResponse(
+                    NanoHTTPD.Response.Status.OK,
+                    "text/html",
+                    log.toString());
+        } catch (IOException e) {
+            Log.d(TAG,"Failed to produce logfile");
+        }
+        return NanoHTTPD.newFixedLengthResponse(
+                NanoHTTPD.Response.Status.INTERNAL_ERROR,
+                "text/html", "Failed to return log file");
+
     }
 }
