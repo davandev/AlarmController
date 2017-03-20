@@ -24,7 +24,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.davan.alarmcontroller.R;
-import com.davan.alarmcontroller.http.WakeUpService;
+import com.davan.alarmcontroller.http.KeypadHttpService;
 
 import java.util.List;
 
@@ -222,20 +222,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Log.d(TAG,"onSharedPreferenceChanged " +oneClickOnly );
         oneClickOnly++;
-        if(oneClickOnly != 1)
-            return;
-
-        if (key.compareTo("wake_up_service_enabled") == 0)
+        //if(oneClickOnly != 1)
+        //    return;
+        Log.d(TAG,"onSharedPreferenceChanged:" + key);
+        if (key.compareTo("http_service_enabled") == 0)
         {
-            Log.d(TAG,"wake_up_service_enabled");
+            Log.d(TAG,"http_service_enabled");
 
             if (sharedPreferences.getBoolean(key, false))
             {
-                startService(new Intent(SettingsActivity.this, WakeUpService.class));
+                startService(new Intent(SettingsActivity.this, KeypadHttpService.class));
             }
             else
             {
-                stopService(new Intent(SettingsActivity.this, WakeUpService.class));
+                stopService(new Intent(SettingsActivity.this, KeypadHttpService.class));
             }
             oneClickOnly = 0;
         }
@@ -315,6 +315,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general_settings);
             setHasOptionsMenu(true);
+            bindPreferenceSummaryToValue(findPreference("tts_callback_url"));
             bindPreferenceSummaryToValue(findPreference("escaping_time"));
             bindPreferenceSummaryToValue(findPreference("keypad_id"));
             bindPreferenceSummaryToValue(findPreference("battery_turn_off_charging"));

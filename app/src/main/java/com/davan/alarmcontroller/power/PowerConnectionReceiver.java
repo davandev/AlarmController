@@ -1,17 +1,13 @@
 package com.davan.alarmcontroller.power;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.davan.alarmcontroller.R;
 import com.davan.alarmcontroller.http.TelegramActivity;
-import com.davan.alarmcontroller.http.WakeUpService;
 import com.davan.alarmcontroller.procedures.CustomSceneProcedure;
 import com.davan.alarmcontroller.procedures.CustomSceneProcedureResultListener;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
@@ -38,7 +34,7 @@ public class PowerConnectionReceiver implements CustomSceneProcedureResultListen
         @Override
         public void onReceive(Context context, Intent intent) {
             mBatteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-            if (mBatteryLevel < 15)
+            if (mBatteryLevel < 20)
             {
                 handleLowBatteryLevel(context);
             }
@@ -107,9 +103,15 @@ public class PowerConnectionReceiver implements CustomSceneProcedureResultListen
      * Register to receive battery level changes.
      * @param context
      */
-    public void registerMyReceiver(Context context)
+    public void registerForEvents(Context context)
     {
         mBatteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         context.registerReceiver(mBatteryReceiver, mBatteryLevelFilter);
     }
+    public void unregisterForEvents(Context context)
+    {
+        mBatteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        context.unregisterReceiver(mBatteryReceiver);
+    }
+
 }

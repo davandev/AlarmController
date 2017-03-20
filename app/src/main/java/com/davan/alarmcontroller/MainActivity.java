@@ -19,8 +19,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.davan.alarmcontroller.http.TelegramActivity;
-import com.davan.alarmcontroller.http.WakeUpScreen;
-import com.davan.alarmcontroller.http.WakeUpService;
+import com.davan.alarmcontroller.http.services.TtsReader;
+import com.davan.alarmcontroller.http.services.WakeUpScreen;
+import com.davan.alarmcontroller.http.KeypadHttpService;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateListener;
@@ -28,6 +29,7 @@ import com.davan.alarmcontroller.power.PowerConnectionReceiver;
 import com.davan.alarmcontroller.settings.AboutDialog;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.settings.SettingsLauncher;
+import com.davan.alarmcontroller.http.services.TtsCreator;
 
 public class MainActivity extends AppCompatActivity implements AlarmStateListener
 {
@@ -35,8 +37,11 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     private PowerManager.WakeLock mWakeLock = null;
     private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
-    private WakeUpScreen wakeUpScreen;
-    private PowerConnectionReceiver powerListener;
+
+    private WakeUpScreen wakeUpScreen = null;
+    private TtsCreator ttsCreator = null;
+    private TtsReader ttsReader = null;
+    private PowerConnectionReceiver powerListener = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,25 +63,40 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
 
-
-        startServices();
     }
 
+    /**
+     * Starts all enabled services
+     */
     private void startServices()
     {
+        if (resources.isHttpServicesEnabled())
+        {
+            Log.d(TAG, "Starting KeypadHttpService");
+            startService(new Intent(getBaseContext(), KeypadHttpService.class));
+        }
+
         if (resources.isWakeUpServiceEnabled())
         {
-            Log.d(TAG,"Starting WakeUpService");
-            startService(new Intent(getBaseContext(), WakeUpService.class));
-            wakeUpScreen = new WakeUpScreen(this);
+            wakeUpScreen = new WakeUpScreen();
+            wakeUpScreen.registerForEvents(this);
+        }
+
+        if (resources.isTtsServiceEnabled())
+        {
+            ttsCreator = new TtsCreator(this, resources);
+            ttsCreator.registerForEvents(this);
+        }
+        if (resources.isTtsPlayOnDeviceEnabled())
+        {
+            ttsReader = new TtsReader(this, resources);
+            ttsReader.registerForEvents(this);
         }
 
         if (resources.isChargingControlEnabled())
         {
-            //Register for power connection callbacks
             powerListener = new PowerConnectionReceiver(resources);
-            powerListener.registerMyReceiver(this);
-            Intent intent = this.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+            powerListener.registerForEvents(this);
         }
     }
 
@@ -85,10 +105,23 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     {
         Log.d(TAG, "OnDestroy");
         super.onDestroy();
-        if (mWakeLock != null)
-        {
+        if (mWakeLock != null) {
             mWakeLock.release();
         }
+        if (powerListener != null) {
+            powerListener.unregisterForEvents(this);
+        }
+        if (wakeUpScreen !=null) {
+            wakeUpScreen.unregisterForEvents(this);
+        }
+        if (ttsCreator !=null) {
+            ttsCreator.unregisterForEvents(this);
+        }
+        if (ttsReader !=null) {
+            ttsReader.unregisterForEvents(this);
+        }
+        stopService(new Intent(getBaseContext(), KeypadHttpService.class));
+
     }
 
     @Override
@@ -122,8 +155,8 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     public void takePicture(View view)
     {
         Log.d(TAG,"takePicture");
-        TelegramActivity telegram = new TelegramActivity(resources);
-       telegram.sendMessage("test sending message");
+        //TelegramActivity telegram = new TelegramActivity(resources);
+        //telegram.sendMessage("test sending message");
         //telegram.sendPhoto();
        // Intent intent = new Intent(this, CameraActivity.class);
        // startActivity(intent);
@@ -137,6 +170,8 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     public void startAlarmKeypad(View view)
     {
         Log.d(TAG, "Starting AlarmKeyPad");
+        startServices();
+
         try
         {
             resources.verifyConfiguration();
@@ -145,6 +180,26 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
                 Log.d(TAG, "No wifi connection available");
                 Toast.makeText(getBaseContext(), R.string.pref_message_no_network_connection, Toast.LENGTH_LONG).show();
             }
+        }
+        catch (Exception e)
+        {
+            Log.d(TAG, "Configuration not ok");
+            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Start TTS mode
+     * @param view
+     */
+    public void startTtsMode(View view)
+    {
+        Log.d(TAG, "Starting tts mode");
+        try
+        {
+            //resources.verifyTtsConfiguration();
+            Intent intent = new Intent(this, TtsMode.class);
+            startActivity(intent);
         }
         catch (Exception e)
         {
@@ -166,12 +221,15 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
             Intent intent = new Intent(this, Disarmed.class);
             startActivity(intent);
         }
-
-        if (alarmState.compareTo(resources.getFibaroAlarmStateValueArmed()) == 0)
+        else if (alarmState.compareTo(resources.getFibaroAlarmStateValueArmed()) == 0)
         {
             Intent intent = new Intent(this, Armed.class);
             intent.putExtra(getResources().getString(R.string.alarm_type), alarmType);
             startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(getBaseContext(), "Unexpected alarm state [" + alarmState + "]", Toast.LENGTH_LONG).show();
         }
     }
 }
