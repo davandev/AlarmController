@@ -32,6 +32,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 {
     private static final String TAG = SettingsActivity.class.getSimpleName();
     private static int oneClickOnly = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -236,6 +237,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             else
             {
                 stopService(new Intent(SettingsActivity.this, KeypadHttpService.class));
+
             }
             oneClickOnly = 0;
         }

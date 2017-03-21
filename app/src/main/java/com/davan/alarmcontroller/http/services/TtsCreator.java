@@ -12,6 +12,7 @@ import android.speech.tts.UtteranceProgressListener;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.davan.alarmcontroller.R;
 import com.davan.alarmcontroller.http.RequestDispatcher;
 import com.davan.alarmcontroller.http.RequestDispatcherResultListener;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
@@ -28,7 +29,6 @@ import java.util.Locale;
 public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatcherResultListener
 {
     private static final String TAG = TtsCreator.class.getSimpleName();
-    private static final String TTS_DIRECTORY_NAME = "GeneratedTTS";
 
     private RequestDispatcher dispatcher;
     private TextToSpeech t1;
@@ -38,7 +38,7 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
 
     public TtsCreator(Context context, AlarmControllerResources res)
     {
-        Log.d(TAG, "Register for tts requests");
+        Log.i(TAG, "Register for tts requests");
         resources = res;
         myContext= context;
         t1 = new TextToSpeech(context.getApplicationContext(), this);
@@ -49,7 +49,7 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            Log.d(TAG, "Received tts request");
+            Log.i(TAG, "Received tts request");
             generateTts(context, intent);
         }
     };
@@ -61,13 +61,16 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
      */
     public void generateTts(Context context, Intent intent) {
         String toSpeak = intent.getStringExtra("message");
-        Log.d(TAG, "Generate tts: " + toSpeak);
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory(),TTS_DIRECTORY_NAME);
+        Log.i(TAG, "Generate tts: " + toSpeak);
+        File mediaStorageDir = new File(
+                Environment.getExternalStorageDirectory(),
+                resources.getTtsStorageFolder());
+        
         if (!mediaStorageDir.exists())
         {
             if (!mediaStorageDir.mkdirs())
             {
-                Log.d(TAG, "Failed to create mediadir");
+                Log.w(TAG, "Failed to create mediadir");
             }
             else
             {
@@ -75,17 +78,9 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
             }
         }
 
-        File mediaFile = new File(mediaStorageDir.getPath() + File.separator+ "TTS.wav");
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + resources.getTtsFileName());
         Log.d(TAG, "TTS path : " + mediaFile.getAbsolutePath());
-/*        if (resources.isTtsPlayOnDeviceEnabled()) // Play in device speaker
-        {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Bundle params = new Bundle();
-                params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
-                t1.speak(toSpeak, TextToSpeech.QUEUE_ADD, params, "ttsToSpeak");
-            }
-        }
-*/
+
         HashMap<String, String> hashTts = new HashMap<String, String>();
         hashTts.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToFile");
         t1.synthesizeToFile(toSpeak, hashTts, mediaFile.getAbsolutePath());
@@ -102,24 +97,22 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
             t1.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                 @Override
                 public void onDone(String utteranceId) {
-                    Log.d(TAG, "TTS file created successfully");
+                    Log.i(TAG, "TTS file created successfully");
 
                     if (utteranceId.equals("ttsToFile")) {
                         Log.d(TAG, "Notify listener about the finished tts file");
-                        //t1.stop();
                         notifyTtsCompleted();
-
                     }
                 }
 
                 @Override
                 public void onError(String utteranceId) {
-                    Log.d(TAG, "TTS generation failed");
+                    Log.w(TAG, "TTS generation failed");
                 }
 
                 @Override
                 public void onStart(String utteranceId) {
-                    Log.d(TAG, "TTS generation started");
+                    Log.i(TAG, "TTS generation started");
                 }
             });
         }

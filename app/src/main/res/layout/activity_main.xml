@@ -10,20 +10,21 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
         android:id="@+id/tableLayout2"
@@ -34,39 +35,36 @@
 
         <TableRow
             android:gravity="center"
-            android:layout_weight="1"
-            android:padding="@dimen/abc_button_padding_vertical_material"
             android:layout_width="fill_parent">
 
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="@string/pref_text_view_alarmkeypad"
                 android:onClick="startAlarmKeypad"
                 android:id="@+id/button25"
-
+                android:src="@drawable/keypad_home"
                 android:layout_column="0"
-                android:paddingStart="@dimen/abc_button_padding_horizontal_material"
-                android:paddingEnd="@dimen/abc_button_padding_horizontal_material"
-                android:layout_gravity="bottom" />
+                android:layout_gravity="top"
+                android:adjustViewBounds="false"
+                android:background="#00000000"
+                android:layout_margin="5dp" />
 
         </TableRow>
 
 
         <TableRow
             android:gravity="center"
-            android:layout_weight="1"
-            android:padding="@dimen/abc_button_padding_vertical_material">
+            android:layout_weight="1">
 
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:text="Start TTS Mode"
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/button2"
                 android:onClick="startTtsMode"
-                android:layout_below="@+id/tableLayout2"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="top" />
+                android:src="@drawable/tts_button"
+                android:background="#00000000"
+                android:layout_margin="5dp" />
         </TableRow>
     </TableLayout>
 

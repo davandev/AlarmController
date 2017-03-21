@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
@@ -13,6 +14,7 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.os.PowerManager;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +39,7 @@ import com.davan.alarmcontroller.settings.UsageDialog;
 import java.io.File;
 import java.io.IOException;
 
-public class TtsMode extends AppCompatActivity {
+public class TtsMode extends AppCompatActivity  {
 
     private static final String TAG = TtsMode.class.getSimpleName();
     private WifiConnectionChecker wifiChecker;
@@ -49,14 +51,12 @@ public class TtsMode extends AppCompatActivity {
 
     private TtsCreator ttsCreator = null;
     private TtsReader ttsReader = null;
-    private static final String TTS_DIRECTORY_NAME = "GeneratedTTS";
-
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
     {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(TAG, "Received tts request");
+            Log.i(TAG, "Received tts request");
             if (intent.getAction().equals("tts-event")) {
                 TextView textView = (TextView) findViewById(R.id.receivedRequestsView);
                 textView.setText(Integer.toString(++receivedTtsRequests));
@@ -98,6 +98,10 @@ public class TtsMode extends AppCompatActivity {
         stopServices();
     }
 
+    /**
+     *
+     * @param resources
+     */
     private void loadSettings(AlarmControllerResources resources)
     {
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
@@ -126,8 +130,13 @@ public class TtsMode extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Start services and register for events.
+     */
     private void startServices()
     {
+        Log.i(TAG, "Start services");
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mMessageReceiver, new IntentFilter("tts-event"));
         LocalBroadcastManager.getInstance(this).registerReceiver(
@@ -138,23 +147,20 @@ public class TtsMode extends AppCompatActivity {
 
         if (resources.isHttpServicesEnabled())
         {
-            Log.d(TAG, "Starting KeypadHttpService");
             startService(new Intent(getBaseContext(), KeypadHttpService.class));
         }
-        if (resources.isTtsServiceEnabled())
-        {
-            ttsCreator = new TtsCreator(this, resources);
-            ttsCreator.registerForEvents(this);
-        }
-        if (resources.isTtsPlayOnDeviceEnabled())
-        {
-            ttsReader = new TtsReader(this, resources);
-            ttsReader.registerForEvents(this);
-        }
+        ttsCreator = new TtsCreator(this, resources);
+        ttsCreator.registerForEvents(this);
+        ttsReader = new TtsReader(this, resources);
+        ttsReader.registerForEvents(this);
     }
 
+    /**
+     * Stop services and unregister for events.
+     */
     private void stopServices()
     {
+        Log.i(TAG, "Stop services");
         LocalBroadcastManager.getInstance(this).unregisterReceiver(
                 mMessageReceiver);
         if (ttsCreator !=null) {
@@ -164,9 +170,12 @@ public class TtsMode extends AppCompatActivity {
             ttsReader.unregisterForEvents(this);
         }
         stopService(new Intent(getBaseContext(), KeypadHttpService.class));
-
-
     }
+
+    /**
+     * Show the usage dialog
+     * @param view
+     */
     public void showUsageDialog(View view)
     {
         Log.d(TAG, "showUsageDialog");
@@ -176,12 +185,23 @@ public class TtsMode extends AppCompatActivity {
 
         UsageDialog.showDialog(this, usage);
     }
+
+    /**
+     * Play the last generated speech in internal speaker
+     * @param view
+     */
     public void playLastGeneratedSpeech(View view)
     {
         Log.d(TAG, "playLastGeneratedSpeech");
         try {
-            File mediaStorageDir = new File(Environment.getExternalStorageDirectory(), TTS_DIRECTORY_NAME);
-            File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "TTS.wav");
+            File mediaStorageDir = new File(
+                    Environment.getExternalStorageDirectory(),
+                    resources.getTtsStorageFolder());
+            File mediaFile = new File(
+                            mediaStorageDir.getPath() +
+                            File.separator +
+                            resources.getTtsFileName());
+
             Uri myUri = Uri.fromFile(mediaFile);
             MediaPlayer mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -191,9 +211,14 @@ public class TtsMode extends AppCompatActivity {
         }
         catch(IOException e)
         {
-            Log.d(TAG,"Failed to play media:" + e.getMessage());
+            Log.w(TAG,"Failed to play media:" + e.getMessage());
         }
     }
+
+    /**
+     * Show settings
+     * @param view
+     */
     public void showSettings(View view)
     {
         Log.d(TAG, "showSettings");

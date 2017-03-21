@@ -21,19 +21,14 @@ public class WakeUpScreen
 
     public WakeUpScreen()
     {
-        Log.d(TAG,"Register for wakeup callbacks");
-
-        //Register to received wakeup events
-//        LocalBroadcastManager.getInstance(context).registerReceiver(
-//                mMessageReceiver, new IntentFilter("wakeup-event"));
-
+        Log.i(TAG,"Register for wakeup callbacks");
     }
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
     {
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            Log.d(TAG, "Received WakeUp event");
+            Log.i(TAG, "Received WakeUp event");
             wakeUpScreen(context);
         }
     };
@@ -44,7 +39,7 @@ public class WakeUpScreen
      */
     public void wakeUpScreen(Context context)
     {
-        Log.d(TAG, "WakeUp Screen");
+        Log.i(TAG, "WakeUp Screen");
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 
         PowerManager.WakeLock mWakeLock = pm.newWakeLock(
@@ -68,5 +63,4 @@ public class WakeUpScreen
         LocalBroadcastManager.getInstance(context).unregisterReceiver(
                 mMessageReceiver);
     }
-
 }

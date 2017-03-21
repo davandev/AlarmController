@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
      */
     public void startAlarmKeypad(View view)
     {
-        Log.d(TAG, "Starting AlarmKeyPad");
+        Log.i(TAG, "Starting AlarmKeyPad");
         startServices();
 
         try
@@ -177,13 +177,13 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
             resources.verifyConfiguration();
             if (!new AlarmStateChecker(wifiChecker, resources, this).updateAlarmState())
             {
-                Log.d(TAG, "No wifi connection available");
+                Log.w(TAG, "No wifi connection available");
                 Toast.makeText(getBaseContext(), R.string.pref_message_no_network_connection, Toast.LENGTH_LONG).show();
             }
         }
         catch (Exception e)
         {
-            Log.d(TAG, "Configuration not ok");
+            Log.w(TAG, "Configuration not ok" + e.getMessage());
             Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
      */
     public void startTtsMode(View view)
     {
-        Log.d(TAG, "Starting tts mode");
+        Log.i(TAG, "Starting tts mode");
         try
         {
             //resources.verifyTtsConfiguration();
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
         }
         catch (Exception e)
         {
-            Log.d(TAG, "Configuration not ok");
+            Log.w(TAG, "Configuration not ok" + e.getMessage());
             Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }

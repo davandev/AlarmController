@@ -108,6 +108,11 @@ public class PowerConnectionReceiver implements CustomSceneProcedureResultListen
         mBatteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         context.registerReceiver(mBatteryReceiver, mBatteryLevelFilter);
     }
+
+    /**
+     * Unregister for battery level changes
+     * @param context
+     */
     public void unregisterForEvents(Context context)
     {
         mBatteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);

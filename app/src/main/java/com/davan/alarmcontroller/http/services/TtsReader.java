@@ -47,7 +47,7 @@ public class TtsReader implements TextToSpeech.OnInitListener
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            Log.d(TAG, "Received tts request");
+            Log.i(TAG, "Received tts request");
             generateTts(context, intent);
         }
     };
@@ -58,19 +58,23 @@ public class TtsReader implements TextToSpeech.OnInitListener
      * @param intent
      */
     public void generateTts(Context context, Intent intent) {
-        String toSpeak = intent.getStringExtra("message");
-        Log.d(TAG, "Generate tts: " + toSpeak);
+        if (resources.isTtsPlayOnDeviceEnabled())
+        {
+            String toSpeak = intent.getStringExtra("message");
+            Log.i(TAG, "Generate tts: " + toSpeak);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Bundle params = new Bundle();
                 params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
                 t1.speak(toSpeak, TextToSpeech.QUEUE_ADD, params, "ttsToSpeak");
-            }
-            else
-            {
+            } else {
                 HashMap<String, String> hashTts = new HashMap<String, String>();
                 hashTts.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
                 t1.speak(toSpeak, TextToSpeech.QUEUE_ADD, hashTts);
             }
+        } else
+        {
+            Log.d(TAG," Play on device is disabled");
+        }
         }
     @Override
     public void onInit(int status)
@@ -79,10 +83,6 @@ public class TtsReader implements TextToSpeech.OnInitListener
         {
             // Language does not seem to matter when a custom TTS engine is selected
             t1.setLanguage(Locale.UK);
-//            Bundle params = new Bundle();
-//            params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
-//            t1.speak("Text to speech is now initialized", TextToSpeech.QUEUE_FLUSH, params, "ttsToSpeak");
-
         }
     }
 
@@ -99,7 +99,6 @@ public class TtsReader implements TextToSpeech.OnInitListener
      */
     public void unregisterForEvents(Context context)
     {
-
         LocalBroadcastManager.getInstance(context).unregisterReceiver(
                 mMessageReceiver);
     }
