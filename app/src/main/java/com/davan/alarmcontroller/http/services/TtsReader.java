@@ -6,17 +6,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.speech.tts.TextToSpeech;
-import android.speech.tts.UtteranceProgressListener;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.davan.alarmcontroller.http.RequestDispatcher;
-import com.davan.alarmcontroller.http.RequestDispatcherResultListener;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -32,14 +27,14 @@ public class TtsReader implements TextToSpeech.OnInitListener
 
     private TextToSpeech t1;
     // Configuration
-    private AlarmControllerResources resources;
+    private final AlarmControllerResources resources;
+    private String message;
 
     public TtsReader(Context context, AlarmControllerResources res)
     {
-        Log.d(TAG, "Register for tts requests");
+        Log.d(TAG, "Create TtsReader");
         resources = res;
 
-        t1 = new TextToSpeech(context.getApplicationContext(), this);
     }
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
@@ -48,33 +43,37 @@ public class TtsReader implements TextToSpeech.OnInitListener
         public void onReceive(Context context, Intent intent)
         {
             Log.i(TAG, "Received tts request");
-            generateTts(context, intent);
+            initTts(context, intent);
         }
     };
 
-    /**
-     * Received request to generate a TTS wav file.
-     * @param context
-     * @param intent
-     */
-    public void generateTts(Context context, Intent intent) {
+    private void initTts(Context context, Intent intent)
+    {
         if (resources.isTtsPlayOnDeviceEnabled())
         {
-            String toSpeak = intent.getStringExtra("message");
-            Log.i(TAG, "Generate tts: " + toSpeak);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Bundle params = new Bundle();
-                params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
-                t1.speak(toSpeak, TextToSpeech.QUEUE_ADD, params, "ttsToSpeak");
-            } else {
-                HashMap<String, String> hashTts = new HashMap<String, String>();
-                hashTts.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
-                t1.speak(toSpeak, TextToSpeech.QUEUE_ADD, hashTts);
-            }
+            message = intent.getStringExtra("message");
+            Log.i(TAG, "Generate tts: " + message);
+            t1 = new TextToSpeech(context, this);
         } else
         {
             Log.d(TAG," Play on device is disabled");
         }
+    }
+
+    /**
+     * Received request to generate a TTS wav file.
+     */
+    private void generateTts() {
+            Log.i(TAG, "Generate tts: " + message);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Bundle params = new Bundle();
+                params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
+                t1.speak(message, TextToSpeech.QUEUE_ADD, params, "ttsToSpeak");
+            } else {
+                HashMap<String, String> hashTts = new HashMap<>();
+                hashTts.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
+                t1.speak(message, TextToSpeech.QUEUE_ADD, hashTts);
+            }
         }
     @Override
     public void onInit(int status)
@@ -83,6 +82,7 @@ public class TtsReader implements TextToSpeech.OnInitListener
         {
             // Language does not seem to matter when a custom TTS engine is selected
             t1.setLanguage(Locale.UK);
+            generateTts();
         }
     }
 

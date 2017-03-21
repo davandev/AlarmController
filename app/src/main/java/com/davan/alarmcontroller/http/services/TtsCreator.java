@@ -4,15 +4,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.davan.alarmcontroller.R;
 import com.davan.alarmcontroller.http.RequestDispatcher;
 import com.davan.alarmcontroller.http.RequestDispatcherResultListener;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
@@ -30,19 +27,19 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
 {
     private static final String TAG = TtsCreator.class.getSimpleName();
 
-    private RequestDispatcher dispatcher;
     private TextToSpeech t1;
     // Configuration
-    private AlarmControllerResources resources;
+    private final AlarmControllerResources resources;
     private Context myContext;
+    private String message;
 
-    public TtsCreator(Context context, AlarmControllerResources res)
+    public TtsCreator(AlarmControllerResources res)
     {
         Log.i(TAG, "Register for tts requests");
         resources = res;
-        myContext= context;
-        t1 = new TextToSpeech(context.getApplicationContext(), this);
+        //myContext= context;
     }
+
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
     {
@@ -50,18 +47,25 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
         public void onReceive(Context context, Intent intent)
         {
             Log.i(TAG, "Received tts request");
-            generateTts(context, intent);
+            //generateTts(context, intent);
+            initTts(context,intent);
         }
     };
 
+    private void initTts(Context context, Intent intent)
+    {
+        message = intent.getStringExtra("message");
+        Log.i(TAG, "Generate tts: " + message);
+        myContext = context;
+        t1 = new TextToSpeech(context, this);
+    }
     /**
      * Received request to generate a TTS wav file.
-     * @param context
-     * @param intent
      */
-    public void generateTts(Context context, Intent intent) {
-        String toSpeak = intent.getStringExtra("message");
-        Log.i(TAG, "Generate tts: " + toSpeak);
+    //public void generateTts(Context context, Intent intent) {
+    private void generateTts() {
+        //String toSpeak = intent.getStringExtra("message");
+        //Log.i(TAG, "Generate tts: " + toSpeak);
         File mediaStorageDir = new File(
                 Environment.getExternalStorageDirectory(),
                 resources.getTtsStorageFolder());
@@ -81,9 +85,9 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
         File mediaFile = new File(mediaStorageDir.getPath() + File.separator + resources.getTtsFileName());
         Log.d(TAG, "TTS path : " + mediaFile.getAbsolutePath());
 
-        HashMap<String, String> hashTts = new HashMap<String, String>();
+        HashMap<String, String> hashTts = new HashMap<>();
         hashTts.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToFile");
-        t1.synthesizeToFile(toSpeak, hashTts, mediaFile.getAbsolutePath());
+        t1.synthesizeToFile(message, hashTts, mediaFile.getAbsolutePath());
 
     }
     @Override
@@ -102,6 +106,7 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
                     if (utteranceId.equals("ttsToFile")) {
                         Log.d(TAG, "Notify listener about the finished tts file");
                         notifyTtsCompleted();
+                        t1.stop();
                     }
                 }
 
@@ -115,16 +120,17 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
                     Log.i(TAG, "TTS generation started");
                 }
             });
+            generateTts();
         }
     }
 
     /**
      * Notify configured tts callback receiver that TTS generation is completed.
      */
-    public void notifyTtsCompleted()
+    private void notifyTtsCompleted()
     {
         //if(resources.getTtsCallbackUrl().compareTo())
-        dispatcher = new RequestDispatcher(this);
+        RequestDispatcher dispatcher = new RequestDispatcher(this);
         dispatcher.execute(resources.getTtsCallbackUrl(), "", "", "true");
         Intent i = new Intent("ttsCompleted-event");
         LocalBroadcastManager.getInstance(myContext).sendBroadcast(i);

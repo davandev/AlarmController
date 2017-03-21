@@ -63,7 +63,7 @@ public class AlarmStateChecker implements RequestDispatcherResultListener
     @Override
     public void resultReceived(String result)
     {
-        Log.d(TAG, "resultReceived, result:" + result);
+        //Log.d(TAG, "resultReceived, result:" + result);
         try
         {
             String alarmState = "";

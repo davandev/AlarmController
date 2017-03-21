@@ -1,20 +1,15 @@
 package com.davan.alarmcontroller;
 
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
-import android.os.PowerManager;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -23,15 +18,11 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.davan.alarmcontroller.http.KeypadHttpService;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
-import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
 import com.davan.alarmcontroller.http.services.TtsCreator;
 import com.davan.alarmcontroller.http.services.TtsReader;
-import com.davan.alarmcontroller.http.services.WakeUpScreen;
-import com.davan.alarmcontroller.power.PowerConnectionReceiver;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.settings.SettingsLauncher;
 import com.davan.alarmcontroller.settings.UsageDialog;
@@ -42,7 +33,6 @@ import java.io.IOException;
 public class TtsMode extends AppCompatActivity  {
 
     private static final String TAG = TtsMode.class.getSimpleName();
-    private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
     private String hostAddress;
     private static int receivedTtsRequests = 0;
@@ -111,7 +101,7 @@ public class TtsMode extends AppCompatActivity  {
 
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
-        wifiChecker = new WifiConnectionChecker(connMgr);
+        WifiConnectionChecker wifiChecker = new WifiConnectionChecker(connMgr);
 
         textView = (TextView) findViewById(R.id.wifiView);
         textView.setText(wifiChecker.isConnectionOk()?"Connected":"Disconnected");
@@ -149,7 +139,7 @@ public class TtsMode extends AppCompatActivity  {
         {
             startService(new Intent(getBaseContext(), KeypadHttpService.class));
         }
-        ttsCreator = new TtsCreator(this, resources);
+        ttsCreator = new TtsCreator(resources);
         ttsCreator.registerForEvents(this);
         ttsReader = new TtsReader(this, resources);
         ttsReader.registerForEvents(this);

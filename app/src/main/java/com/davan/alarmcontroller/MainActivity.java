@@ -4,7 +4,6 @@ package com.davan.alarmcontroller;
  **/
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
@@ -18,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.davan.alarmcontroller.http.TelegramActivity;
 import com.davan.alarmcontroller.http.services.TtsReader;
 import com.davan.alarmcontroller.http.services.WakeUpScreen;
 import com.davan.alarmcontroller.http.KeypadHttpService;
@@ -34,7 +32,7 @@ import com.davan.alarmcontroller.http.services.TtsCreator;
 public class MainActivity extends AppCompatActivity implements AlarmStateListener
 {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private PowerManager.WakeLock mWakeLock = null;
+    private final PowerManager.WakeLock mWakeLock = null;
     private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
 
@@ -76,28 +74,17 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
             startService(new Intent(getBaseContext(), KeypadHttpService.class));
         }
 
-        if (resources.isWakeUpServiceEnabled())
-        {
-            wakeUpScreen = new WakeUpScreen();
-            wakeUpScreen.registerForEvents(this);
-        }
+        wakeUpScreen = new WakeUpScreen(resources);
+        wakeUpScreen.registerForEvents(this);
 
-        if (resources.isTtsServiceEnabled())
-        {
-            ttsCreator = new TtsCreator(this, resources);
-            ttsCreator.registerForEvents(this);
-        }
-        if (resources.isTtsPlayOnDeviceEnabled())
-        {
-            ttsReader = new TtsReader(this, resources);
-            ttsReader.registerForEvents(this);
-        }
+        ttsCreator = new TtsCreator(resources);
+        ttsCreator.registerForEvents(this);
 
-        if (resources.isChargingControlEnabled())
-        {
-            powerListener = new PowerConnectionReceiver(resources);
-            powerListener.registerForEvents(this);
-        }
+        ttsReader = new TtsReader(this, resources);
+        ttsReader.registerForEvents(this);
+
+        powerListener = new PowerConnectionReceiver(resources);
+        powerListener.registerForEvents(this);
     }
 
     @Override
