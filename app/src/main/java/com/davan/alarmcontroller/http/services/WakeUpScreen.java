@@ -8,6 +8,8 @@ import android.os.PowerManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.davan.alarmcontroller.settings.AlarmControllerResources;
+
 /**
  * Created by davandev on 2016-04-18.
  *
@@ -18,22 +20,19 @@ import android.util.Log;
 public class WakeUpScreen
 {
     private static final String TAG = WakeUpScreen.class.getSimpleName();
+    private final AlarmControllerResources resources;
 
-    public WakeUpScreen()
+    public WakeUpScreen(AlarmControllerResources res)
     {
-        Log.d(TAG,"Register for wakeup callbacks");
-
-        //Register to received wakeup events
-//        LocalBroadcastManager.getInstance(context).registerReceiver(
-//                mMessageReceiver, new IntentFilter("wakeup-event"));
-
+        Log.i(TAG, "Create WakeUpScreen");
+        resources = res;
     }
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
     {
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            Log.d(TAG, "Received WakeUp event");
+            Log.i(TAG, "Received WakeUp event");
             wakeUpScreen(context);
         }
     };
@@ -42,17 +41,22 @@ public class WakeUpScreen
      * Received request to wakeup screen.
      * @param context
      */
-    public void wakeUpScreen(Context context)
+    private void wakeUpScreen(Context context)
     {
-        Log.d(TAG, "WakeUp Screen");
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (resources.isWakeUpServiceEnabled()) {
+            Log.i(TAG, "WakeUp Screen");
+            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 
-        PowerManager.WakeLock mWakeLock = pm.newWakeLock(
-                PowerManager.SCREEN_BRIGHT_WAKE_LOCK |
-                PowerManager.ACQUIRE_CAUSES_WAKEUP, "Wakeup");
+            PowerManager.WakeLock mWakeLock = pm.newWakeLock(
+                    PowerManager.SCREEN_BRIGHT_WAKE_LOCK |
+                            PowerManager.ACQUIRE_CAUSES_WAKEUP, "Wakeup");
 
-        mWakeLock.acquire();
-        mWakeLock.release();
+            mWakeLock.acquire();
+            mWakeLock.release();
+        } else
+        {
+            Log.d(TAG,"WakeUpScreen is disabled");
+        }
     }
 
     /*
@@ -68,5 +72,4 @@ public class WakeUpScreen
         LocalBroadcastManager.getInstance(context).unregisterReceiver(
                 mMessageReceiver);
     }
-
 }

@@ -275,22 +275,8 @@
                         android:layout_column="1" />
                 </TableRow>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </TableRow>
-
 
             </TableLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1">
-
-            </LinearLayout>
 
             <GridLayout
                 android:layout_width="match_parent"

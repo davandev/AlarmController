@@ -22,17 +22,17 @@ import android.view.SurfaceView;
 
 import com.davan.alarmcontroller.Disarm;
 
-public class CameraCapture implements SurfaceHolder.Callback
+class CameraCapture implements SurfaceHolder.Callback
 {
     private static final String TAG = CameraCapture.class.getSimpleName();
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
-    boolean mPreviewRunning = false;
-    SurfaceHolder mSurfaceHolder;
-    SurfaceView mSurfaceView;
+    private boolean mPreviewRunning = false;
+    private SurfaceHolder mSurfaceHolder;
+    private final SurfaceView mSurfaceView;
     private Camera camera; // camera object
-    File mediaFile;
+    private File mediaFile;
     private static final String IMAGE_DIRECTORY_NAME = "Captured_Images";
-    private CameraCaptureResultListener resultListener;
+    private final CameraCaptureResultListener resultListener;
 
     public CameraCapture(Activity activity, SurfaceView surfaceView, CameraCaptureResultListener listener)
     {

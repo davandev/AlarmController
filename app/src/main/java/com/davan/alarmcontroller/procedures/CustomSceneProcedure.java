@@ -14,10 +14,10 @@ public class CustomSceneProcedure  implements RequestDispatcherResultListener
 {
     private static final String TAG = CustomSceneProcedure.class.getSimpleName();
 
-    private RequestDispatcher requestSender;
-    private CustomSceneProcedureResultListener resultListener;
-    private AlarmControllerResources resources;
-    private String url = "";
+    private final RequestDispatcher requestSender;
+    private final CustomSceneProcedureResultListener resultListener;
+    private final AlarmControllerResources resources;
+
     public CustomSceneProcedure(AlarmControllerResources alarmControllerResources,
                                 CustomSceneProcedureResultListener listener)
     {
@@ -33,7 +33,7 @@ public class CustomSceneProcedure  implements RequestDispatcherResultListener
     public void runScene( String id)
     {
         Log.d(TAG, "runScene");
-        url = resources.getFibaroRunSceneUrl();
+        String url = resources.getFibaroRunSceneUrl();
         url = url.replace("<serveraddress>", resources.getFibaroServerAddress());
         url = url.replace("<id>", id);
         Log.d(TAG, "Execute: " + url);

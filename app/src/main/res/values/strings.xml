@@ -181,5 +181,7 @@
     <string name="pref_title_tts_callback_url">Text-to-speech callback url</string>
     <string name="pref_title_http_services">Http services</string>
     <string name="pref_summaryoff_text_to_speech">Text-to-speech service is disabled</string>
+    <string name="text_tts_folder_name">GeneratedTTS</string>
+    <string name="text_tts_file_name">TTS.wav</string>
 
 </resources>

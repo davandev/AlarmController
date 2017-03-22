@@ -43,7 +43,7 @@ public class SettingsLauncher
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         dialog.show();
     }
-    public static void showSettings(Activity currentActivity)
+    private static void showSettings(Activity currentActivity)
     {
         Log.d(TAG, "showSettings");
         Intent intent = new Intent(currentActivity, SettingsActivity.class);

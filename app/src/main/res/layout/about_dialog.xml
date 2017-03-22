@@ -18,11 +18,11 @@
             android:layout_gravity="left|center"/>
         <TextView
             android:id="@+id/info_text"
-            android:text="SmartHome SoftKeypad"
+            android:text=" - ZenitGatekeeper -"
             android:gravity="center"
             android:layout_gravity="center|left"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </TableRow>
 
     <TableRow android:gravity="left">
@@ -55,9 +55,4 @@
             android:layout_gravity="left" />
     </TableRow>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </TableRow>
 </TableLayout>

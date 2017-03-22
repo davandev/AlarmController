@@ -21,7 +21,7 @@ public class RequestDispatcher extends AsyncTask<String, Void, String>
     private static final String TAG = RequestDispatcher.class.getName();
 
     // Result listener
-    private RequestDispatcherResultListener listener;
+    private final RequestDispatcherResultListener listener;
 
     public RequestDispatcher(RequestDispatcherResultListener callbackListener)
     {
@@ -34,7 +34,7 @@ public class RequestDispatcher extends AsyncTask<String, Void, String>
 
         // params comes from the execute() call: params[0] is the url.
         try {
-            Log.d(TAG, "Url:" + urls[0] +" AuthenticatingUser:" + urls[1]);
+            Log.d(TAG, "Url:" + urls[0]);
             return sendRequest(urls[0],urls[1],urls[2], urls[3]);
         }
         catch (IOException e)
@@ -47,7 +47,6 @@ public class RequestDispatcher extends AsyncTask<String, Void, String>
     @Override
     protected void onPostExecute(String result)
     {
-        Log.d(TAG,"onPostExecute Result:" + result);
         listener.resultReceived(result);
     }
 
@@ -55,7 +54,6 @@ public class RequestDispatcher extends AsyncTask<String, Void, String>
     {
         final String username = user;
         final String password = passwd;
-        final String waitForInput = readMyInput;
 
         InputStream is = null;
         int len = 1000;
@@ -74,7 +72,7 @@ public class RequestDispatcher extends AsyncTask<String, Void, String>
 
             // Starts the query
             conn.connect();
-            if( waitForInput.compareTo("false") ==0 )
+            if( readMyInput.compareTo("false") ==0 )
             {
                 Log.d(TAG, "Discard response");
                 conn.disconnect();
@@ -98,9 +96,9 @@ public class RequestDispatcher extends AsyncTask<String, Void, String>
         }
     }
     // Reads an InputStream and converts it to a String.
-    public String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException
+    private String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException
     {
-        Reader reader = null;
+        Reader reader;
         reader = new InputStreamReader(stream, "UTF-8");
         BufferedReader buffReader = new BufferedReader(reader);
         StringBuilder result = new StringBuilder();

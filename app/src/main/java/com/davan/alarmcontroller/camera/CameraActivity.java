@@ -44,11 +44,11 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 {
     private static final String TAG = CameraActivity.class.getSimpleName();
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
-    boolean mPreviewRunning = false;
-    SurfaceHolder mSurfaceHolder;
-    SurfaceView mSurfaceView;
+    private boolean mPreviewRunning = false;
+    private SurfaceHolder mSurfaceHolder;
+    private SurfaceView mSurfaceView;
     private Camera camera; // camera object
-    File mediaFile;
+    private File mediaFile;
     private static final String IMAGE_DIRECTORY_NAME = "Captured_Images";
     private boolean authenticationOk;
     private String authenticatedUser;
@@ -80,7 +80,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         //takePicture();
     }
 
-    public void takePicture()
+    private void takePicture()
     {
 
        // mSurfaceView = new SurfaceView(this);
@@ -89,13 +89,13 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
 
-    public void closeCamera()
+    private void closeCamera()
     {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    public void sendPicture()
+    private void sendPicture()
     {
         TelegramActivity telegram = new TelegramActivity(resources);
 
@@ -118,7 +118,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         }
     }
 
-    public void requestPermission(Activity currentActivity)
+    private void requestPermission(Activity currentActivity)
     {
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(currentActivity,
@@ -178,7 +178,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
             // permissions this app might request
         }
     }
-    Camera.PictureCallback jpegCallBack=new Camera.PictureCallback()
+    private Camera.PictureCallback jpegCallBack=new Camera.PictureCallback()
     {
         @Override
         public void onPictureTaken(byte[] data, Camera camera)

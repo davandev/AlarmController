@@ -32,9 +32,9 @@ public class UsersSettingsActivity extends AppCompatActivity
 {
     private static final String TAG = UsersSettingsActivity.class.getSimpleName();
 
-    ListView listView ;
-    ArrayAdapter<String> adapter;
-    HashMap<String,String> users = new HashMap<>();
+    private ListView listView ;
+    private ArrayAdapter<String> adapter;
+    private final HashMap<String,String> users = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -116,7 +116,7 @@ public class UsersSettingsActivity extends AppCompatActivity
      * @param chatId telegram chatid
      * @param defaultUser determine if the user is default user
      */
-    public void viewUser(View view, String user, String password, String pin, String chatId, boolean defaultUser )
+    private void viewUser(View view, String user, String password, String pin, String chatId, boolean defaultUser)
     {
         Log.d(getLocalClassName(), "viewUser");
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -196,7 +196,7 @@ public class UsersSettingsActivity extends AppCompatActivity
      * Add a new user
      * @param view
      */
-    public void addUser(View view)
+    private void addUser(View view)
     {
         Log.d(getLocalClassName(), "addUser");
         viewUser(view,"","", "", "", false);
@@ -205,7 +205,7 @@ public class UsersSettingsActivity extends AppCompatActivity
     /**
      * Read all configured users from shared preferences.
      */
-    public void readUsers()
+    private void readUsers()
     {
         SharedPreferences prefs = getSharedPreferences("com.davan.alarmcontroller.users", 0);
         for( Map.Entry entry : prefs.getAll().entrySet() ) {
@@ -216,7 +216,7 @@ public class UsersSettingsActivity extends AppCompatActivity
     /**
      * Store configured users in shared preferencees
      */
-    public void storeUsers()
+    private void storeUsers()
     {
         SharedPreferences.Editor editor = getSharedPreferences("com.davan.alarmcontroller.users", 0).edit();
         editor.clear();

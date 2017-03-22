@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
@@ -28,46 +26,55 @@ import java.util.Locale;
 public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatcherResultListener
 {
     private static final String TAG = TtsCreator.class.getSimpleName();
-    private static final String TTS_DIRECTORY_NAME = "GeneratedTTS";
 
-    private RequestDispatcher dispatcher;
     private TextToSpeech t1;
     // Configuration
-    private AlarmControllerResources resources;
+    private final AlarmControllerResources resources;
     private Context myContext;
+    private String message;
 
-    public TtsCreator(Context context, AlarmControllerResources res)
+    public TtsCreator(AlarmControllerResources res)
     {
-        Log.d(TAG, "Register for tts requests");
+        Log.i(TAG, "Register for tts requests");
         resources = res;
-        myContext= context;
-        t1 = new TextToSpeech(context.getApplicationContext(), this);
+        //myContext= context;
     }
+
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
     {
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            Log.d(TAG, "Received tts request");
-            generateTts(context, intent);
+            Log.i(TAG, "Received tts request");
+            //generateTts(context, intent);
+            initTts(context,intent);
         }
     };
 
+    private void initTts(Context context, Intent intent)
+    {
+        message = intent.getStringExtra("message");
+        Log.i(TAG, "Generate tts: " + message);
+        myContext = context;
+        t1 = new TextToSpeech(context, this);
+    }
     /**
      * Received request to generate a TTS wav file.
-     * @param context
-     * @param intent
      */
-    public void generateTts(Context context, Intent intent) {
-        String toSpeak = intent.getStringExtra("message");
-        Log.d(TAG, "Generate tts: " + toSpeak);
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory(),TTS_DIRECTORY_NAME);
+    //public void generateTts(Context context, Intent intent) {
+    private void generateTts() {
+        //String toSpeak = intent.getStringExtra("message");
+        //Log.i(TAG, "Generate tts: " + toSpeak);
+        File mediaStorageDir = new File(
+                Environment.getExternalStorageDirectory(),
+                resources.getTtsStorageFolder());
+        
         if (!mediaStorageDir.exists())
         {
             if (!mediaStorageDir.mkdirs())
             {
-                Log.d(TAG, "Failed to create mediadir");
+                Log.w(TAG, "Failed to create mediadir");
             }
             else
             {
@@ -75,20 +82,12 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
             }
         }
 
-        File mediaFile = new File(mediaStorageDir.getPath() + File.separator+ "TTS.wav");
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + resources.getTtsFileName());
         Log.d(TAG, "TTS path : " + mediaFile.getAbsolutePath());
-/*        if (resources.isTtsPlayOnDeviceEnabled()) // Play in device speaker
-        {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Bundle params = new Bundle();
-                params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
-                t1.speak(toSpeak, TextToSpeech.QUEUE_ADD, params, "ttsToSpeak");
-            }
-        }
-*/
-        HashMap<String, String> hashTts = new HashMap<String, String>();
+
+        HashMap<String, String> hashTts = new HashMap<>();
         hashTts.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToFile");
-        t1.synthesizeToFile(toSpeak, hashTts, mediaFile.getAbsolutePath());
+        t1.synthesizeToFile(message, hashTts, mediaFile.getAbsolutePath());
 
     }
     @Override
@@ -102,36 +101,36 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
             t1.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                 @Override
                 public void onDone(String utteranceId) {
-                    Log.d(TAG, "TTS file created successfully");
+                    Log.i(TAG, "TTS file created successfully");
 
                     if (utteranceId.equals("ttsToFile")) {
                         Log.d(TAG, "Notify listener about the finished tts file");
-                        //t1.stop();
                         notifyTtsCompleted();
-
+                        t1.stop();
                     }
                 }
 
                 @Override
                 public void onError(String utteranceId) {
-                    Log.d(TAG, "TTS generation failed");
+                    Log.w(TAG, "TTS generation failed");
                 }
 
                 @Override
                 public void onStart(String utteranceId) {
-                    Log.d(TAG, "TTS generation started");
+                    Log.i(TAG, "TTS generation started");
                 }
             });
+            generateTts();
         }
     }
 
     /**
      * Notify configured tts callback receiver that TTS generation is completed.
      */
-    public void notifyTtsCompleted()
+    private void notifyTtsCompleted()
     {
         //if(resources.getTtsCallbackUrl().compareTo())
-        dispatcher = new RequestDispatcher(this);
+        RequestDispatcher dispatcher = new RequestDispatcher(this);
         dispatcher.execute(resources.getTtsCallbackUrl(), "", "", "true");
         Intent i = new Intent("ttsCompleted-event");
         LocalBroadcastManager.getInstance(myContext).sendBroadcast(i);

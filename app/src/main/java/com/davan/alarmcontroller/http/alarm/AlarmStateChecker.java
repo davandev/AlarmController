@@ -18,12 +18,13 @@ public class AlarmStateChecker implements RequestDispatcherResultListener
 {
     private static final String TAG = AlarmStateChecker.class.getName();
 
-    RequestDispatcher requestSender;
-    WifiConnectionChecker wifiChecker;
+    private final RequestDispatcher requestSender;
+    private final WifiConnectionChecker wifiChecker;
     // Receiver of alarm state
-    AlarmStateListener resultReceiver;
+    private final AlarmStateListener resultReceiver;
+    private final AlarmControllerResources resources;
+
     private String serverUrl = "";
-    private AlarmControllerResources resources;
 
     public AlarmStateChecker(WifiConnectionChecker wifiCheckerInstance,
                              AlarmControllerResources alarmControllerResources,
@@ -63,7 +64,7 @@ public class AlarmStateChecker implements RequestDispatcherResultListener
     @Override
     public void resultReceived(String result)
     {
-        Log.d(TAG, "resultReceived, result:" + result);
+        //Log.d(TAG, "resultReceived, result:" + result);
         try
         {
             String alarmState = "";

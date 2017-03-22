@@ -31,7 +31,6 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
 {
     private static final String TAG = Arm.class.getSimpleName();
 
-    private AlarmProcedureIf handler;
     private String alarmType = "0";
     private AlarmControllerResources resources;
     @Override
@@ -52,7 +51,7 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
         try
         {
             //Create alarm procedure, depending on configuration
-            handler = AlarmProcedureFactory.createProcedure(resources, this);
+            AlarmProcedureIf handler = AlarmProcedureFactory.createProcedure(resources, this);
             // Arm alarm
             handler.arm(alarmType);
 
@@ -72,7 +71,7 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
     /**
      * Change background color of screen to a random color.
      */
-    public void changeBackGroundColor()
+    private void changeBackGroundColor()
     {
         View view = this.getWindow().getDecorView();
         Random rand = new Random();
@@ -82,7 +81,7 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
     /**
      * Alarm is armed, change to armed state activity
      */
-    public void armed()
+    private void armed()
     {
         Intent intent = new Intent(this, Armed.class);
         intent.putExtra(getResources().getString(R.string.alarm_type), alarmType);
@@ -93,7 +92,7 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
      * Start countdown, change background color once every second until escaping time
      * has passed, then change to armed state activity
      */
-    public void startArmingCountDown()
+    private void startArmingCountDown()
     {
 /*        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), notification);

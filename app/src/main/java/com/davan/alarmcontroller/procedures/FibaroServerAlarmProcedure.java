@@ -15,11 +15,11 @@ public class FibaroServerAlarmProcedure implements AlarmProcedureIf, RequestDisp
 {
     private static final String TAG = FibaroServerAlarmProcedure.class.getSimpleName();
 
-    private RequestDispatcher requestDispatcher;
-    private AlarmProcedureResultListener resultListener;
-    private String url = "";
-    private AlarmControllerResources resources;
+    private final RequestDispatcher requestDispatcher;
+    private final AlarmProcedureResultListener resultListener;
+    private final AlarmControllerResources resources;
     private String action;
+    private String url = "";
     private String authenticatedUser ="";
 
     public FibaroServerAlarmProcedure(

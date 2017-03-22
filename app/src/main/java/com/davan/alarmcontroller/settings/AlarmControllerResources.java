@@ -20,10 +20,10 @@ public class AlarmControllerResources
 {
     private static final String TAG = AlarmControllerResources.class.getSimpleName();
 
-    private SharedPreferences preferences;
-    private SharedPreferences userPreferences;
-    private Resources resources;
-    private HashMap<String,String> users = new HashMap<>();
+    private final SharedPreferences preferences;
+    private final SharedPreferences userPreferences;
+    private final Resources resources;
+    private final HashMap<String,String> users = new HashMap<>();
     private String defaultUser;
     private String defaultUserPassword;
 
@@ -51,6 +51,8 @@ public class AlarmControllerResources
     public boolean isExternalServerEnabled() { return preferences.getBoolean("ext_server_enabled", false); }
     /* Return the configured url to receiver of tts callbacks */
     public String getTtsCallbackUrl() { return preferences.getString("tts_callback_url", "");}
+    public String getTtsStorageFolder() {return resources.getString(R.string.text_tts_folder_name);}
+    public String getTtsFileName() {return resources.getString(R.string.text_tts_file_name);}
 
     /* Return true if http services is enabled */
     public boolean isHttpServicesEnabled() {return preferences.getBoolean("http_service_enabled", false);}
