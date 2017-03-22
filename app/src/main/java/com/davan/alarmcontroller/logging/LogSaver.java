@@ -52,6 +52,7 @@ public class LogSaver extends Activity
         }
         catch (IOException e)
         {
+            Log.w(TAG,"Failed to compose log file");
         }
 
 

@@ -52,7 +52,8 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".TtsMode"></activity>
+        <activity android:name=".TtsMode" />
+        <activity android:name=".settings.License"></activity>
     </application>
 
 </manifest>

@@ -18,9 +18,8 @@ import com.davan.alarmcontroller.settings.AlarmControllerResources;
 public class PowerConnectionReceiver implements CustomSceneProcedureResultListener {
     private static final String TAG = PowerConnectionReceiver.class.getName();
 
-    private int mBatteryLevel;
     private IntentFilter mBatteryLevelFilter;
-    private AlarmControllerResources resources;
+    private final AlarmControllerResources resources;
     private boolean shouldInvokeAction = true;
     private CustomSceneProcedure sceneProcedure;
 
@@ -29,11 +28,11 @@ public class PowerConnectionReceiver implements CustomSceneProcedureResultListen
         resources = res;
     }
 
-    BroadcastReceiver mBatteryReceiver = new BroadcastReceiver()
+    private final BroadcastReceiver mBatteryReceiver = new BroadcastReceiver()
     {
         @Override
         public void onReceive(Context context, Intent intent) {
-            mBatteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+            int mBatteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
             if (mBatteryLevel < 20)
             {
                 handleLowBatteryLevel(context);
@@ -56,7 +55,7 @@ public class PowerConnectionReceiver implements CustomSceneProcedureResultListen
      * the device.
      * @param context
      */
-    public void handleLowBatteryLevel(Context context)
+    private void handleLowBatteryLevel(Context context)
     {
         if (shouldInvokeAction)
         {
@@ -81,7 +80,7 @@ public class PowerConnectionReceiver implements CustomSceneProcedureResultListen
      * the device.
      * @param context
      */
-    public void handleHighBatteryLevel(Context context)
+    private void handleHighBatteryLevel(Context context)
     {
         if (shouldInvokeAction)
         {

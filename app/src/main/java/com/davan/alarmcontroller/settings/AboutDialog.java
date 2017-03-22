@@ -37,13 +37,20 @@ public class AboutDialog
         final TextView versionField=(TextView)layout.findViewById(R.id.version);
         versionField.setText("Version: " + versionName + " " + versionCode);
 
-        alert.setNeutralButton("ViewLogs", new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int whichButton)
-            {
+        alert.setNeutralButton("ViewLogs", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
                 // Display logs on screen
                 Log.d(TAG, "viewLogs");
                 Intent intent = new Intent(callingActivity, LogSaver.class);
+                callingActivity.startActivity(intent);
+            }
+        });
+        alert.setNegativeButton("License", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int whichButton)
+            {
+                Log.d(TAG, "License");
+                Intent intent = new Intent(callingActivity, License.class);
                 callingActivity.startActivity(intent);
             }
         });

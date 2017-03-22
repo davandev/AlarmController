@@ -49,7 +49,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     {
         Log.d(TAG, "OnPostCreate");
         super.onPostCreate(savedInstanceState);
-        final Preference pref = findPreference("checkbox");
 
         LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
 

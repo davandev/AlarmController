@@ -41,7 +41,7 @@ public class WakeUpScreen
      * Received request to wakeup screen.
      * @param context
      */
-    public void wakeUpScreen(Context context)
+    private void wakeUpScreen(Context context)
     {
         if (resources.isWakeUpServiceEnabled()) {
             Log.i(TAG, "WakeUp Screen");

@@ -90,15 +90,19 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
         return true;
     }
 
-    public void armSkalskydd(View view)
-    {
-        arm(resources.getFibaroAlarmTypeValuePerimeterArmed());
-    }
+// --Commented out by Inspection START (2017-03-22 21:27):
+//    public void armSkalskydd(View view)
+//    {
+//        arm(resources.getFibaroAlarmTypeValuePerimeterArmed());
+//    }
+// --Commented out by Inspection STOP (2017-03-22 21:27)
 
-    public void armAlarm(View view)
-    {
-        arm(resources.getFibaroAlarmTypeValueFullHouseArmed());
-    }
+// --Commented out by Inspection START (2017-03-22 21:27):
+//    public void armAlarm(View view)
+//    {
+//        arm(resources.getFibaroAlarmTypeValueFullHouseArmed());
+//    }
+// --Commented out by Inspection STOP (2017-03-22 21:27)
 
     private void arm(String alarmType)
     {

@@ -56,7 +56,7 @@ public class KeypadHttpServer extends NanoHTTPD {
     /**
      * Listener of received requests.
      */
-    private KeypadHttpRequestListener receiver;
+    private final KeypadHttpRequestListener receiver;
 
     public static void main(String[] args) {
         ServerRunner.run(KeypadHttpServer.class);
@@ -76,7 +76,7 @@ public class KeypadHttpServer extends NanoHTTPD {
         }
     }
 
-    public void printLocalAddress()throws IOException
+    private void printLocalAddress()throws IOException
     {
         try
         {
@@ -124,7 +124,6 @@ public class KeypadHttpServer extends NanoHTTPD {
         if(uri.compareTo("/Ping") == 0) // Recevied alive message
         {
             String msg = "Ping\n";
-            Map<String, String> parms = session.getParms();
             return newFixedLengthResponse(msg);
         }
         if(uri.compareTo("/log") == 0)
@@ -132,7 +131,6 @@ public class KeypadHttpServer extends NanoHTTPD {
             return receiver.getLogFile();
         }
 
-        Map<String, String> parms = session.getParms();
         String msg = "<html><body><h1>"+responseMessage+"</h1>\nServiceEnabled["+serviceEnabled+"]</body></html>\n";
         return newFixedLengthResponse(msg);
     }

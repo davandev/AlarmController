@@ -16,9 +16,9 @@ public class ExternalServerAlarmProcedure implements AlarmProcedureIf, RequestDi
 {
     private static final String TAG = ExternalServerAlarmProcedure.class.getSimpleName();
 
-    private RequestDispatcher requestSender;
-    private AlarmProcedureResultListener resultListener;
-    private AlarmControllerResources resources;
+    private final RequestDispatcher requestSender;
+    private final AlarmProcedureResultListener resultListener;
+    private final AlarmControllerResources resources;
     private String action = "";
 
     public ExternalServerAlarmProcedure(AlarmControllerResources alarmControllerResources,

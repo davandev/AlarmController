@@ -11,7 +11,7 @@ public class WifiConnectionChecker
 {
     private static final String TAG = WifiConnectionChecker.class.getName();
 
-    private ConnectivityManager connMgr;
+    private final ConnectivityManager connMgr;
     public WifiConnectionChecker(ConnectivityManager connectivityManager)
     {
         connMgr = connectivityManager;
@@ -20,7 +20,7 @@ public class WifiConnectionChecker
     public boolean isConnectionOk()
     {
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected() && networkInfo.getType() == connMgr.TYPE_WIFI)
+        if (networkInfo != null && networkInfo.isConnected() && networkInfo.getType() == ConnectivityManager.TYPE_WIFI)
         {
             Log.d(TAG,"Wifi connection is available");
             return true;

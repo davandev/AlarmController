@@ -20,10 +20,10 @@ public class AlarmControllerResources
 {
     private static final String TAG = AlarmControllerResources.class.getSimpleName();
 
-    private SharedPreferences preferences;
-    private SharedPreferences userPreferences;
-    private Resources resources;
-    private HashMap<String,String> users = new HashMap<>();
+    private final SharedPreferences preferences;
+    private final SharedPreferences userPreferences;
+    private final Resources resources;
+    private final HashMap<String,String> users = new HashMap<>();
     private String defaultUser;
     private String defaultUserPassword;
 

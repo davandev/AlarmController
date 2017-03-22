@@ -13,12 +13,10 @@ public class TelegramActivity implements RequestDispatcherResultListener
 {
     private static final String TAG = TelegramActivity.class.getSimpleName();
 
-    private RequestDispatcher dispatcher;
-
-    private String token;
+    private final String token;
     private String chatId;
-    private boolean telegramEnabled;
-    private AlarmControllerResources resources;
+    private final boolean telegramEnabled;
+    private final AlarmControllerResources resources;
 
     public TelegramActivity(AlarmControllerResources res)
     {
@@ -40,7 +38,7 @@ public class TelegramActivity implements RequestDispatcherResultListener
             for (String chatId1 : chatIds) {
                 String url = resources.getTelegramSendMessageUrl(token, chatId1);
                 Log.d(TAG, "TelegramUrl:" + url);
-                dispatcher = new RequestDispatcher(this);
+                RequestDispatcher dispatcher = new RequestDispatcher(this);
                 dispatcher.execute(url + message, "", "", "true");
             }
         }

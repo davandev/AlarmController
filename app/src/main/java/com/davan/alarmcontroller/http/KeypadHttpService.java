@@ -36,7 +36,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
     private PowerManager.WakeLock mWakeLock = null;
     private AlarmControllerResources resources;
 
-    KeypadHttpServer webServer;
+    private KeypadHttpServer webServer;
 
     @Override
     public IBinder onBind(Intent intent) {
