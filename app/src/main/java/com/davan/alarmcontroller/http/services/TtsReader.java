@@ -80,8 +80,6 @@ public class TtsReader implements TextToSpeech.OnInitListener
     {
         if(status != TextToSpeech.ERROR)
         {
-            // Language does not seem to matter when a custom TTS engine is selected
-            t1.setLanguage(Locale.UK);
             generateTts();
         }
     }
