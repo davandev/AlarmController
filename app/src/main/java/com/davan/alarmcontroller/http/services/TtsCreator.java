@@ -95,9 +95,6 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
     {
         if(status != TextToSpeech.ERROR)
         {
-            // Language does not seem to matter when a custom TTS engine is selected
-            t1.setLanguage(Locale.UK);
-
             t1.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                 @Override
                 public void onDone(String utteranceId) {
