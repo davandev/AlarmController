@@ -94,7 +94,7 @@ public class TtsMode extends AppCompatActivity  {
      */
     private void loadSettings(AlarmControllerResources resources)
     {
-        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+        WifiManager wm = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         hostAddress = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
         TextView textView = (TextView) findViewById(R.id.hostAddressView);
         textView.setText(hostAddress);

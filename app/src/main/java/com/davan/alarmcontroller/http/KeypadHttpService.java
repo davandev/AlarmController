@@ -31,7 +31,7 @@ import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.http.NanoHTTPD;
 
 public class KeypadHttpService extends Service implements KeypadHttpRequestListener {
-    private static final String TAG = KeypadHttpService.class.getName();
+    private static final String TAG = KeypadHttpService.class.getSimpleName();
 
     private PowerManager.WakeLock mWakeLock = null;
     private AlarmControllerResources resources;

@@ -82,41 +82,39 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
         }
     }
 
-// --Commented out by Inspection START (2017-03-22 21:28):
-//    public void buttonPushed(View view)
-//    {
-//        Button b = (Button) view;
-//        String buttonText = b.getText().toString();
-//        if(buttonText.compareTo("OK") == 0)
-//        {
-//            String password = ((EditText) findViewById(R.id.editText2)).getText().toString();
-//
-//            Log.d(TAG, "OK pushed");
-//            if (wifiChecker.isConnectionOk() )
-//            {
-//                authenticationOk = false;
-//                handler.disarm(alarmType, password);
-//            }
-//            else
-//            {
-//                Toast.makeText(getBaseContext(), R.string.pref_message_no_network_connection, Toast.LENGTH_LONG).show();
-//            }
-//        }
-//
-//        else if (buttonText.compareTo("<<") ==0)
-//        {
-//            int length = ((EditText) findViewById(R.id.editText2)).getText().length();
-//            if (length > 0)
-//            {
-//                ((EditText) findViewById(R.id.editText2)).getText().delete(length - 1, length);
-//            }
-//        }
-//        else
-//        {
-//            ((EditText) findViewById(R.id.editText2)).append(buttonText);
-//        }
-//    }
-// --Commented out by Inspection STOP (2017-03-22 21:28)
+    public void buttonPushed(View view)
+    {
+        Button b = (Button) view;
+        String buttonText = b.getText().toString();
+        if(buttonText.compareTo("OK") == 0)
+        {
+            String password = ((EditText) findViewById(R.id.editText2)).getText().toString();
+
+            Log.d(TAG, "OK pushed");
+            if (wifiChecker.isConnectionOk() )
+            {
+                authenticationOk = false;
+                handler.disarm(alarmType, password);
+            }
+            else
+            {
+                Toast.makeText(getBaseContext(), R.string.pref_message_no_network_connection, Toast.LENGTH_LONG).show();
+            }
+        }
+
+        else if (buttonText.compareTo("<<") ==0)
+        {
+            int length = ((EditText) findViewById(R.id.editText2)).getText().length();
+            if (length > 0)
+            {
+                ((EditText) findViewById(R.id.editText2)).getText().delete(length - 1, length);
+            }
+        }
+        else
+        {
+            ((EditText) findViewById(R.id.editText2)).append(buttonText);
+        }
+    }
 
     @Override
     public void resultReceived(boolean success, String result)

@@ -9,7 +9,7 @@ import android.util.Log;
  **/
 public class WifiConnectionChecker
 {
-    private static final String TAG = WifiConnectionChecker.class.getName();
+    private static final String TAG = WifiConnectionChecker.class.getSimpleName();
 
     private final ConnectivityManager connMgr;
     public WifiConnectionChecker(ConnectivityManager connectivityManager)

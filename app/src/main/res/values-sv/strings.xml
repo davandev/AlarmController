@@ -31,7 +31,7 @@
 
     <!-- Fibaro server settings -->
         <string name="pref_title_display_name">Fibaro server address</string>
-        <string name="pref_default_display_name"></string>
+        <string name="pref_default_display_name">192.0.0.0</string>
 
         <!-- Alarm settings -->
         <string name="pref_title_arm_alarm_button_id">Knapp id för att larma hela huset.</string>
@@ -62,7 +62,7 @@
     <string name="action_about">Om</string>
     <string name="pref_title_screen_wakeup">Tänd skärmen</string>
     <string name="pref_summary_wakeup_service">När tjänsten är aktiverad startas en webserver som väntar på att ta emot meddelanden. I Fibaro systemet behöver du skapa en scen som skickar ett meddelande när en rörelsedetektor eller en dörr sensor bryts.</string>
-    <string name="pref_summaryon_wakeup_service">Servern är startad och kommer tända skärmen ner ett meddelande mottas</string>
+    <string name="pref_summaryon_wakeup_service">Skärmen tänds när ett wakeup meddelande mottas</string>
     <string name="pref_title_future_features">Kommande funktioner</string>
     <string name="pref_summary_coming_features">Listan nedan visar kommande funktioner.</string>
     <string name="pref_title_fibaro_server_enabled">Fibaro server</string>
@@ -90,7 +90,7 @@
     <string name="pref_title_camera">Kamera</string>
     <string name="pref_summary_on_camera">Tar ett foto när larmet stängs av.</string>
     <string name="pref_summary_off_camera">Inget foto tas när larmet stängs av.</string>
-    <string name="pref_title_fibaro_variable_alarmstate_disarmed">Värde när larmet är av</string>
+    <string name="pref_title_fibaro_variable_alarmstate_disarmed">Värde när larmet är inaktivt</string>
     <string name="pref_hint_fibaro_server_address">Addressen till Fibaro server</string>
     <string name="pref_summary_fibaro_server_address">Konfiguerar Fibaro server address</string>
     <string name="pref_title_fibaro_users">Fibaro användare</string>
@@ -149,7 +149,7 @@
     <string name="pref_message_no_charging_turn_on_configured">Ingen scen är konfigurerad att köras när batterinivån är låg</string>
     <string name="pref_message_no_charging_turn_off_configured">Ingen scen är konfigurerad att köras när batterinivån är hög</string>
     <string name="pref_title_tts_service">Aktivera Text-till-tal tjänsten</string>
-    <string name="pref_summaryon_tts_service">Generates a wav file on received http request</string>
+    <string name="pref_summaryon_tts_service">Skapar text till tal när ett tts meddelande mottas</string>
     <string name="pref_message_no_callback_url_configured">TTS är aktiverat men ingen callback url är konfigurerad</string>
     <string name="pref_summary_external_server_enabled">Aktivera för att larma/larma av mot en extern server.</string>
     <string name="pref_summary_external_server_settings">Inställningar när larm aktivering och avaktivering görs mot en extern server.</string>
@@ -159,12 +159,20 @@
     <string name="desc_view"><![CDATA[Skicka en request till den här enheten:\n\nhttp://<ipaddress>:8080/tts=<html kodat meddelande>\n\nCallbacks skickas till:\n\n<callback_url>]]></string>
     <string name="pref_title_fibaro_variable_alarmstate">Global variabel som håller alarm state</string>
     <string name="pref_title_http_service">Aktivera http tjänster</string>
-    <string name="pref_summaryoff_http_service"></string>
+    <string name="pref_summaryoff_http_service">Http servern körs inte</string>
     <string name="pref_title_http_services">Http tjänster</string>
     <string name="pref_title_play_tts_on_device">Spela upp meddelandet i enheten</string>
     <string name="preff_title_fibaro_general_settings">Generella Fibaro inställningar</string>
-    <string name="prf_title_external_server_enabled"></string>
-    <string name="pref_sum_off_play_tts_on_device">Genererat media </string>
+    <string name="prf_title_external_server_enabled">Extern server</string>
+    <string name="pref_sum_off_play_tts_on_device">Genererat tal spelas inte upp i enheten</string>
     <string name="pref_summary_http_service">Aktivera http tjänster kommer att starta en webserver på port 8080 </string>
+    <string name="pref_sum_on_play_tts_on_device">Genererat tal spelas upp i enheten</string>
+    <string name="pref_summary_var_alarm_type">Variabeln måste vara konfigurerad som en global variabel</string>
+    <string name="pref_summaryoff_text_to_speech">Text-till-tal tjänsten är inte aktiv</string>
+    <string name="pref_summaryoff_wakeup_service">Skärmen tänds inte när ett wakeup meddelande mottas</string>
+    <string name="pref_summaryon_http_service">Http servern är startad</string>
+    <string name="pref_title_fibaro_variable_alarmstate_armed">Värde när larmet är aktivt</string>
+    <string name="pref_title_tts_callback_url">Text-till-tal callback url</string>
+    <string name="text_tts_file_name">TTS.wav</string>
 
 </resources>

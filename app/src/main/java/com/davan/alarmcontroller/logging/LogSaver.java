@@ -92,7 +92,7 @@ public class LogSaver extends Activity
 
         Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Report from AlarmController Keypad");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Report from ZenitGatekeeper");
         intent.setData(Uri.parse("mailto:davan_at_work@hotmail.com"));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "myLogcat/logcat.txt");

@@ -52,7 +52,7 @@ public class KeypadHttpServer extends NanoHTTPD {
     /**
      * logger to log to.
      */
-    private static final String CLASSNAME = KeypadHttpServer.class.getName();
+    private static final String CLASSNAME = KeypadHttpServer.class.getSimpleName();
     /**
      * Listener of received requests.
      */
