@@ -21,7 +21,7 @@ import java.util.Locale;
 /**
  * Created by davandev on 2017-03-09.
  * TtsCreator will generate speech from text, store the speech in a file and notify
- * a configure callback receiver.
+ * a configured callback receiver.
  **/
 public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatcherResultListener
 {
@@ -37,7 +37,6 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
     {
         Log.i(TAG, "Register for tts requests");
         resources = res;
-        //myContext= context;
     }
 
 
@@ -47,7 +46,6 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
         public void onReceive(Context context, Intent intent)
         {
             Log.i(TAG, "Received tts request");
-            //generateTts(context, intent);
             initTts(context,intent);
         }
     };
@@ -55,6 +53,13 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
     private void initTts(Context context, Intent intent)
     {
         message = intent.getStringExtra("message");
+        // Volume parameter fills no purpose here, just remove it.
+        if (message.contains("&vol="))
+        {
+            String[] res = message.split("&vol=");
+            message = res[0];
+        }
+
         Log.i(TAG, "Generate tts: " + message);
         myContext = context;
         t1 = new TextToSpeech(context, this);
@@ -62,10 +67,7 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
     /**
      * Received request to generate a TTS wav file.
      */
-    //public void generateTts(Context context, Intent intent) {
     private void generateTts() {
-        //String toSpeak = intent.getStringExtra("message");
-        //Log.i(TAG, "Generate tts: " + toSpeak);
         File mediaStorageDir = new File(
                 Environment.getExternalStorageDirectory(),
                 resources.getTtsStorageFolder());

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -34,7 +35,10 @@ public class TtsReader implements TextToSpeech.OnInitListener
     {
         Log.d(TAG, "Create TtsReader");
         resources = res;
-
+        AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        int configuredVolumeLevel = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        Log.i(TAG,"MaxVolumeLevel["+maxVolume+"] CurrentVolumeLevel["+configuredVolumeLevel+"]");
     }
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
@@ -47,11 +51,30 @@ public class TtsReader implements TextToSpeech.OnInitListener
         }
     };
 
+    /**
+     * Set volume level of the device
+     * @param context
+     * @param level new volume level
+     */
+    private void setVolumeLevel(Context context, int level)
+    {
+        Log.d(TAG,"Set new volume level[" + level +"]");
+
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, level, 0);
+    }
+
     private void initTts(Context context, Intent intent)
     {
         if (resources.isTtsPlayOnDeviceEnabled())
         {
             message = intent.getStringExtra("message");
+            if (message.contains("&vol="))
+            {
+                String[] res = message.split("&vol=");
+                message = res[0];
+                setVolumeLevel(context, Integer.parseInt(res[1]));
+            }
             Log.i(TAG, "Generate tts: " + message);
             t1 = new TextToSpeech(context, this);
         } else
