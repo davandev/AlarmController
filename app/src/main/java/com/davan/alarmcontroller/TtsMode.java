@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.davan.alarmcontroller.http.KeypadHttpService;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
+import com.davan.alarmcontroller.http.services.LocalMediaFilePlayer;
 import com.davan.alarmcontroller.http.services.TtsCreator;
 import com.davan.alarmcontroller.http.services.TtsReader;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
@@ -41,6 +42,7 @@ public class TtsMode extends AppCompatActivity  {
 
     private TtsCreator ttsCreator = null;
     private TtsReader ttsReader = null;
+    private LocalMediaFilePlayer mediaPlayer = null;
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
     {
@@ -133,6 +135,8 @@ public class TtsMode extends AppCompatActivity  {
                 mMessageReceiver, new IntentFilter("ttsFetch-event"));
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mMessageReceiver, new IntentFilter("ttsCompleted-event"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mMessageReceiver, new IntentFilter("play-event"));
 
 
         if (resources.isHttpServicesEnabled())
@@ -143,6 +147,8 @@ public class TtsMode extends AppCompatActivity  {
         ttsCreator.registerForEvents(this);
         ttsReader = new TtsReader(this, resources);
         ttsReader.registerForEvents(this);
+        mediaPlayer = new LocalMediaFilePlayer(this);
+        mediaPlayer.registerForEvents(this);
     }
 
     /**
@@ -158,6 +164,10 @@ public class TtsMode extends AppCompatActivity  {
         }
         if (ttsReader !=null) {
             ttsReader.unregisterForEvents(this);
+        }
+        if (mediaPlayer !=null)
+        {
+            mediaPlayer.unregisterForEvents(this);
         }
         stopService(new Intent(getBaseContext(), KeypadHttpService.class));
     }

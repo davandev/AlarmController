@@ -30,6 +30,8 @@ import com.davan.alarmcontroller.http.util.KeypadHttpRequestListener;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.http.NanoHTTPD;
 
+import static android.R.id.message;
+
 public class KeypadHttpService extends Service implements KeypadHttpRequestListener {
     private static final String TAG = KeypadHttpService.class.getSimpleName();
 
@@ -192,4 +194,13 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
                 "text/html", "Failed to return log file");
 
     }
+
+    public boolean play(String message) {
+        Log.d(TAG, "play request received");
+        Intent i = new Intent("play-event");
+        i.putExtra("message", message);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+        return true;
+    }
+
 }

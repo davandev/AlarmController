@@ -8,6 +8,7 @@ import com.davan.alarmcontroller.http.NanoHTTPD;
 public interface KeypadHttpRequestListener {
     boolean wakeup();
     boolean tts(String message);
+    boolean play(String file);
     NanoHTTPD.Response getSpeechFile();
     NanoHTTPD.Response getLogFile();
 }

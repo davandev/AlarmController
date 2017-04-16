@@ -130,6 +130,12 @@ public class KeypadHttpServer extends NanoHTTPD {
         {
             return receiver.getLogFile();
         }
+        if(uri.contains("/play="))
+        {
+            uri = uri.replace("/play=","");
+            serviceEnabled = receiver.play(uri);
+            responseMessage = "Play initiated";
+        }
 
         String msg = "<html><body><h1>"+responseMessage+"</h1>\nServiceEnabled["+serviceEnabled+"]</body></html>\n";
         return newFixedLengthResponse(msg);
