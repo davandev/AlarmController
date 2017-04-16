@@ -68,7 +68,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
             return START_STICKY;
         }
         Log.d(TAG, "Http service listening on port 8080");
-        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+        WifiManager wm = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
 
         Toast.makeText(this, "Http service Listening on " + ip + ":8080", Toast.LENGTH_LONG).show();
