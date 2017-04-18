@@ -1,4 +1,4 @@
-# Android alarm keypad for home automation.
+# Android alarm keypad for home automation (ZenitGateKeeper).
 
 <img src="https://cloud.githubusercontent.com/assets/756370/19986985/20d5ba4c-a219-11e6-8e46-b2338b2a16d9.png" width="350">
 <img src="https://cloud.githubusercontent.com/assets/756370/19987009/3b7b3534-a219-11e6-905e-066f43ab8238.png" width="350">
