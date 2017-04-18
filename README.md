@@ -8,7 +8,7 @@
 Android application used as an alarm triggering keypad for arming/disarming alarm via a homeautomation system. 
 The idea is to use an wall mounted android phone to arm and disarm my Fibaro home alarm.
 
-The application is currently in early development phase, while I think it is still usable for daily use.
+The application is currently in early development phase, while I think it is still usable for daily use..
 It currently supports:
 - Arming/Disarming directly via the Fibaro system
 - Arming/Disarming via an external server
