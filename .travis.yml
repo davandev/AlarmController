@@ -1,39 +1,23 @@
 sudo: false
 language: android
-
 jdk: oraclejdk8
-
 android:
   components:
-    # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
-    - tools
-    - platform-tools
-
-    # The BuildTools version used by your project
-    - build-tools-25.0.0
-    - extra-android-support
-    - extra-android-m2repository
-    # The SDK version used to compile your project
-    - android-23
+  - tools
+  - platform-tools
+  - build-tools-25.0.0
+  - extra-android-support
+  - extra-android-m2repository
+  - android-23
 install:
-  # Check install section: http://docs.travis-ci.com/user/build-configuration/#install
-  # If you'd like to skip the install stage entirely, set it to true and nothing will be run.
-  - true
+- true
 script:
-  # By default Travis-ci executes './gradlew build connectedCheck' if no 'script:' section found.
-  #- ./gradlew build
-  # Specify at least one system image,
-  # if you need to run emulator(s) during your tests
-  #- sys-img-armeabi-v7a-android-23
-  - ./gradlew assembleDebug
-  - ls -l app/build/outputs/apk/
-  # Emulator Management: Create, Start and Wait
-#before_script:
-#- echo no | android create avd --force -n test -t android-23 --abi armeabi-v7a
-#- emulator -avd test -no-skin -no-audio -no-window &
-#- curl http://is.gd/android_wait_for_emulator > android-wait-for-emulator
-#- chmod u+x android-wait-for-emulator
-#- ./android-wait-for-emulator
-#- adb shell input keyevent 82 &
-
+- "./gradlew assembleDebug"
+- ls -l app/build/outputs/apk/
+deploy:
+  provider: releases
+  api_key:
+    secure: TI4CjltP++nV6yOV51BRx4ptJjdc3dLx68v5Cd+ff3ZX+Fk+Z75/1b341XYHXxiu47J97bBfLJWHnxGMU5rPbkyZKQLpe4eeZW/vp6dTSGuBi4OzQOXR3G0ZlObCYDRknOpcLAQ4bOltab2Dga0LAaWgBEYzzLjqmmRTelXO4wkr5kPhsPfy6XPlDu97LSdbFUlLF1KZNdaZMyomaCFtwhnXjcHyV1Vz8WYDripoAL3pvEWbHM4ji88W3d9ft3hRb0Fxb5AO+4muupP1r8LutK5Nn6yX3JZJLw9K0WiNpGMv3C9kwYWqCmZBrVek8XrkJ10K6aJt7baFkdqoKMXwmksVhxu1HIQP8MZybl7/rt/VgvVBUwef/Z5016Jc6+KRRn8fDkNDOC4H9gcXzvIWo9cjTkjGl5bvIvtLXSHHUqlTtVODLpI6kjCFvfLYMD50TCbpCil/5zdctRQ4HTxoUmiUet8vvIGw9beFyxg81bbOkUqxsUeQdJFRyltpRXcVRswWGB2alBd7I3G1qU2wXQWJjyAO4sHRzm7hTsdvbDhvtfoiEypQK9KyAJyEw+9Jtl9Tl4EqgmzMphfS2B+Gs5Mc+j30TOpDutLIpP1MHicTIRMZqADE2QmPxMCXc4lYH/ECKQ9xhFqqdt50w8U3l57Q4CANCDpZyKQ5pjjzGCg=
+  file: "/app/build/outputs/apk/app-debug.apk"
+  on:
+    repo: davandev/AlarmController
