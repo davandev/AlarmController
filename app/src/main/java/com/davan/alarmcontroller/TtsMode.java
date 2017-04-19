@@ -39,6 +39,7 @@ public class TtsMode extends AppCompatActivity  {
     private static int receivedTtsRequests = 0;
     private static int receivedTtsFetchRequests = 0;
     private static int sentTtsCompletedRequests = 0;
+    private static int receivedPlayRequests = 0;
 
     private TtsCreator ttsCreator = null;
     private TtsReader ttsReader = null;
@@ -58,6 +59,9 @@ public class TtsMode extends AppCompatActivity  {
             } else if(intent.getAction().equals("ttsCompleted-event")) {
                 TextView textView = (TextView) findViewById(R.id.sentRequestsView);
                 textView.setText(Integer.toString(++sentTtsCompletedRequests));
+            } else if(intent.getAction().equals("play-event")) {
+                TextView textView = (TextView) findViewById(R.id.receivedPlayRequests);
+                textView.setText(Integer.toString(++receivedPlayRequests));
             }
         }
     };

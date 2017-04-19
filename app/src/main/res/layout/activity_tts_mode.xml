@@ -248,11 +248,29 @@
                         android:layout_marginLeft="10dp" />
 
                     <TextView
+                        android:id="@+id/receivedTtsFetchRequests"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
-                        android:id="@+id/receivedTtsFetchRequests"
-                        android:layout_column="1" />
+                        android:layout_column="1"
+                        android:text="0" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Rec. play" />
+
+                    <TextView
+                        android:id="@+id/receivedPlayRequests"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0" />
                 </TableRow>
 
                 <TableRow
@@ -268,11 +286,12 @@
                         android:layout_marginLeft="10dp" />
 
                     <TextView
+                        android:id="@+id/sentRequestsView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
-                        android:id="@+id/sentRequestsView"
-                        android:layout_column="1" />
+                        android:layout_column="1"
+                        android:text="0" />
+
                 </TableRow>
 
 
