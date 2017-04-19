@@ -67,7 +67,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
             Toast.makeText(this, "Failed to start http service :" + ioe.getMessage(), Toast.LENGTH_LONG).show();
             return START_STICKY;
         }
-        Log.d(TAG, "Http service listening on port 8080"); 
+        Log.d(TAG, "Http service listening on port 8080");
         WifiManager wm = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
 

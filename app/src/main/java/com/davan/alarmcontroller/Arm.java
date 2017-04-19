@@ -94,10 +94,6 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
      */
     private void startArmingCountDown()
     {
-/*        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), notification);
-        mp.start();
-*/
         int escapeTime = Integer.parseInt(resources.getEscapingTime());
         new CountDownTimer(escapeTime*1000, 100)
         {
@@ -113,7 +109,6 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
                 armed();
             }
         }.start();
-//        mp.stop();
     }
 
     /**
