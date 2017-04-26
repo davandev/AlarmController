@@ -1,11 +1,8 @@
 package com.davan.alarmcontroller;
-/**
- * Created by davandev on 2016-04-12.
- **/
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,29 +14,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.davan.alarmcontroller.http.services.TtsReader;
-import com.davan.alarmcontroller.http.services.WakeUpScreen;
 import com.davan.alarmcontroller.http.KeypadHttpService;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateListener;
-import com.davan.alarmcontroller.power.PowerConnectionReceiver;
 import com.davan.alarmcontroller.settings.AboutDialog;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.settings.SettingsLauncher;
-import com.davan.alarmcontroller.http.services.TtsCreator;
+
+/**
+ * Created by davandev on 2016-04-12.
+ **/
 
 public class MainActivity extends AppCompatActivity implements AlarmStateListener
 {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private final PowerManager.WakeLock mWakeLock = null;
     private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
-
-    private WakeUpScreen wakeUpScreen = null;
-    private TtsCreator ttsCreator = null;
-    private TtsReader ttsReader = null;
-    private PowerConnectionReceiver powerListener = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -64,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     }
 
     /**
-     * Starts all enabled services
+     * Starts http services
      */
     private void startServices()
     {
@@ -73,18 +64,6 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
             Log.d(TAG, "Starting KeypadHttpService");
             startService(new Intent(getBaseContext(), KeypadHttpService.class));
         }
-
-        wakeUpScreen = new WakeUpScreen(resources);
-        wakeUpScreen.registerForEvents(this);
-
-        ttsCreator = new TtsCreator(resources);
-        ttsCreator.registerForEvents(this);
-
-        ttsReader = new TtsReader(this, resources);
-        ttsReader.registerForEvents(this);
-
-        powerListener = new PowerConnectionReceiver(resources);
-        powerListener.registerForEvents(this);
     }
 
     @Override
@@ -92,21 +71,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     {
         Log.d(TAG, "OnDestroy");
         super.onDestroy();
-        if (mWakeLock != null) {
-            mWakeLock.release();
-        }
-        if (powerListener != null) {
-            powerListener.unregisterForEvents(this);
-        }
-        if (wakeUpScreen !=null) {
-            wakeUpScreen.unregisterForEvents(this);
-        }
-        if (ttsCreator !=null) {
-            ttsCreator.unregisterForEvents(this);
-        }
-        if (ttsReader !=null) {
-            ttsReader.unregisterForEvents(this);
-        }
+
         stopService(new Intent(getBaseContext(), KeypadHttpService.class));
 
     }

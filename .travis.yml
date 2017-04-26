@@ -18,7 +18,7 @@ deploy:
   provider: releases
   api_key:
     secure: TI4CjltP++nV6yOV51BRx4ptJjdc3dLx68v5Cd+ff3ZX+Fk+Z75/1b341XYHXxiu47J97bBfLJWHnxGMU5rPbkyZKQLpe4eeZW/vp6dTSGuBi4OzQOXR3G0ZlObCYDRknOpcLAQ4bOltab2Dga0LAaWgBEYzzLjqmmRTelXO4wkr5kPhsPfy6XPlDu97LSdbFUlLF1KZNdaZMyomaCFtwhnXjcHyV1Vz8WYDripoAL3pvEWbHM4ji88W3d9ft3hRb0Fxb5AO+4muupP1r8LutK5Nn6yX3JZJLw9K0WiNpGMv3C9kwYWqCmZBrVek8XrkJ10K6aJt7baFkdqoKMXwmksVhxu1HIQP8MZybl7/rt/VgvVBUwef/Z5016Jc6+KRRn8fDkNDOC4H9gcXzvIWo9cjTkjGl5bvIvtLXSHHUqlTtVODLpI6kjCFvfLYMD50TCbpCil/5zdctRQ4HTxoUmiUet8vvIGw9beFyxg81bbOkUqxsUeQdJFRyltpRXcVRswWGB2alBd7I3G1qU2wXQWJjyAO4sHRzm7hTsdvbDhvtfoiEypQK9KyAJyEw+9Jtl9Tl4EqgmzMphfS2B+Gs5Mc+j30TOpDutLIpP1MHicTIRMZqADE2QmPxMCXc4lYH/ECKQ9xhFqqdt50w8U3l57Q4CANCDpZyKQ5pjjzGCg=
-  file: "app/build/outputs/apk/app-debug.apk"
+  file: "app/build/outputs/apk/zenitgatekeeper*.apk"
   skip_cleanup: true
   on:
     repo: davandev/AlarmController

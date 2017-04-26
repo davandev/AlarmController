@@ -26,9 +26,23 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            applicationVariants.all { variant ->
+                renameAPK(variant, defaultConfig, 'T')
+            }
+        }
     }
 
 }
+
+def renameAPK(variant, defaultConfig, buildType) {
+    variant.outputs.each { output ->
+        def file = output.packageApplication.outputFile
+        def fileName = "zenitgatekeeper_0.1." + defaultConfig.versionCode  + ".apk"
+        output.packageApplication.outputFile = new File(file.parent, fileName)
+    }
+}
+
 android {
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'

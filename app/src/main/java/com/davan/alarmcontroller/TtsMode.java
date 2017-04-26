@@ -21,9 +21,6 @@ import android.widget.TextView;
 
 import com.davan.alarmcontroller.http.KeypadHttpService;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
-import com.davan.alarmcontroller.http.services.LocalMediaFilePlayer;
-import com.davan.alarmcontroller.http.services.TtsCreator;
-import com.davan.alarmcontroller.http.services.TtsReader;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.settings.SettingsLauncher;
 import com.davan.alarmcontroller.settings.UsageDialog;
@@ -41,11 +38,7 @@ public class TtsMode extends AppCompatActivity  {
     private static int sentTtsCompletedRequests = 0;
     private static int receivedPlayRequests = 0;
 
-    private TtsCreator ttsCreator = null;
-    private TtsReader ttsReader = null;
-    private LocalMediaFilePlayer mediaPlayer = null;
-
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
+    private final BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
     {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -123,8 +116,6 @@ public class TtsMode extends AppCompatActivity  {
 
         textView = (TextView) findViewById(R.id.playOnDeviceView);
         textView.setText(resources.isTtsPlayOnDeviceEnabled()?"Enabled":"Disabled");
-
-
     }
 
     /**
@@ -147,12 +138,6 @@ public class TtsMode extends AppCompatActivity  {
         {
             startService(new Intent(getBaseContext(), KeypadHttpService.class));
         }
-        ttsCreator = new TtsCreator(resources);
-        ttsCreator.registerForEvents(this);
-        ttsReader = new TtsReader(this, resources);
-        ttsReader.registerForEvents(this);
-        mediaPlayer = new LocalMediaFilePlayer(this);
-        mediaPlayer.registerForEvents(this);
     }
 
     /**
@@ -163,16 +148,6 @@ public class TtsMode extends AppCompatActivity  {
         Log.i(TAG, "Stop services");
         LocalBroadcastManager.getInstance(this).unregisterReceiver(
                 mMessageReceiver);
-        if (ttsCreator !=null) {
-            ttsCreator.unregisterForEvents(this);
-        }
-        if (ttsReader !=null) {
-            ttsReader.unregisterForEvents(this);
-        }
-        if (mediaPlayer !=null)
-        {
-            mediaPlayer.unregisterForEvents(this);
-        }
         stopService(new Intent(getBaseContext(), KeypadHttpService.class));
     }
 
