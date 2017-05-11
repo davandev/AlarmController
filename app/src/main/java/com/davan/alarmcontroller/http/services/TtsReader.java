@@ -88,6 +88,8 @@ public class TtsReader implements TextToSpeech.OnInitListener
      */
     private void generateTts() {
             Log.i(TAG, "Generate tts: " + message);
+            t1.setSpeechRate(Float.parseFloat(resources.getTtsSpeechRate()));
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Bundle params = new Bundle();
                 params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");

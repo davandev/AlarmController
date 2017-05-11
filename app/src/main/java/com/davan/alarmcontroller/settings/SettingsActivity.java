@@ -31,7 +31,6 @@ import java.util.List;
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String TAG = SettingsActivity.class.getSimpleName();
-    private static int oneClickOnly = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,6 +41,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         Context context = getApplicationContext();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         settings.registerOnSharedPreferenceChangeListener(this);
+
     }
 
     @Override
@@ -56,6 +56,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.toolbar_main, root, false);
         root.addView(bar, 0); // insert at top
         setSupportActionBar(bar);
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.ic_launcher);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -105,7 +106,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         {
             // Show the Up button in the action bar.
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("AlarmController Settings");
+            actionBar.setTitle("ZenitGatekeeper Settings");
         }
     }
 
@@ -220,10 +221,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d(TAG,"onSharedPreferenceChanged " +oneClickOnly );
-        oneClickOnly++;
-        //if(oneClickOnly != 1)
-        //    return;
         Log.d(TAG,"onSharedPreferenceChanged:" + key);
         if (key.compareTo("http_service_enabled") == 0)
         {
@@ -238,9 +235,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 stopService(new Intent(SettingsActivity.this, KeypadHttpService.class));
 
             }
-            oneClickOnly = 0;
         }
-
     }
 
     /**
@@ -321,6 +316,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             bindPreferenceSummaryToValue(findPreference("keypad_id"));
             bindPreferenceSummaryToValue(findPreference("battery_turn_off_charging"));
             bindPreferenceSummaryToValue(findPreference("battery_turn_on_charging"));
+            bindPreferenceSummaryToValue(findPreference("tts_speech_speed"));
         }
 
         @Override

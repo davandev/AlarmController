@@ -69,6 +69,17 @@
             android:enabled="true"
             android:summaryOn="@string/pref_summaryon_tts_service"
             android:summaryOff="@string/pref_summaryoff_text_to_speech"/>
+
+        <EditTextPreference
+            android:key="tts_speech_speed"
+            android:title="@string/title_speech_rate"
+            android:defaultValue="1.0"
+            android:dependency="tts_service_enabled"
+            android:hint="@string/hint_speech_speed"
+            android:summary="@string/summary_speech_speed"
+            android:digits="0123456789."
+            android:inputType="numberDecimal"
+            android:enabled="true" />
         <CheckBoxPreference
             android:key="tts_play_on_device_enabled"
             android:title="@string/pref_title_play_tts_on_device"

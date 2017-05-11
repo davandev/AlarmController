@@ -183,5 +183,8 @@
     <string name="pref_summaryoff_text_to_speech">Text-to-speech service is disabled</string>
     <string name="text_tts_folder_name" translatable="false">GeneratedTTS</string>
     <string name="text_tts_file_name">TTS.wav</string>
+    <string name="title_speech_rate">Speech rate</string>
+    <string name="hint_speech_speed">Set the speed of the generated speech</string>
+    <string name="summary_speech_speed">Set the speed of the generated speech</string>
 
 </resources>

@@ -89,6 +89,7 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
 
         HashMap<String, String> hashTts = new HashMap<>();
         hashTts.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToFile");
+        t1.setSpeechRate(Float.parseFloat(resources.getTtsSpeechRate()));
         t1.synthesizeToFile(message, hashTts, mediaFile.getAbsolutePath());
 
     }

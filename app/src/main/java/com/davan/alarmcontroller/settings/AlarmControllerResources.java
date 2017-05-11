@@ -53,6 +53,7 @@ public class AlarmControllerResources
     public String getTtsCallbackUrl() { return preferences.getString("tts_callback_url", "");}
     public String getTtsStorageFolder() {return resources.getString(R.string.text_tts_folder_name);}
     public String getTtsFileName() {return resources.getString(R.string.text_tts_file_name);}
+    public String getTtsSpeechRate() {return preferences.getString("tts_speech_speed","1.0");}
 
     /* Return true if http services is enabled */
     public boolean isHttpServicesEnabled() {return preferences.getBoolean("http_service_enabled", false);}
