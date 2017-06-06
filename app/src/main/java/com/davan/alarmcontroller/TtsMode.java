@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
@@ -70,6 +71,15 @@ public class TtsMode extends AppCompatActivity  {
                 getResources());
         startServices();
 
+        if (resources.getAutoStartAtReboot())
+        {
+            SharedPreferences sharedPref = this.getSharedPreferences(
+                    getString(R.string.app_cache_file), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(getString(R.string.restart_app), "ttsmode");
+            editor.commit();
+        }
+
         loadSettings(resources);
     }
     @Override
@@ -93,14 +103,14 @@ public class TtsMode extends AppCompatActivity  {
      */
     private void loadSettings(AlarmControllerResources resources)
     {
-        WifiManager wm = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-        hostAddress = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-        TextView textView = (TextView) findViewById(R.id.hostAddressView);
-        textView.setText(hostAddress);
-
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
+
+
         WifiConnectionChecker wifiChecker = new WifiConnectionChecker(connMgr);
+        hostAddress = wifiChecker.getHostAddress(this);
+        TextView textView = (TextView) findViewById(R.id.hostAddressView);
+        textView.setText(hostAddress);
 
         textView = (TextView) findViewById(R.id.wifiView);
         textView.setText(wifiChecker.isConnectionOk()?"Connected":"Disconnected");

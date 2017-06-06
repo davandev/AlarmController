@@ -2,6 +2,7 @@ package com.davan.alarmcontroller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +52,15 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
                 PreferenceManager.getDefaultSharedPreferences(this),
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
+
+        if (resources.getAutoStartAtReboot())
+        {
+            SharedPreferences sharedPref = this.getSharedPreferences(
+                    getString(R.string.app_cache_file), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(getString(R.string.restart_app), "alarmcontroller");
+            editor.commit();
+        }
 
     }
 
@@ -122,11 +132,11 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     public void startAlarmKeypad(View view)
     {
         Log.i(TAG, "Starting AlarmKeyPad");
-        startServices();
 
         try
         {
             resources.verifyConfiguration();
+            startServices();
             if (!new AlarmStateChecker(wifiChecker, resources, this).updateAlarmState())
             {
                 Log.w(TAG, "No wifi connection available");

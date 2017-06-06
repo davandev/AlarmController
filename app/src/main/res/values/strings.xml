@@ -186,5 +186,7 @@
     <string name="title_speech_rate">Speech rate</string>
     <string name="hint_speech_speed">Set the speed of the generated speech</string>
     <string name="summary_speech_speed">Set the speed of the generated speech</string>
+    <string name="app_cache_file">com.davan.zenitgatekeeper.appCache</string>
+    <string name="restart_app">restartApp</string>
 
 </resources>
