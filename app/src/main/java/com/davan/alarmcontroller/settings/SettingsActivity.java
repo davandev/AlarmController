@@ -4,14 +4,19 @@ package com.davan.alarmcontroller.settings;
  **/
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -26,6 +31,7 @@ import android.widget.LinearLayout;
 import com.davan.alarmcontroller.R;
 import com.davan.alarmcontroller.http.KeypadHttpService;
 
+import java.io.File;
 import java.util.List;
 
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -317,8 +323,35 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             bindPreferenceSummaryToValue(findPreference("battery_turn_off_charging"));
             bindPreferenceSummaryToValue(findPreference("battery_turn_on_charging"));
             bindPreferenceSummaryToValue(findPreference("tts_speech_speed"));
+            bindPreferenceSummaryToValue(findPreference("announcement_file"));
+
+            Preference sdPrefs = findPreference("select_audio_file");
+            sdPrefs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent();
+                    intent.setType("audio/*");
+                    //intent.setType("file/*");
+                    intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                    int PICK_ANNOUNCEMENT = 1;
+                    startActivityForResult(Intent.createChooser(intent, "Select Announcement..."), PICK_ANNOUNCEMENT);
+                    return true;
+                }
+            });
         }
 
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent audioReturnedIntent) {
+            super.onActivityResult(requestCode, resultCode, audioReturnedIntent);
+
+            if (resultCode == RESULT_OK) {
+                Uri selectedAudio = audioReturnedIntent.getData();
+                Log.d(TAG, "Announcment selected: " + selectedAudio.toString());
+
+                EditTextPreference announcementPrefs = (EditTextPreference)findPreference("announcement_file");
+                announcementPrefs.setText(selectedAudio.toString());
+            }
+        }
         @Override
         public boolean onOptionsItemSelected(MenuItem item)
         {
@@ -367,4 +400,5 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             return super.onOptionsItemSelected(item);
         }
     }
+
 }
