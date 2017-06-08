@@ -63,6 +63,8 @@ public class AlarmControllerResources
     public boolean isTtsServiceEnabled() {return preferences.getBoolean("tts_service_enabled", false);}
     /* Return true if tts should be played on device */
     public boolean isTtsPlayOnDeviceEnabled() {return preferences.getBoolean("tts_play_on_device_enabled", false);}
+    public boolean isPlayAnnouncementOnDeviceEnabled() {return preferences.getBoolean("play_announcement_enabled", false);}
+    public String getAnnouncementFile() {return preferences.getString("announcement_file", "");}
 
     public Resources getResources() { return resources; }
     public SharedPreferences getPreferences() { return preferences; }

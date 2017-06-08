@@ -186,6 +186,11 @@
     <string name="title_speech_rate">Speech rate</string>
     <string name="hint_speech_speed">Set the speed of the generated speech</string>
     <string name="summary_speech_speed">Set the speed of the generated speech</string>
+    <string name="pref_title_play_announcement_before_speech">Play announcement before speech</string>
+    <string name="pref_summary_on_announcement_message">Announcement message enabled</string>
+    <string name="pref_summary_off_announcement_message">Announcement message disabled</string>
+    <string name="pref_title_select_audio_file">Select audio file to use as announcement message</string>
+    <string name="pref_title_selected_announcement_file">Selected announcement file</string>
     <string name="app_cache_file">com.davan.zenitgatekeeper.appCache</string>
     <string name="restart_app">restartApp</string>
 

@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -13,6 +16,8 @@ import android.util.Log;
 
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -30,6 +35,7 @@ public class TtsReader implements TextToSpeech.OnInitListener
     // Configuration
     private final AlarmControllerResources resources;
     private String message;
+    private Context context;
 
     public TtsReader(Context context, AlarmControllerResources res)
     {
@@ -66,8 +72,10 @@ public class TtsReader implements TextToSpeech.OnInitListener
 
     private void initTts(Context context, Intent intent)
     {
+
         if (resources.isTtsPlayOnDeviceEnabled())
         {
+            this.context = context;
             message = intent.getStringExtra("message");
             if (message.contains("&vol="))
             {
@@ -75,14 +83,56 @@ public class TtsReader implements TextToSpeech.OnInitListener
                 message = res[0];
                 setVolumeLevel(context, Integer.parseInt(res[1]));
             }
-            Log.i(TAG, "Generate tts: " + message);
-            t1 = new TextToSpeech(context, this);
+
+            if (resources.isPlayAnnouncementOnDeviceEnabled())
+            {
+                playAnnouncement();
+            }
+            else
+            {
+                playSpeech(message);
+            }
         } else
         {
             Log.d(TAG," Play on device is disabled");
         }
     }
 
+    /**
+     * Start generating speech from message
+     * @param message text message to generate speech
+     */
+    private void playSpeech(String message)
+    {
+        Log.i(TAG, "Generate tts: " + message);
+        t1 = new TextToSpeech(context, this);
+    }
+
+    /**
+     * Play announcement message before playing the speech
+     */
+    private void playAnnouncement()
+    {
+        Log.i(TAG, "Play announcement message");
+        try {
+            MediaPlayer mediaPlayer = new android.media.MediaPlayer();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    playSpeech(message);
+                }
+
+            });
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setDataSource(context, Uri.parse(resources.getAnnouncementFile()));
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     /**
      * Received request to generate a TTS wav file.
      */

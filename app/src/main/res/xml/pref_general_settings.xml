@@ -88,14 +88,6 @@
             android:digits="0123456789."
             android:inputType="numberDecimal"
             android:enabled="true" />
-        <CheckBoxPreference
-            android:key="tts_play_on_device_enabled"
-            android:title="@string/pref_title_play_tts_on_device"
-            android:dependency="tts_service_enabled"
-            android:defaultValue="false"
-            android:enabled="true"
-            android:summaryOn="@string/pref_sum_on_play_tts_on_device"
-            android:summaryOff="@string/pref_sum_off_play_tts_on_device"/>
         <EditTextPreference
             android:key="tts_callback_url"
             android:title="@string/pref_title_tts_callback_url"
@@ -108,6 +100,42 @@
             android:capitalize="words"
             android:singleLine="true"
             android:maxLines="1" />
+        <PreferenceScreen
+            android:key="play_on_device"
+            android:dependency="tts_service_enabled"
+            android:title="Play speech on device">
+            <Preference
+                android:summary="Configuration for speech played on device."
+                android:selectable="false">
+            </Preference>
+            <CheckBoxPreference
+                android:key="tts_play_on_device_enabled"
+                android:title="@string/pref_title_play_tts_on_device"
+                android:dependency="tts_service_enabled"
+                android:defaultValue="false"
+                android:enabled="true"
+                android:summaryOn="@string/pref_sum_on_play_tts_on_device"
+                android:summaryOff="@string/pref_sum_off_play_tts_on_device"/>
+            <CheckBoxPreference
+                android:key="play_announcement_enabled"
+                android:title="@string/pref_title_play_announcement_before_speech"
+                android:defaultValue="false"
+                android:enabled="true"
+                android:summaryOn="@string/pref_summary_on_announcement_message"
+                android:summaryOff="@string/pref_summary_off_announcement_message"/>
+            <Preference
+                android:key="select_audio_file"
+                android:dependency="play_announcement_enabled"
+                android:title="@string/pref_title_select_audio_file"/>
+            <EditTextPreference
+                android:key="announcement_file"
+                android:dependency="play_announcement_enabled"
+                android:title="@string/pref_title_selected_announcement_file"
+                android:hint=""
+                android:summary=""
+                android:enabled="true" />
+        </PreferenceScreen>
+
     </PreferenceScreen>
     <PreferenceScreen
         android:key="telegram_settings"
