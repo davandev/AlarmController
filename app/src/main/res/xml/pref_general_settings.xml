@@ -80,14 +80,6 @@
             android:digits="0123456789."
             android:inputType="numberDecimal"
             android:enabled="true" />
-        <CheckBoxPreference
-            android:key="tts_play_on_device_enabled"
-            android:title="@string/pref_title_play_tts_on_device"
-            android:dependency="tts_service_enabled"
-            android:defaultValue="false"
-            android:enabled="true"
-            android:summaryOn="@string/pref_sum_on_play_tts_on_device"
-            android:summaryOff="@string/pref_sum_off_play_tts_on_device"/>
         <EditTextPreference
             android:key="tts_callback_url"
             android:title="@string/pref_title_tts_callback_url"
@@ -101,13 +93,21 @@
             android:singleLine="true"
             android:maxLines="1" />
         <PreferenceScreen
-            android:key="announcement_message"
+            android:key="play_on_device"
             android:dependency="tts_service_enabled"
-            android:title="Announcement message">
+            android:title="Play speech on device">
             <Preference
-                android:summary="Select audio file to play before announcement"
+                android:summary="Configuration for speech played on device."
                 android:selectable="false">
             </Preference>
+            <CheckBoxPreference
+                android:key="tts_play_on_device_enabled"
+                android:title="@string/pref_title_play_tts_on_device"
+                android:dependency="tts_service_enabled"
+                android:defaultValue="false"
+                android:enabled="true"
+                android:summaryOn="@string/pref_sum_on_play_tts_on_device"
+                android:summaryOff="@string/pref_sum_off_play_tts_on_device"/>
             <CheckBoxPreference
                 android:key="play_announcement_enabled"
                 android:title="@string/pref_title_play_announcement_before_speech"
