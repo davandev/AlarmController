@@ -9,6 +9,14 @@
         android:capitalize="words"
         android:singleLine="true"
         android:maxLines="1" />
+    <CheckBoxPreference
+        android:key="autostart_at_reboot"
+        android:title="Autostart application after reboot"
+        android:defaultValue="false"
+        android:enabled="true"
+        android:summaryOn="Auto start enabled"
+        android:summaryOff="Auto start disabled"/>
+
     <EditTextPreference
         android:key="escaping_time"
         android:title="@string/pref_title_escaping_time"

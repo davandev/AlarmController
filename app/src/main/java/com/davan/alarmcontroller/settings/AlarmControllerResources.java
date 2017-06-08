@@ -91,6 +91,8 @@ public class AlarmControllerResources
     public String getTurnOnChargingSceneId() {return preferences.getString("battery_turn_on_charging", "");}
     /* Return the scene id to invoke when charging should be turned off. */
     public String getTurnOffChargingSceneId() {return preferences.getString("battery_turn_off_charging", "");}
+    public boolean getAutoStartAtReboot() {return preferences.getBoolean("autostart_at_reboot", false);}
+
 
     public String getFibaroRunSceneUrl() {
         return resources.getString(R.string.pref_fibaro_server_run_scene_url);
