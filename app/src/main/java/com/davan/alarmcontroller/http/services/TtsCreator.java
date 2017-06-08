@@ -52,6 +52,12 @@ public class TtsCreator implements TextToSpeech.OnInitListener, RequestDispatche
 
     private void initTts(Context context, Intent intent)
     {
+        if(resources.getTtsCallbackUrl().length() == 0)
+        {
+            Log.d(TAG,"No callback address configured");
+            return;
+        }
+
         message = intent.getStringExtra("message");
         // Volume parameter fills no purpose here, just remove it.
         if (message.contains("&vol="))
