@@ -177,5 +177,10 @@
     <string name="hint_speech_speed">Kontrollera det generade talets hastighet</string>
     <string name="summary_speech_speed">Kontrollera det genererade talets hastighet</string>
     <string name="title_speech_rate">Hastighet på genererat tal</string>
+    <string name="pref_summary_off_announcement_message">"Inget intro meddelande "</string>
+    <string name="pref_summary_on_announcement_message">"Spelar upp intro meddelande "</string>
+    <string name="pref_title_play_announcement_before_speech">"Spela upp ett intro innan meddelandet "</string>
+    <string name="pref_title_select_audio_file">Välj ljudfil att använda som intro meddelande</string>
+    <string name="pref_title_selected_announcement_file">Intro meddelande</string>
 
 </resources>
