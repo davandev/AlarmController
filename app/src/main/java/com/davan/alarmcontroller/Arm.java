@@ -4,12 +4,6 @@ package com.davan.alarmcontroller;
  **/
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.media.ToneGenerator;
-import android.net.Uri;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
