@@ -11,6 +11,7 @@ import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
 /**
  * Created by davandev on 2017-06-05.
+   Get notification when the device is booting up.
  */
 
 public class BootupReceiver extends BroadcastReceiver {
