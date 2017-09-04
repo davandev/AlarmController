@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
     {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
+
         setContentView(R.layout.activity_main);
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
