@@ -112,21 +112,21 @@ public class KeypadHttpServer extends NanoHTTPD {
             serviceEnabled = receiver.tts(uri);
             responseMessage = "TTS initiated";
         }
-        if(uri.compareTo("/ttsFetch") == 0) // Request to fetch a completed tts.
+        if(uri.compareToIgnoreCase("/ttsfetch") == 0) // Request to fetch a completed tts.
         {
             return receiver.getSpeechFile();
         }
-        if(uri.compareTo("/WakeUp") == 0) // Request to wakeup screen
+        if(uri.compareToIgnoreCase("/wakeup") == 0) // Request to wakeup screen
         {
             serviceEnabled = receiver.wakeup();
             responseMessage = "Wake up";
         }
-        if(uri.compareTo("/Ping") == 0) // Recevied alive message
+        if(uri.compareToIgnoreCase("/ping") == 0) // Recevied alive message
         {
             String msg = "Ping\n";
             return newFixedLengthResponse(msg);
         }
-        if(uri.compareTo("/log") == 0)
+        if(uri.compareToIgnoreCase("/log") == 0)
         {
             return receiver.getLogFile();
         }
