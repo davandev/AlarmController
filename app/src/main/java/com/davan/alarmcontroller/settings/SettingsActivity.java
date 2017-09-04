@@ -341,7 +341,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 
             if (resultCode == RESULT_OK) {
                 Uri selectedAudio = audioReturnedIntent.getData();
-                Log.d(TAG, "Announcment selected: " + selectedAudio.toString());
+                Log.d(TAG, "Announcement selected: " + selectedAudio.toString());
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    getActivity().grantUriPermission(
+                            getActivity().getPackageName(),
+                            selectedAudio,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    int takeFlags = audioReturnedIntent.getFlags() & (Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    getActivity().getContentResolver().takePersistableUriPermission(selectedAudio, takeFlags);
+                }
 
                 EditTextPreference announcementPrefs = (EditTextPreference)findPreference("announcement_file");
                 announcementPrefs.setText(selectedAudio.toString());
