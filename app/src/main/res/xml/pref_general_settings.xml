@@ -70,6 +70,14 @@
             android:summaryOn="@string/pref_summaryon_wakeup_service"
             android:summaryOff="@string/pref_summaryoff_wakeup_service"/>
         <CheckBoxPreference
+            android:key="server_restart_service_enabled"
+            android:title="@string/pref_tk"
+            android:dependency="http_service_enabled"
+            android:defaultValue="false"
+            android:enabled="true"
+            android:summaryOn="@string/pref_summary_restart_service_summary_on"
+            android:summaryOff="@string/pref_summary_off_restart_service"/>
+        <CheckBoxPreference
             android:key="tts_service_enabled"
             android:title="@string/pref_title_tts_service"
             android:dependency="http_service_enabled"

@@ -2224,6 +2224,7 @@ public abstract class NanoHTTPD {
      *             if the socket is in use.
      */
     public void start() throws IOException {
+        Log.d(TAG,"start server");
         start(NanoHTTPD.SOCKET_READ_TIMEOUT);
     }
 

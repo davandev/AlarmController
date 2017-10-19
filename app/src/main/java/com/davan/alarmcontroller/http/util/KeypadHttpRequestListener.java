@@ -11,4 +11,5 @@ public interface KeypadHttpRequestListener {
     boolean play(String file);
     NanoHTTPD.Response getSpeechFile();
     NanoHTTPD.Response getLogFile();
+    void pingReceived();
 }

@@ -25,13 +25,14 @@ import android.widget.Toast;
 import com.davan.alarmcontroller.R;
 import com.davan.alarmcontroller.http.util.KeypadHttpRequestListener;
 import com.davan.alarmcontroller.http.util.KeypadHttpServices;
+import com.davan.alarmcontroller.http.util.WebServerControlListener;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
 /**
  * Created by davandev on 2016-04-12.
  **/
 
-public class KeypadHttpService extends Service implements KeypadHttpRequestListener {
+public class KeypadHttpService extends Service implements KeypadHttpRequestListener, WebServerControlListener {
     private static final String TAG = KeypadHttpService.class.getSimpleName();
 
     private PowerManager.WakeLock mWakeLock = null;
@@ -64,7 +65,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
             webServer.start();
 
             httpServices = new KeypadHttpServices(resources);
-            httpServices.createServices(this);
+            httpServices.createServices(this, (WebServerControlListener)this);
 
         } catch (IOException ioe) {
             Log.d(TAG, "Couldn't start server" + ioe);
@@ -113,6 +114,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
 
     /**
      * Wakeup request received, check if service is enabled and notify receivers.
+     *
      * @return true if enabled, false otherwise
      */
     public boolean wakeup() {
@@ -127,6 +129,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
 
     /**
      * TTS request received, check if service is enabled and notify receivers.
+     *
      * @param message message to speak
      * @return true if enabled, false otherwise
      */
@@ -143,6 +146,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
 
     /**
      * Returns the generated speech media file
+     *
      * @return Response the generated media file
      */
     public NanoHTTPD.Response getSpeechFile() {
@@ -175,6 +179,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
 
     /**
      * Log file request received
+     *
      * @return reponse message
      */
     public NanoHTTPD.Response getLogFile() {
@@ -194,7 +199,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
                     "text/html",
                     log.toString());
         } catch (IOException e) {
-            Log.d(TAG,"Failed to produce logfile");
+            Log.d(TAG, "Failed to produce logfile");
         }
         return NanoHTTPD.newFixedLengthResponse(
                 NanoHTTPD.Response.Status.INTERNAL_ERROR,
@@ -204,6 +209,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
 
     /**
      * Play request received
+     *
      * @param message, local path to media file
      * @return true
      */
@@ -215,4 +221,20 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
         return true;
     }
 
+    public void pingReceived() {
+        Log.d(TAG, "Ping request received");
+        Intent i = new Intent("ping-event");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+    }
+
+    @Override
+    public void restartWebServer() {
+        Log.d(TAG, "Restart webserver");
+        try {
+            webServer.stop();
+            webServer.start();
+        } catch (IOException ioe) {
+            Log.d(TAG, "Couldn't start server" + ioe);
+        }
+    }
 }

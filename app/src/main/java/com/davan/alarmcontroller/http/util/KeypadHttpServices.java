@@ -7,6 +7,7 @@ import com.davan.alarmcontroller.http.services.LocalMediaFilePlayer;
 import com.davan.alarmcontroller.http.services.TtsCreator;
 import com.davan.alarmcontroller.http.services.TtsReader;
 import com.davan.alarmcontroller.http.services.WakeUpScreen;
+import com.davan.alarmcontroller.http.services.WebServerMonitor;
 import com.davan.alarmcontroller.power.PowerConnectionReceiver;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
@@ -22,6 +23,7 @@ public class KeypadHttpServices {
     private LocalMediaFilePlayer mediaPlayer = null;
     private PowerConnectionReceiver powerListener = null;
     private WakeUpScreen wakeUpScreen = null;
+    private WebServerMonitor serverMonitor = null;
 
     private final AlarmControllerResources resources;
 
@@ -30,7 +32,7 @@ public class KeypadHttpServices {
         resources = res;
     }
 
-    public void createServices(Context context) {
+    public void createServices(Context context, WebServerControlListener listener) {
         Log.d(TAG, "Create and register services");
 
         mediaPlayer = new LocalMediaFilePlayer(context);
@@ -47,6 +49,9 @@ public class KeypadHttpServices {
 
         powerListener = new PowerConnectionReceiver(resources);
         powerListener.registerForEvents(context);
+
+        serverMonitor = new WebServerMonitor(listener, resources);
+        serverMonitor.registerForEvents(context);
 
     }
 
@@ -69,5 +74,9 @@ public class KeypadHttpServices {
         if (ttsReader != null) {
             ttsReader.unregisterForEvents(context);
         }
+        if (serverMonitor!= null) {
+            serverMonitor.unregisterForEvents(context);
+        }
+
     }
 }

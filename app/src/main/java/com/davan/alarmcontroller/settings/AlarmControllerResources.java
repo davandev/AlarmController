@@ -55,6 +55,9 @@ public class AlarmControllerResources
     public String getTtsFileName() {return resources.getString(R.string.text_tts_file_name);}
     public String getTtsSpeechRate() {return preferences.getString("tts_speech_speed","1.0");}
 
+
+    /* Return true if restart webserver is enabled */
+    public boolean isRestartWebserverServiceEnabled() {return preferences.getBoolean("server_restart_service_enabled", false);}
     /* Return true if http services is enabled */
     public boolean isHttpServicesEnabled() {return preferences.getBoolean("http_service_enabled", false);}
     /* Return true if wakeup service is enabled*/

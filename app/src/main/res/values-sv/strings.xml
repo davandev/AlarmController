@@ -182,5 +182,8 @@
     <string name="pref_title_play_announcement_before_speech">"Spela upp ett intro innan meddelandet "</string>
     <string name="pref_title_select_audio_file">Välj ljudfil att använda som intro meddelande</string>
     <string name="pref_title_selected_announcement_file">Intro meddelande</string>
+    <string name="pref_tk">Starta om webservern om ingen ping tas emot</string>
+    <string name="pref_summary_off_restart_service">Webservern kommer inte att startas om</string>
+    <string name="pref_summary_restart_service_summary_on">Webservern startas om efter 30 minuter utan mottagen ping</string>
 
 </resources>

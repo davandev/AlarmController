@@ -123,6 +123,7 @@ public class KeypadHttpServer extends NanoHTTPD {
         }
         if(uri.compareToIgnoreCase("/ping") == 0) // Recevied alive message
         {
+            receiver.pingReceived();
             String msg = "Ping\n";
             return newFixedLengthResponse(msg);
         }

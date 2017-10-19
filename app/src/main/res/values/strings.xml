@@ -193,5 +193,8 @@
     <string name="pref_title_selected_announcement_file">Announcement intro file</string>
     <string name="app_cache_file" translatable="false">com.davan.zenitgatekeeper.appCache</string>
     <string name="restart_app" translatable="false">restartApp</string>
+    <string name="pref_tk">Restart webserver if no ping received</string>
+    <string name="pref_summary_restart_service_summary_on">Restart webserver if no ping is received within 30 minutes</string>
+    <string name="pref_summary_off_restart_service">Webserver will not be restarted</string>
 
 </resources>
