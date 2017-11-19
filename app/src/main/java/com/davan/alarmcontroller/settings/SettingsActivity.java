@@ -320,6 +320,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             bindPreferenceSummaryToValue(findPreference("battery_turn_on_charging"));
             bindPreferenceSummaryToValue(findPreference("tts_speech_speed"));
             bindPreferenceSummaryToValue(findPreference("announcement_file"));
+            bindPreferenceSummaryToValue(findPreference("silence_time"));
 
             Preference sdPrefs = findPreference("select_audio_file");
             sdPrefs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

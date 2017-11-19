@@ -185,7 +185,7 @@ public class KeypadHttpService extends Service implements KeypadHttpRequestListe
     public NanoHTTPD.Response getLogFile() {
         Log.d(TAG, "/log request received");
         try {
-            Process process = Runtime.getRuntime().exec("logcat -d");
+            Process process = Runtime.getRuntime().exec("logcat -d -v time");
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(process.getInputStream()));
 

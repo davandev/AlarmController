@@ -266,4 +266,21 @@ public class AlarmControllerResources
     {
         return preferences.getBoolean("take_picture_enabled",false);
     }
+
+    /**
+     * Determine if silence should be played before announcement
+     * @return true if enabled
+     */
+    public boolean isPlaySilenceEnabled()
+    {
+        return preferences.getBoolean("play_silence_enabled", false);
+    }
+
+    /**
+     * Return the configured time in milliseconds to play silence
+     * @return time in milliseconds
+     */
+    public long getSilenceTime() {
+        return Long.parseLong(preferences.getString("silence_time", "1000"));
+    }
 }

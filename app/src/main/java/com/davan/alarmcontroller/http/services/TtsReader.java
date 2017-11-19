@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -26,6 +27,10 @@ import java.util.Locale;
  *
  * TTS reader will generate speech from a text and play the speech
  * in the internal device speaker.
+ * If configured it can play an announcement message before playing speech
+ * If configured it can "play" silence for a configured time, to solve the
+ * problem when part of the speech is cut due to connection to a bluetooth speaker
+ * is not setup fast enough
  **/
 public class TtsReader implements TextToSpeech.OnInitListener
 {
@@ -72,40 +77,96 @@ public class TtsReader implements TextToSpeech.OnInitListener
 
     private void initTts(Context context, Intent intent)
     {
-
-        if (resources.isTtsPlayOnDeviceEnabled())
-        {
-            this.context = context;
-            message = intent.getStringExtra("message");
-            if (message.contains("&vol="))
-            {
-                String[] res = message.split("&vol=");
-                message = res[0];
-                setVolumeLevel(context, Integer.parseInt(res[1]));
-            }
-
-            if (resources.isPlayAnnouncementOnDeviceEnabled())
-            {
-                playAnnouncement();
-            }
-            else
-            {
-                playSpeech(message);
-            }
-        } else
+        if (!resources.isTtsPlayOnDeviceEnabled())
         {
             Log.d(TAG," Play on device is disabled");
         }
+
+        this.context = context;
+        message = intent.getStringExtra("message");
+        if (message.contains("&vol="))
+        {
+            String[] res = message.split("&vol=");
+            message = res[0];
+            setVolumeLevel(context, Integer.parseInt(res[1]));
+        }
+
+        t1 = new TextToSpeech(context, this);
     }
 
+    @Override
+    public void onInit(int status)
+    {
+        if(status != TextToSpeech.ERROR)
+        {
+            t1.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                @Override
+                public void onDone(String utteranceId)
+                {
+                    if (utteranceId.equals("ttsSilence")) {
+                        Log.d(TAG, "Silence played");
+                        postSilence();
+                    }
+                    if (utteranceId.equals("ttsToSpeak")) {
+                        Log.d(TAG, "Message played");
+                        t1.stop();
+                    }
+                }
+
+                @Override
+                public void onError(String utteranceId) {
+                    Log.w(TAG, "TTS generation failed");
+                }
+
+                @Override
+                public void onStart(String utteranceId) {
+                    Log.i(TAG, "TTS generation started");
+                }
+            });
+
+            if (resources.isPlaySilenceEnabled() &&
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                Log.d(TAG, "Play silence for " + Long.toString(resources.getSilenceTime()) + " milliseconds");
+                t1.playSilentUtterance(resources.getSilenceTime(),TextToSpeech.QUEUE_ADD,"ttsSilence");
+            }
+            else
+            {
+                postSilence();
+            }
+    }
+    }
+    /**
+    * Continue with playing announcement and message
+    */
+    public void postSilence()
+    {
+        if(resources.isPlayAnnouncementOnDeviceEnabled())
+        {
+            playAnnouncement();
+        }
+        else
+        {
+            playSpeech();
+        }
+    }
     /**
      * Start generating speech from message
-     * @param message text message to generate speech
      */
-    private void playSpeech(String message)
+    private void playSpeech()
     {
         Log.i(TAG, "Generate tts: " + message);
-        t1 = new TextToSpeech(context, this);
+        t1.setSpeechRate(Float.parseFloat(resources.getTtsSpeechRate()));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Bundle params = new Bundle();
+            params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
+            t1.speak(message, TextToSpeech.QUEUE_ADD, params, "ttsToSpeak");
+        } else {
+            HashMap<String, String> hashTts = new HashMap<>();
+            hashTts.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
+            t1.speak(message, TextToSpeech.QUEUE_ADD, hashTts);
+        }
     }
 
     /**
@@ -120,7 +181,7 @@ public class TtsReader implements TextToSpeech.OnInitListener
 
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    playSpeech(message);
+                    playSpeech();
                 }
 
             });
@@ -131,34 +192,7 @@ public class TtsReader implements TextToSpeech.OnInitListener
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-    /**
-     * Received request to generate a TTS wav file.
-     */
-    private void generateTts() {
-            Log.i(TAG, "Generate tts: " + message);
-            t1.setSpeechRate(Float.parseFloat(resources.getTtsSpeechRate()));
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Bundle params = new Bundle();
-                params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
-                t1.speak(message, TextToSpeech.QUEUE_ADD, params, "ttsToSpeak");
-            } else {
-                HashMap<String, String> hashTts = new HashMap<>();
-                hashTts.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "ttsToSpeak");
-                t1.speak(message, TextToSpeech.QUEUE_ADD, hashTts);
-            }
-        }
-    @Override
-    public void onInit(int status)
-    {
-        if(status != TextToSpeech.ERROR)
-        {
-            generateTts();
-        }
-    }
-
     /*
      * Register to received tts requests
      */
