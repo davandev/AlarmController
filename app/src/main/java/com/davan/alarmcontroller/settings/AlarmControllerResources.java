@@ -55,7 +55,11 @@ public class AlarmControllerResources
     public String getTtsFileName() {return resources.getString(R.string.text_tts_file_name);}
     public String getTtsSpeechRate() {return preferences.getString("tts_speech_speed","1.0");}
 
+    public String getSoundDetectionPollIntervall() {return preferences.getString("sound_detection_poll_intervall","10");}
+    public String getSoundDetectionThresholdLevel() {return preferences.getString("sound_detection_threshold","10");}
+    public boolean isSoundDetectionTelegramNotificationEnabled() {return preferences.getBoolean("sound_detection_telegram_notification",false);}
 
+    public boolean isSoundDetectionServiceEnabled() {return preferences.getBoolean("sound_detection_service_enabled",false);}
     /* Return true if restart webserver is enabled */
     public boolean isRestartWebserverServiceEnabled() {return preferences.getBoolean("server_restart_service_enabled", false);}
     /* Return true if http services is enabled */

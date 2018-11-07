@@ -2,10 +2,17 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '28.0.3'
     useLibrary 'org.apache.http.legacy'
+    allprojects {
+        repositories {
+            // The order in which you list these repositories matter.
+            google()
+            jcenter()
+        }
+    }
 
-    def Properties versionProps = new Properties()
+    Properties versionProps = new Properties()
     def versionPropsFile = file('version.properties')
     if(versionPropsFile.exists())
         versionProps.load(new FileInputStream(versionPropsFile))
@@ -28,19 +35,14 @@ android {
         }
         debug {
             applicationVariants.all { variant ->
-                renameAPK(variant, defaultConfig, 'T')
+                variant.outputs.all { output ->
+                    outputFileName = "zenitgatekeeper-" + defaultConfig.versionCode + ".apk"
             }
         }
     }
 
 }
 
-def renameAPK(variant, defaultConfig, buildType) {
-    variant.outputs.each { output ->
-        def file = output.packageApplication.outputFile
-        def fileName = "zenitgatekeeper_0.1." + defaultConfig.versionCode  + ".apk"
-        output.packageApplication.outputFile = new File(file.parent, fileName)
-    }
 }
 
 android {
@@ -63,5 +65,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:support-v4:23.2.1'
     compile 'com.android.support:design:23.2.1'
+
 
 }

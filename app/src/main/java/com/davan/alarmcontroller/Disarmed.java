@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.LocalBroadcastManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,7 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
-
+//import android.widget.Toolbar;
+import android.support.v7.widget.Toolbar;
 import com.davan.alarmcontroller.http.services.WakeUpScreen;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
@@ -50,8 +52,15 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
         WindowManager.LayoutParams attrs = getWindow().getAttributes();
         attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         getWindow().setAttributes(attrs);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.action_settings);
+        setSupportActionBar(mToolbar);
 
         setContentView(R.layout.activity_disarmed);
+
+        Intent i = new Intent("sound-detection-event");
+        i.putExtra("EventType", "stop");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+
     }
 
     @Override

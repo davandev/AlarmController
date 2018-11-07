@@ -27,6 +27,7 @@ import com.davan.alarmcontroller.settings.AboutDialog;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.settings.SettingsLauncher;
 import com.davan.alarmcontroller.http.services.TtsCreator;
+import android.support.v4.content.LocalBroadcastManager;
 
 public class Armed extends AppCompatActivity implements AlarmStateListener
 {
@@ -71,6 +72,11 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
         {
             ((ImageButton)findViewById(R.id.imageButton)).setImageResource(R.drawable.locked_shell);
         }
+
+        Intent i = new Intent("sound-detection-event");
+        i.putExtra("EventType", "start");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+
     }
 
     /**

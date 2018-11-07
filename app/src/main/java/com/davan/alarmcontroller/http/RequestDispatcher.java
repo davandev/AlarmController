@@ -39,7 +39,7 @@ public class RequestDispatcher extends AsyncTask<String, Void, String>
         }
         catch (IOException e)
         {
-            Log.d(TAG,"Caught exception when connection to page : " + e.getMessage());
+            Log.d(TAG,"Caught exception when connection to page " + urls + ": " + e.getMessage());
             return "No contact with server";
         }
     }
@@ -65,6 +65,8 @@ public class RequestDispatcher extends AsyncTask<String, Void, String>
                     return new PasswordAuthentication(username, password.toCharArray());
                 }
             });
+
+            Log.d(TAG, "Url:" + address);
             URL url = new URL(address);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 

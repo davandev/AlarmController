@@ -210,5 +210,41 @@
             android:textColorHint="#000000"
             android:maxLines="1" />
     </PreferenceScreen>
-
+    <PreferenceScreen
+        android:key="sound_detection_settings"
+        android:title="Sound Detection">
+        <Preference
+            android:summary="Settings for sound detection. If enabled will use internal microphone to detect sound and send notification if threshold limit is reached"
+            android:selectable="false">
+        </Preference>
+        <CheckBoxPreference
+            android:key="sound_detection_service_enabled"
+            android:title="Enabled sound detection"
+            android:defaultValue="false"
+            android:enabled="true"
+            android:summaryOn="Sound detection is disabled"
+            android:summaryOff="Sound detection is disabled"/>
+        <EditTextPreference
+            android:key="sound_detection_poll_intervall"
+            android:title="Poll intervall (seconds)"
+            android:dependency="sound_detection_service_enabled"
+            android:summary="Intervall between each sound detection"
+            android:defaultValue="10"
+            android:selectAllOnFocus="true"
+            android:inputType="number"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:maxLines="1" />
+        <EditTextPreference
+            android:key="sound_detection_threshold"
+            android:title="Threshold level (dB)"
+            android:summary="Threshold level at when notifciation is sent"
+            android:dependency="sound_detection_service_enabled"
+            android:defaultValue="10"
+            android:selectAllOnFocus="true"
+            android:inputType="number"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:maxLines="1" />
+    </PreferenceScreen>
 </PreferenceScreen>

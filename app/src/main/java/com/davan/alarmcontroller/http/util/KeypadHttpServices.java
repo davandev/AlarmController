@@ -10,7 +10,7 @@ import com.davan.alarmcontroller.http.services.WakeUpScreen;
 import com.davan.alarmcontroller.http.services.WebServerMonitor;
 import com.davan.alarmcontroller.power.PowerConnectionReceiver;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
-
+import com.davan.alarmcontroller.http.services.SoundDetector;
 /**
  * Created by davandev on 2017-04-24.
  */
@@ -24,6 +24,7 @@ public class KeypadHttpServices {
     private PowerConnectionReceiver powerListener = null;
     private WakeUpScreen wakeUpScreen = null;
     private WebServerMonitor serverMonitor = null;
+    private SoundDetector soundDetector = null;
 
     private final AlarmControllerResources resources;
 
@@ -53,6 +54,8 @@ public class KeypadHttpServices {
         serverMonitor = new WebServerMonitor(listener, resources);
         serverMonitor.registerForEvents(context);
 
+        soundDetector = new SoundDetector(resources);
+        soundDetector.registerForEvents(context);
     }
 
     public void destroyServices(Context context)
@@ -76,6 +79,9 @@ public class KeypadHttpServices {
         }
         if (serverMonitor!= null) {
             serverMonitor.unregisterForEvents(context);
+        }
+        if (soundDetector!= null) {
+            soundDetector.unregisterForEvents(context);
         }
 
     }
