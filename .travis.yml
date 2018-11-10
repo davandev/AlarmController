@@ -27,3 +27,6 @@ deploy:
 before_install:
 - openssl aes-256-cbc -K $encrypted_38c8af1a3709_key -iv $encrypted_38c8af1a3709_iv
   -in android_keystore.jks.enc -out android_keystore.jks -d
+dd:
+- openssl aes-256-cbc -K $encrypted_38c8af1a3709_key -iv $encrypted_38c8af1a3709_iv
+  -in android_keystore.jks.enc -out android_keystore.jks -d
