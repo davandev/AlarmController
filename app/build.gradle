@@ -40,6 +40,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
         }
         debug {
             applicationVariants.all { variant ->
@@ -47,14 +49,16 @@ android {
                     outputFileName = "zenitgatekeeper-0.2." + defaultConfig.versionCode + ".apk"
             }
         }
-    }
+            signingConfig signingConfigs.debug
+
+        }
 
 }
     def isRunningOnTravis = System.getenv("CI") == "true"
 
     if (isRunningOnTravis) {
         // configure keystore
-        signingConfigs.release.storeFile = file("../android_keystore.jks")
+        signingConfigs.release.storeFile = file("android_keystore.jks")
         signingConfigs.release.storePassword = System.getenv("keystore_password")
         signingConfigs.release.keyAlias = System.getenv("keystore_alias")
         signingConfigs.release.keyPassword = System.getenv("keystore_alias_password")
