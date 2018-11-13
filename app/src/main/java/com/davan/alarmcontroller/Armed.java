@@ -14,20 +14,22 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.davan.alarmcontroller.http.services.WakeUpScreen;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateListener;
 import com.davan.alarmcontroller.settings.AboutDialog;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 import com.davan.alarmcontroller.settings.SettingsLauncher;
-import com.davan.alarmcontroller.http.services.TtsCreator;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.Toolbar;
+
 
 public class Armed extends AppCompatActivity implements AlarmStateListener
 {
@@ -38,8 +40,7 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
     private String alarmType = "";
     private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
-    private WakeUpScreen wakeUpScreen;
-    private TtsCreator ttsCreator;
+    private float y1, y2;
 
 
     @Override
@@ -63,7 +64,7 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
                 PreferenceManager.getDefaultSharedPreferences(this),
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
-
+        setSettingsMenuListener();
         if (alarmType.compareTo(resources.getFibaroAlarmTypeValueFullHouseArmed()) == 0)
         {
             ((ImageButton)findViewById(R.id.imageButton)).setImageResource(R.drawable.locked_alarm);
@@ -79,6 +80,41 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
 
     }
 
+    private void setSettingsMenuListener()
+    {
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().hide();
+        final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this
+                .findViewById(android.R.id.content)).getChildAt(0);
+
+        viewGroup.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch(event.getAction()) {
+                    case (MotionEvent.ACTION_DOWN) :
+                        y1 = event.getY();
+
+                        return true;
+                    case (MotionEvent.ACTION_UP) :
+                        y2 = event.getY();
+                        float deltaX = y2 - y1;
+                        if (deltaX < 0)
+                        {
+                            getSupportActionBar().hide();
+                        }
+                        else if(deltaX >0)
+                        {
+                            getSupportActionBar().show();
+                        }
+                        return true;
+                    default :
+                        return false;
+                }
+            }
+        });
+    }
     /**
      * OnResume, check the current alarmstate, it might have changed.
      */

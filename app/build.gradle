@@ -31,7 +31,7 @@ android {
     defaultConfig {
         applicationId "com.davan.alarmcontroller"
         versionCode code
-        versionName "0.1"
+        versionName "0.2"
         minSdkVersion 16
         targetSdkVersion 23
     }
@@ -49,7 +49,7 @@ android {
         debug {
             applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-                    outputFileName = "zenitgatekeeper-0.2." + defaultConfig.versionCode + ".apk"
+                    outputFileName = "zenitgatekeeper-" + defaultConfig.versionName +"."+ defaultConfig.versionCode + ".apk"
             }
         }
             signingConfig signingConfigs.debug

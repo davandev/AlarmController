@@ -13,7 +13,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Toast;
 //import android.widget.Toolbar;
@@ -33,6 +35,7 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
 
     private WifiConnectionChecker wifiChecker;
     private AlarmControllerResources resources;
+    private float y1, y2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,21 +51,54 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
                 PreferenceManager.getDefaultSharedPreferences(this),
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
+        setContentView(R.layout.activity_disarmed);
 
         WindowManager.LayoutParams attrs = getWindow().getAttributes();
         attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         getWindow().setAttributes(attrs);
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.action_settings);
-        setSupportActionBar(mToolbar);
 
-        setContentView(R.layout.activity_disarmed);
-
+        setSettingsMenuListener();
         Intent i = new Intent("sound-detection-event");
         i.putExtra("EventType", "stop");
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
 
     }
 
+    private void setSettingsMenuListener()
+    {
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().hide();
+        final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this
+                .findViewById(android.R.id.content)).getChildAt(0);
+
+        viewGroup.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch(event.getAction()) {
+                    case (MotionEvent.ACTION_DOWN) :
+                        y1 = event.getY();
+
+                        return true;
+                    case (MotionEvent.ACTION_UP) :
+                        y2 = event.getY();
+                        float deltaX = y2 - y1;
+                        if (deltaX < 0)
+                        {
+                            getSupportActionBar().hide();
+                        }
+                        else if(deltaX >0)
+                        {
+                            getSupportActionBar().show();
+                        }
+                        return true;
+                    default :
+                        return false;
+                }
+            }
+        });
+    }
     @Override
     protected void onResume()
     {
@@ -77,28 +113,32 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        // show menu when settings button is pressed
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.settings, menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the settings menu.
+        getMenuInflater().inflate(R.menu.settings, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        if (item.getItemId() == R.id.action_settings)
-        {
-            SettingsLauncher.verifySettingsPassword(this, resources);
-        }
-        else if (item.getItemId() == R.id.action_about)
-        {
-            AboutDialog.showDialog(this);
-        }
-        return true;
-    }
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                SettingsLauncher.verifySettingsPassword(this, resources);
+                return true;
 
+            case R.id.action_about:
+                AboutDialog.showDialog(this);
+                // as a favorite...
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
     public void armSkalskydd(View view)
     {
         arm(resources.getFibaroAlarmTypeValuePerimeterArmed());
