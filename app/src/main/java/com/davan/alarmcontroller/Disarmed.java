@@ -58,10 +58,13 @@ public class Disarmed extends AppCompatActivity implements AlarmStateListener
         getWindow().setAttributes(attrs);
 
         setSettingsMenuListener();
+        sendSoundDetectionEvent();
+    }
+    private void sendSoundDetectionEvent()
+    {
         Intent i = new Intent("sound-detection-event");
         i.putExtra("EventType", "stop");
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
-
     }
 
     private void setSettingsMenuListener()

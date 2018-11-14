@@ -65,7 +65,8 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
                 getSharedPreferences("com.davan.alarmcontroller.users", 0),
                 getResources());
         setSettingsMenuListener();
-        if (alarmType.compareTo(resources.getFibaroAlarmTypeValueFullHouseArmed()) == 0)
+        boolean alarmTypeAlarm = alarmType.compareTo(resources.getFibaroAlarmTypeValueFullHouseArmed())==0;
+        if (alarmTypeAlarm)
         {
             ((ImageButton)findViewById(R.id.imageButton)).setImageResource(R.drawable.locked_alarm);
         }
@@ -74,12 +75,18 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
             ((ImageButton)findViewById(R.id.imageButton)).setImageResource(R.drawable.locked_shell);
         }
 
-        Intent i = new Intent("sound-detection-event");
-        i.putExtra("EventType", "start");
-        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+        sendSoundDetectionEvent(alarmTypeAlarm );
 
     }
-
+    private void sendSoundDetectionEvent(boolean alarmTypeAlarm)
+    {
+        if ( ( alarmTypeAlarm && resources.isSoundDetectionActiveDuringAlarm() ) ||
+             (!alarmTypeAlarm && resources.isSoundDetectionActiveDuringPerimeter() ) ) {
+            Intent i = new Intent("sound-detection-event");
+            i.putExtra("EventType", "start");
+            LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+        }
+    }
     private void setSettingsMenuListener()
     {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);

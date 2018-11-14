@@ -21,6 +21,7 @@ import com.davan.alarmcontroller.http.alarm.AlarmStateChecker;
 import com.davan.alarmcontroller.http.alarm.AlarmStateListener;
 import com.davan.alarmcontroller.settings.AboutDialog;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
+import com.davan.alarmcontroller.settings.RequestPermissions;
 import com.davan.alarmcontroller.settings.SettingsLauncher;
 
 /**
@@ -62,7 +63,8 @@ public class MainActivity extends AppCompatActivity implements AlarmStateListene
             editor.putString(getString(R.string.restart_app), "alarmcontroller");
             editor.commit();
         }
-
+        RequestPermissions rp = new RequestPermissions(this);
+        rp.checkPermissions();
     }
 
     /**

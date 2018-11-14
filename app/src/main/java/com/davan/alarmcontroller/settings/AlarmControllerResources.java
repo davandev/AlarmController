@@ -59,6 +59,8 @@ public class AlarmControllerResources
     public String getSoundDetectionThresholdLevel() {return preferences.getString("sound_detection_threshold","10");}
     public boolean isSoundDetectionTelegramNotificationEnabled() {return preferences.getBoolean("sound_detection_telegram_notification",false);}
 
+    public boolean isSoundDetectionActiveDuringAlarm() {return preferences.getBoolean("detect_during_alarm_enabled",false);}
+    public boolean isSoundDetectionActiveDuringPerimeter() {return preferences.getBoolean("detect_during_perimeter_enabled",false);}
     public boolean isSoundDetectionServiceEnabled() {return preferences.getBoolean("sound_detection_service_enabled",false);}
     /* Return true if restart webserver is enabled */
     public boolean isRestartWebserverServiceEnabled() {return preferences.getBoolean("server_restart_service_enabled", false);}

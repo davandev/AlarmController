@@ -31,6 +31,7 @@ public class RequestPermissions extends Activity {
             Manifest.permission.CAMERA,
             Manifest.permission.SYSTEM_ALERT_WINDOW,
             Manifest.permission.RECEIVE_BOOT_COMPLETED,
+            Manifest.permission.RECORD_AUDIO,
     };
 
     public RequestPermissions(Context context)

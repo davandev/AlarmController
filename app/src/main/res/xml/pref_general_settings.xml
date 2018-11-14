@@ -217,13 +217,27 @@
             android:summary="Settings for sound detection. If enabled will use internal microphone to detect sound and send notification if threshold limit is reached"
             android:selectable="false">
         </Preference>
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="sound_detection_service_enabled"
             android:title="Enabled sound detection"
-            android:defaultValue="false"
-            android:enabled="true"
             android:summaryOn="Sound detection is disabled"
-            android:summaryOff="Sound detection is disabled"/>
+            android:summaryOff="Sound detection is disabled"
+            android:summary="Control if sound detection should be started when alarm is armed"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="detect_during_alarm_enabled"
+            android:title="Detect at active alarm"
+            android:defaultValue="false"
+            android:dependency="sound_detection_service_enabled"
+            android:summaryOn="Sound detection is enabled when alarm is active"
+            android:summaryOff="Sound detection is disabled when alarm is active"/>
+        <CheckBoxPreference
+            android:key="detect_during_perimeter_enabled"
+            android:title="Detect at active perimeter"
+            android:defaultValue="false"
+            android:dependency="sound_detection_service_enabled"
+            android:summaryOn="Sound detection is enabled when perimeter is active"
+            android:summaryOff="Sound detection is disabled when perimeter is active"/>
         <EditTextPreference
             android:key="sound_detection_poll_intervall"
             android:title="Poll intervall (seconds)"
