@@ -232,6 +232,13 @@
             android:summaryOn="Sound detection is enabled when alarm is active"
             android:summaryOff="Sound detection is disabled when alarm is active"/>
         <CheckBoxPreference
+            android:key="sound_detection_telegram_notification"
+            android:title="Send notification at state change"
+            android:defaultValue="false"
+            android:dependency="sound_detection_service_enabled"
+            android:summaryOn="Notification is sent when sound detection is started or stoopped"
+            android:summaryOff="No notification is sent"/>
+        <CheckBoxPreference
             android:key="detect_during_perimeter_enabled"
             android:title="Detect at active perimeter"
             android:defaultValue="false"

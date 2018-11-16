@@ -12,6 +12,7 @@ import android.media.MediaRecorder;
 import android.util.Log;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.davan.alarmcontroller.R;
 import com.davan.alarmcontroller.http.TelegramActivity;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
@@ -73,8 +74,11 @@ public class SoundDetector extends TimerTask {
 
     public void stopDetection() {
         Log.d(TAG, "Stop sound detection");
-        TelegramActivity activity = new TelegramActivity(resources);
-        activity.sendMessage("Stopping sound detection");
+        if(resources.isSoundDetectionTelegramNotificationEnabled())
+        {
+            TelegramActivity activity = new TelegramActivity(resources);
+            activity.sendMessage("Stop sound detection");
+        }
 
         if (mRecorder != null) {
             mRecorder.stop();
@@ -91,8 +95,11 @@ public class SoundDetector extends TimerTask {
 
     public void startDetection() {
         Log.d(TAG, "Start sound detection");
-        TelegramActivity activity = new TelegramActivity(resources);
-        activity.sendMessage("Starting sound detection");
+        if(resources.isSoundDetectionTelegramNotificationEnabled())
+        {
+            TelegramActivity activity = new TelegramActivity(resources);
+            activity.sendMessage("Start sound detection");
+        }
 
         if (mRecorder == null) {
 

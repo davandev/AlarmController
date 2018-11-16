@@ -196,5 +196,8 @@
     <string name="pref_tk">Restart webserver if no ping received</string>
     <string name="pref_summary_restart_service_summary_on">Restart webserver if no ping is received within 30 minutes</string>
     <string name="pref_summary_off_restart_service">Webserver will not be restarted</string>
+    <string name="sound_detection_stop">Stop sound detection</string>
+    <string name="sound_detection_start">Start sound detection</string>
+    <string name="test_gurka">Stänger sf</string>
 
 </resources>
