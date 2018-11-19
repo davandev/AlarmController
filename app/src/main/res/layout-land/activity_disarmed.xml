@@ -21,38 +21,45 @@
         android:layout_alignParentStart="true" />
 
     <TableLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:stretchColumns="*"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:id="@+id/tableLayout">
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/my_toolbar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:showDividers="none">
 
-    <TableRow
-        android:layout_weight="1"
-        android:gravity="center">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/black"
+            android:gravity="center">
 
-        <ImageButton
-            android:layout_weight="0"
-            android:layout_width="260dp"
-            android:layout_height="260dp"
-            android:id="@+id/imageButton2"
-            android:adjustViewBounds="true"
-            android:cropToPadding="false"
-            android:scaleType="fitCenter"
-            android:src="@drawable/unlocked_shell"
-            android:background="?android:attr/selectableItemBackground"
-            android:onClick="armSkalskydd" />
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="0"
+                android:adjustViewBounds="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:cropToPadding="false"
+                android:onClick="armSkalskydd"
+                android:scaleType="fitCenter"
+                android:src="@drawable/unlocked_shell" />
 
-        <ImageButton
-            android:layout_width="260dp"
-            android:layout_height="260dp"
-            android:scaleType="fitCenter"
-            android:layout_weight="0"
-            android:id="@+id/imageButton"
-            android:src="@drawable/unlock_alarm"
-            android:background="?android:attr/selectableItemBackground"
-            android:onClick="armAlarm"/>
-    </TableRow>
-</TableLayout>
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="0"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="armAlarm"
+                android:scaleType="fitCenter"
+                android:src="@drawable/unlock_alarm" />
+        </TableRow>
+    </TableLayout>
 </RelativeLayout>
