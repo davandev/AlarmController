@@ -1,7 +1,6 @@
 package com.davan.alarmcontroller;
 /**
  * Created by davandev on 2016-04-12.
- * http://192.168.2.54/api/callAction?deviceID=69&name=pressButton&arg1=6
  **/
 import android.content.Context;
 import android.content.Intent;
