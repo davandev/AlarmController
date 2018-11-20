@@ -49,7 +49,8 @@ android {
         debug {
             applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-                    outputFileName = "zenitgatekeeper-" + defaultConfig.versionName +"."+ defaultConfig.versionCode + ".apk"
+                    //outputFileName = "zenitgatekeeper-" + defaultConfig.versionName +"."+ defaultConfig.versionCode + ".apk"
+                    outputFileName = "zenitgatekeeper.apk"
             }
         }
             signingConfig signingConfigs.debug
