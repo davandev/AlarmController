@@ -31,6 +31,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="false"
+        android:background="@android:color/black"
         android:layout_alignParentRight="true">
 
         <TableRow
