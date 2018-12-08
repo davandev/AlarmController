@@ -54,11 +54,10 @@
             android:summary="@string/pref_summary_http_service"
             android:selectable="false">
         </Preference>
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="http_service_enabled"
             android:title="@string/pref_title_http_service"
             android:defaultValue="false"
-            android:enabled="true"
             android:summaryOn="@string/pref_summaryon_http_service"
             android:summaryOff="@string/pref_summaryoff_http_service"/>
         <CheckBoxPreference
@@ -151,11 +150,10 @@
             android:summary="@string/pref_summary_telegram"
             android:selectable="false">
         </Preference>
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="telegram_enabled"
             android:title="@string/pref_title_enable_telegram_messages"
             android:defaultValue="false"
-            android:enabled="true"
             android:summaryOn="Send message to Telegram"
             android:summaryOff=""/>
         <EditTextPreference
@@ -178,11 +176,10 @@
             android:summary="@string/pref_summary_battery_settings"
             android:selectable="false">
         </Preference>
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="charging_enabled"
             android:title="@string/pref_title_enable_charging_control"
             android:defaultValue="false"
-            android:enabled="true"
             android:summaryOn="Control charging when low battery level"
             android:summaryOff=""/>
         <EditTextPreference

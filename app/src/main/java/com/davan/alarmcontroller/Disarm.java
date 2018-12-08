@@ -22,6 +22,7 @@ import com.davan.alarmcontroller.camera.CameraActivity;
 import com.davan.alarmcontroller.http.TelegramActivity;
 import com.davan.alarmcontroller.http.WifiConnectionChecker;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
+import android.support.v4.content.LocalBroadcastManager;
 
 public class Disarm extends AppCompatActivity implements AlarmProcedureResultListener
 {
@@ -58,11 +59,18 @@ public class Disarm extends AppCompatActivity implements AlarmProcedureResultLis
         try
         {
             handler = AlarmProcedureFactory.createProcedure(resources, this);
+            sendSoundDetectionEvent();
         }
         catch(Exception e)
         {
             Toast.makeText(getBaseContext(), R.string.pref_message_no_server_enabled, Toast.LENGTH_LONG).show();
         }
+    }
+    private void sendSoundDetectionEvent()
+    {
+        Intent i = new Intent("sound-detection-event");
+        i.putExtra("EventType", "stop");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
     }
 
     /**

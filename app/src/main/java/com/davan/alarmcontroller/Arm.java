@@ -20,6 +20,7 @@ import com.davan.alarmcontroller.procedures.AlarmProcedureResultListener;
 import com.davan.alarmcontroller.settings.AlarmControllerResources;
 
 import java.util.Random;
+import android.support.v4.content.LocalBroadcastManager;
 
 public class Arm extends AppCompatActivity implements AlarmProcedureResultListener
 {
@@ -48,17 +49,29 @@ public class Arm extends AppCompatActivity implements AlarmProcedureResultListen
             AlarmProcedureIf handler = AlarmProcedureFactory.createProcedure(resources, this);
             // Arm alarm
             handler.arm(alarmType);
+            boolean alarmTypeAlarm = alarmType.compareTo(resources.getFibaroAlarmTypeValueFullHouseArmed())==0;
 
-            if(alarmType.compareTo(resources.getFibaroAlarmTypeValueFullHouseArmed()) ==0 )
+            if(alarmTypeAlarm)
             {
                 setContentView(R.layout.activity_arming);
             }
+            sendSoundDetectionEvent(alarmTypeAlarm);
         }
         catch(Exception e)
         {
             Toast.makeText(getBaseContext(), R.string.pref_message_no_server_enabled, Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, Disarmed.class);
             startActivity(intent);
+        }
+    }
+
+    private void sendSoundDetectionEvent(boolean alarmTypeAlarm)
+    {
+        if ( ( alarmTypeAlarm && resources.isSoundDetectionActiveDuringAlarm() ) ||
+                (!alarmTypeAlarm && resources.isSoundDetectionActiveDuringPerimeter() ) ) {
+            Intent i = new Intent("sound-detection-event");
+            i.putExtra("EventType", "start");
+            LocalBroadcastManager.getInstance(this).sendBroadcast(i);
         }
     }
 

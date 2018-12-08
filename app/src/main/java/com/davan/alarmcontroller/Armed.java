@@ -74,10 +74,11 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
             ((ImageButton)findViewById(R.id.imageButton)).setImageResource(R.drawable.locked_shell);
         }
 
-        sendSoundDetectionEvent(alarmTypeAlarm );
+//        sendSoundDetectionEvent(alarmTypeAlarm );
 
     }
-    private void sendSoundDetectionEvent(boolean alarmTypeAlarm)
+/*    private void sendSoundDetectionEvent(boolean alarmTypeAlarm)
+
     {
         if ( ( alarmTypeAlarm && resources.isSoundDetectionActiveDuringAlarm() ) ||
              (!alarmTypeAlarm && resources.isSoundDetectionActiveDuringPerimeter() ) ) {
@@ -86,7 +87,8 @@ public class Armed extends AppCompatActivity implements AlarmStateListener
             LocalBroadcastManager.getInstance(this).sendBroadcast(i);
         }
     }
-    private void setSettingsMenuListener()
+ */
+private void setSettingsMenuListener()
     {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
